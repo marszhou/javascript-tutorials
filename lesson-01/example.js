@@ -209,7 +209,7 @@ if (a.gender === 'male') {
       break
   }
 */
-// 1) 一周七天的口号, 更改x值查看效果不同
+// 1) 一周七天的口号, 更改day值查看效果不同
 day = 1
 s = ''
 switch(day) {
