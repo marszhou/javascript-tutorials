@@ -4,7 +4,7 @@
 
 基本语法
 
-    while(条件) {
+  while(条件) {
       语句...
       {break 或 continue}
   }
