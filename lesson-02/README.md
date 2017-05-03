@@ -1,9 +1,9 @@
 # 第2课 循环语句
 
-* [while] (##while)
-# [do ... while] (##do ... while)
+* [while](##while)
+* [do ... while](##do ... while)
 
-## while
+##while
 
 基本语法
 
