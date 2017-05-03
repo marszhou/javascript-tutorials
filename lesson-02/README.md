@@ -6,14 +6,15 @@
 
 <pre>
   while(条件) {
-      语句...
-      {break 或 continue}
+    语句...
+    {break 或 continue}
   }
 </pre>
 
 示例 寻找1到100,000以内能整除123的数
 
-    var i = 123
+<pre>
+  var i = 123
   var k = 0
   var b = null
 
@@ -27,9 +28,11 @@
   }
 
   console.log('b = ', b, ', 循环了', k, '次')
+</pre>
 
 不用break的写法
 
+<pre>
   var i = 123
   var k = 0
   var b = null
@@ -41,18 +44,22 @@
   }
 
   console.log('b = ', b, ', 循环了', k, '次')
+</pre>
 
 ##do ... while
 
 基本语法
 
+<pre>
   do {
     语句...
     {break 或 continue}
   } while(条件)
+</pre>
 
 示例
 
+<pre>
   var i = 123
   var k = 0
   var b = null
@@ -63,20 +70,24 @@
     k = k + 1
   } while(f !== 0)
   console.log('b = ', b, ', 循环了', k, '次')
+</pre>
 
 ## for
 
 基本语法
 
+<pre>
   for (#a始化条件; #b判断条件; #c条件值变化) {
     #d语句...
     {break 或 continue}
   }
+</pre>
 
 其执行顺序是 #a -> #b (如果条件成立) -> #d -> #c -> #b (如果条件成立) -> #d ...
 
 如我们有一个while 版本的求和语句
 
+<pre>
   i = 0
   sum = 0
   while(i<=10) {
@@ -84,9 +95,11 @@
     i = i + 1
   }
   console.log(sum)
+</pre>
 
 用for版本写出来就是
 
+<pre>
   var sum = 0
   for (
     var i=1;    // (1)
@@ -96,27 +109,33 @@
     sum += i
   }
   console.log(sum)
+</pre>
 
 用for循环遍历数组
 
+<pre>
   a = [1,2,3,4]
   for(var i=0; i<a.length; ++i) {
     console.log(a[i])
   }
+</pre>
 
 ## for ... in
 
 基本语法
 
+<pre>
   for (var 变量1 in 变量2) {
     语句...
     {break 或 continue}
   }
+</pre>
 
 变量2通常是对象（hash 哈希值或者散列值）
 
 遍历散列对象的所有key并打印
 
+<pre>
   mother = '母亲'
   studentA = {
     married: false,
@@ -136,6 +155,7 @@
   for (var i in studentA) {
     console.log(i, '=', studentA[i])
   }
+</pre>
 
 ## break和continue
 
@@ -144,6 +164,7 @@
 
 循环的嵌套，说明break和continue指令的作用
 
+<pre>
   for(var i=1; i<=100; i+=1) {
     var f = i % 3
     if (f !== 0) {
@@ -156,29 +177,33 @@
     console.log(i)
   }
 
-
+</pre>
 ## 关于调试
 
 本地开启http server的方法，如果Mac或Windows中安装了php或者Python的话可以按以下方法开启服务
 
 第一步
 
-  cd {网站所在的目录}
+<pre>  cd {网站所在的目录}</pre>
+
 例如
 
+<pre>
   cd ~/Documents/javascript/lesson-02
+</pre>
 
 第二步
 PHP方法
 
+<pre>
   php -S 127.0.0.1:8000
+</pre>
 
 Python方法
 
+<pre>
   python -m SimpleHTTPServer
+</pre>
 
 如果以上成功
 第三步，打开浏览器，地址栏输入localhost:8000回车
-
-
-
