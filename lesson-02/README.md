@@ -114,10 +114,12 @@
 用for循环遍历数组
 
 <pre>
+
   a = [1,2,3,4]
-  for(var i=0; i<a.length; ++i) {
+  for(var i=0; i < a.length; ++i) {
     console.log(a[i])
   }
+
 </pre>
 
 ## for ... in
