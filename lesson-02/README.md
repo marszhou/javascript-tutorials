@@ -1,6 +1,6 @@
 # 第2课 循环语句
 
-##while
+## while
 
 基本语法
 
@@ -46,7 +46,7 @@
   console.log('b = ', b, ', 循环了', k, '次')
 </pre>
 
-##do ... while
+## do ... while
 
 基本语法
 
