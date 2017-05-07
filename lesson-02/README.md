@@ -186,24 +186,24 @@
 
 第一步
 
-```javascript  cd {网站所在的目录}```
+```  cd {网站所在的目录}```
 
 例如
 
-```javascript
+```
   cd ~/Documents/javascript/lesson-02
 ```
 
 第二步
 PHP方法
 
-```javascript
+```
   php -S 127.0.0.1:8000
 ```
 
 Python方法
 
-```javascript
+```
   python -m SimpleHTTPServer
 ```
 
