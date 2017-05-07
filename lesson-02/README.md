@@ -13,7 +13,7 @@
 
 示例 寻找1到100,000以内能整除123的数
 
-<pre>
+```javascript
   var i = 123
   var k = 0
   var b = null
@@ -28,7 +28,7 @@
   }
 
   console.log('b = ', b, ', 循环了', k, '次')
-</pre>
+```
 
 不用break的写法
 
