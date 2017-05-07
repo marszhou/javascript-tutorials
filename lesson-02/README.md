@@ -8,7 +8,7 @@
 * [for ... in](#for--in)
 * [break和continue](#break和continue)
 
-## while
+### while
 
 基本语法
 
@@ -54,7 +54,7 @@
   console.log('b = ', b, ', 循环了', k, '次')
 ```
 
-## do...while
+### do...while
 
 基本语法
 
@@ -80,7 +80,7 @@
   console.log('b = ', b, ', 循环了', k, '次')
 ```
 
-## for
+### for
 
 基本语法
 
@@ -130,7 +130,7 @@
 
 ```
 
-## for ... in
+### for ... in
 
 基本语法
 
@@ -167,7 +167,7 @@
   }
 ```
 
-## break和continue
+### break和continue
 
 * break的作用是跳出当前循环
 * continue的作用是忽略本次循环后面的语句，进行下一次循环
@@ -188,7 +188,7 @@
   }
 
 ```
-## 关于调试
+### 关于调试
 
 本地开启http server的方法，如果Mac或Windows中安装了php或者Python的话可以按以下方法开启服务
 
