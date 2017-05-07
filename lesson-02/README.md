@@ -3,7 +3,7 @@
 # 目录
 
 * [while](#while)
-* [do...while](#do...while)
+* [dowhile](#do...while)
 
 ## while
 
