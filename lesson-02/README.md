@@ -3,7 +3,7 @@
 # 目录
 
 * [while](#while)
-* [do...while](#do ... while)
+* [do...while](#do...while)
 
 ## while
 
@@ -51,7 +51,7 @@
   console.log('b = ', b, ', 循环了', k, '次')
 ```
 
-## do ... while
+## do...while
 
 基本语法
 
