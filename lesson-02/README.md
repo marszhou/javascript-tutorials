@@ -4,6 +4,9 @@
 
 * [while](#while)
 * [do ... while](#dowhile)
+* [for](#for)
+* [for ... in](#for--in)
+* [break和continue]
 
 ## while
 
