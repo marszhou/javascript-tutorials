@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+
+<script>
+// ex 1
+function helloWorld() {
+  console.log('hello world!');
+}
+
+helloWorld();
+
+function add(a, b) {
+  return a + b;
+}
+
+var c = add(1, 2);
+console.log('1 + 2 =', c);
+
+// -----
+// ex2
+
+// var a = function() {
+//   console.log(2);
+// };
+
+// function a() {
+//   console.log(1);
+// }
+
+// a(); // 2
+
+// var b = false;
+// if (b) {
+//   function sayHi() {
+//     return 'Hi';
+//   }
+// } else {
+//   function sayHi() {
+//     return 'Hello';
+//   }
+// }
+
+// var b = false;
+// var sayHi;
+// if (b) {
+//   sayHi = function() {
+//     return 'Hi';
+//   };
+// } else {
+//   sayHi = function() {
+//     return 'Hello';
+//   };
+// }
+
+// ----
+// ex3
+
+// function joinStrings(separator) {
+//   var strings = Array.prototype.slice.call(arguments, 1);
+//   return strings.join(separator);
+// }
+
+// joinStrings('|', 'cat', 'dog', 'egg'); // cat|dog|egg
+
+// function joinStrings(separator) {
+//   arguments.slice = Array.prototype.slice;
+//   var strings = arguments.slice(1);
+//   return strings.join(separator);
+// }
+
+// ----
+// ext4
+
+// function howOld(age) {
+//   console.log(this.name + ' is ' + age + ' years old.');
+// }
+
+// var a = {
+//   name: 'a',
+//   howOld: howOld
+// }
+
+// var b = {
+//   name: 'b',
+//   howOld: howOld
+// }
+
+// a.howOld(16); // a is 16 years old.
+// b.howOld(17); // b is 17 years old.
+// howOld();     // is undefined years old.
+
+// window.name = 'He';
+// howOld(1);            // He is 1 years old.
+// howOld.call(a, 18); // a is 18 years old.
+// howOld.apply(a, [19]);  // a is 19 years old.
+// howOld = howOld.bind(b); // hard bind
+// howOld(20);           // b is 20 years old.
+// a.howOld = howOld;
+// a.howOld(21);         // b is 21 years old.
+
+// ----
+// ext5
+
+// function factorial(num) {
+//   if (num <= 1) {
+//     return 1;
+//   } else {
+//     return num * factorial(num - 1);
+//   }
+// }
+
+// factorial(4); // 4 * 3 * 2 * 1
+//               // 24
+
+// var factorial2 = factorial;
+// factorial = null;
+// factorial2(5);
+// // Uncaught TypeError: factorial is not a function(…)
+
+// function factorial(num) {
+//   if (num <= 1) {
+//     return 1;
+//   } else {
+//     return num * arguments.callee(num - 1);
+//   }
+// }
+
+// ----
+// ex6
+
+// var i = 0;
+// var MAX = 10;
+// var timer = setInterval(function(){
+//   console.log(new Date);
+//   ++i;
+//   if (i >= MAX) {
+//     clearInterval(timer);
+//   }
+// }, 1000);
+
+// function cal(a, b, func) {
+//   return func(a, b);
+// }
+
+// function plus(a, b) {
+//   return a + b;
+// }
+
+// function multiply(a, b){
+//   return a * b;
+// }
+
+// cal(3, 4, plus); // 7
+// cal(5, 6, multiply); // 30
+
+// ----
+// ex7
+
+// (function($){
+//   $('.some-class')....
+
+// })(jQuery);
+
+// function somefunc($) {
+//   ....
+// }
+
+// somefunc(jQuery);
+
+// [1,2,3].map(x => x*x); // [1, 4, 9]
+
+
+</script>
+
+</body>
+</html>
