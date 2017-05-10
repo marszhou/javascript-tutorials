@@ -12,13 +12,17 @@
 
 ## 函数的定义方式
 
-* 声明方式
+### 声明方式
 
 ![][structure]
 
-* 表达式方式
+### 表达式方式
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/function-expression.png?raw=true)
 
 
+### 声明和表达式区别
 
+![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/function-comp.png?raw=true)
+
+如上例，我们以为后一个函数声明a会覆盖前一个，如果执行a()的话会打印1，其实实际上会打印2，因为**function声明总是被javascript解释器提到最前面运行**
