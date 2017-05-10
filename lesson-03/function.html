@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script>
+
+// function joinString(sep, ...rest) {
+//   var s = ''
+//   for(var i=0; i<rest.length ; i++) {
+//     s = s + rest[i]
+//     if (i<rest.length -1) {
+//       s = s + sep
+//     }
+//   }
+//   return s
+// }
+
+// console.log(joinString('+', 1,2,3,4,5,6,7))
+
+// function howOld(age) {
+//   console.log(this.name + ' is ' + age + ' years old.');
+// }
+
+// var a = {
+//   name: 'a',
+//   howOld: howOld
+// }
+
+// var b = {
+//   name: 'b',
+//   howOld: howOld
+// }
+
+// a.howOld(16);
+// b.howOld(17);
+// howOld();
+
+function fab(times) {
+  var s = 1
+  for(var i=1; i<=times; i++) {
+    s = s*i
+  }
+  return s
+}
+
+function fab2(times) {
+  if (times <= 1) {
+    return 1
+  } else {
+    return times * fab2(times - 1)
+  }
+}
+
+fab2(5)
+
+
+
+
+
+
+// var b = false;
+// var sayHi;
+// if (b) {
+//   sayHi = function() {
+//     return 'Hi';
+//   };
+// } else {
+//   sayHi = function() {
+//     return 'Hello';
+//   };
+// }
+
+
+</script>
+</body>
+</html>
