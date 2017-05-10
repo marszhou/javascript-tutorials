@@ -20,6 +20,12 @@
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/function-expression.png?raw=true)
 
+* 函数命名同变量名命名规则，英文字母阿拉伯数字_$组成，并且数字不能做第一个字符
+* 没有任何参数也要写 ()
+* return 不是必须写的
+  * return 后面跟的是 返回值
+  * 也可以直接写return，不返回任何东西，这时候只是意味着函数结束了
+
 
 ### 声明和表达式区别
 
@@ -50,3 +56,8 @@
 ### 例子用arguments方法实现一个joinString的函数
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/arguments2.png?raw=true)
+
+
+## 回调方法
+
+![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/func3.png?raw=true)
