@@ -14,8 +14,11 @@
 
 * 声明方式
 
-![Alt text][structure]
+![][structure]
 
+* 表达式方式
+
+![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/function-expression.png?raw=true)
 
 
 
