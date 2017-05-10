@@ -26,6 +26,32 @@
   * return 后面跟的是 返回值
   * 也可以直接写return，不返回任何东西，这时候只是意味着函数结束了
 
+如正常返回值：
+
+```js
+function add(a, b) {
+  return a + b
+}
+
+add(100, 200)
+
+```
+检查函数参数是否合法，发现不合法直接返回
+
+```js
+function add(a, b) {
+  if (isNaN(a) || isNaN(b)) {
+    console.warn('参数无效')
+    return
+  }
+  return (+a) + (+b) // 变量前的+表示强制转换为数字
+}
+
+add(1)
+add('a', '100')
+add('2', '12')
+```
+
 
 ### 声明和表达式区别
 
@@ -43,7 +69,7 @@
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/call5.png?raw=true)
 
-## arguments和函数参数的展开（spread）
+## arguments
 
 当不确定函数究竟有多少个参数时我们可以使用arguments来获得当前被调用函数的参数列表
 
@@ -53,11 +79,32 @@
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/arguments.png?raw=true)
 
+## ES6新语法：函数参数的展开 ...（spread）
+
+我们来实现上面例子的spread版
+
+```js
+function joinStrings(sep, ...strings) {
+  var ret = ''
+  for (var i = 0; i<strings.length; i++) {
+    ret = ret + strings[i]
+    if (i < strings.length - 1) {
+      ret = ret + sep
+    }
+  }
+  return ret
+}
+
+console.log(joinStrings("#", 'harry', 'potter', 'bran', 'stark'))
+
+```
+
+
 ### 例子用arguments方法实现一个joinString的函数
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/arguments2.png?raw=true)
 
 
-## 回调方法
+## 递归函数
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/func3.png?raw=true)
