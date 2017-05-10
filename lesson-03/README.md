@@ -44,3 +44,9 @@
 * arguments 是函数内部的特殊变量
 * arguments 看起来像数组，但实际上不是
 * 如果要转换arguments成为真正的数组可以使用 ```Array.prototype.slice.call(arguments)```来执行（目前可死记）
+
+![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/arguments.png?raw=true)
+
+### 例子用arguments方法实现一个joinString的函数
+
+![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/arguments2.png?raw=true)
