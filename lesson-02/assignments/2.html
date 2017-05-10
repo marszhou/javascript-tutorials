@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2</title>
+</head>
+<body>
+
+<script>
+var last = 0
+var current = 1
+var fibonacci = 0
+for (var i=0; i<1000; i++) {
+  fibonacci = current + last
+  console.log(`${i}: ${fibonacci}`)
+  last = current
+  current = fibonacci
+}
+</script>
+
+</body>
+</html>

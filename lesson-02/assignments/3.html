@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>3</title>
+</head>
+<body>
+
+<script>
+
+var size = 99
+var middlePosition = parseInt(size/2)
+var c1 = '⭐️'
+var c2 = '💀'
+
+for (var y = 0; y < size; y++) {
+  var yy = Math.abs(y - middlePosition)
+  var row = ''
+  for (var x = 0; x < size; x++) {
+    var xx = Math.abs(x - middlePosition)
+    if (xx + yy <= middlePosition) {
+      row += c1
+    } else {
+      row += c2
+    }
+  }
+  console.log(row)
+}
+
+
+</script>
+
+</body>
+</html>

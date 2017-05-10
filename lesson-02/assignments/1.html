@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>1</title>
+</head>
+<body>
+
+<script>
+var start = 100
+var end = 999
+var sum = 0
+
+for (var i = start; i<=end; ++i) {
+  // var n1 = parseInt(i/100)
+  // var n2 = parseInt((i%100)/10)
+  // var n3 = parseInt(i%10)
+
+  var [n1, n2, n3] = i + '' // 最简练的写法
+  // var [n1, n2, n3] = (i + '').split('')
+
+  // var s = i + ''
+  // var chars = s.split('')
+  // var n1 = chars[0]
+  // var n2 = chars[1]
+  // var n3 = chars[2]
+
+  if (i === Math.pow(n1, 3) + n2*n2*n2 + n3*n3*n3) {
+    console.log(`找到水仙花数: ${i} = ${n1}^3 + ${n2}^3 + ${n3}^3` ) // Math.pow(n1, 3)
+    sum += i
+  }
+}
+
+console.log(`sum = ${sum}`)
+
+</script>
+
+</body>
+</html>

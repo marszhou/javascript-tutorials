@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script>
+var t1 = Date.now()
+var max = 1000000
+var primes = [2]
+var x = 3 // 从3开始
+
+// (1)
+while (x < max) {
+  var find = false
+
+  var xs = Math.sqrt(x) // 取x根号2
+
+  for (var i=0; i<primes.length; i++) {
+    var prime = primes[i]
+    if (prime > xs) { // 当前的质数已经大于xs，所以再往上试也没有意义了
+      break
+    }
+
+    if (x % prime === 0) { // 可以被之前找到的质数整除
+      find = true
+      break
+    }
+  }
+
+  if (!find) {
+    primes.push(x) // 直到这里find都是false，所以它是质数
+  }
+  x += 2
+}
+var t2 = Date.now()
+console.log(primes)
+console.log(`用时 ${t2 - t1}ms，共${primes.length}个质数`)
+// (1) end
+// 用时 49068ms，共5761455个质数
+
+// (2)
+// while (x < max) {
+//   var find = false
+//   for (var i=2; i<x; i++) {
+//     if (x % i === 0) {
+//       find = true
+//       break
+//     }
+//   }
+//   if (!find) {
+//     primes.push(x)
+//   }
+//   x+=2
+// }
+
+// var t2 = Date.now()
+// console.log(primes)
+// console.log(`用时 ${t2 - t1}ms，共${primes.length}个质数`)
+// (2) end
+// 100万 用时 169910ms，共78498个质数
+</script>
+</body>
+</html>
