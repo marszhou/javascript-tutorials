@@ -112,7 +112,7 @@ console.log(joinStrings("#", 'harry', 'potter', 'bran', 'stark'))
 以上是使用递归函数计算阶乘的例子，可以对比普通非递归写法：
 
 ```js
-function fab(times) {
+function fac(times) {
   var s = 1
   for(var i=1; i<=times; i++) {
     s = s*i
