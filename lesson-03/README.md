@@ -2,7 +2,7 @@
 
 [structure]: https://raw.githubusercontent.com/marszhou/javascript-tutorials/master/lesson-03/demo/function-structure.png
 
-## 函数基本定义
+## 函数是什么？
 
 1. 函数是Javascript程序的基本组成部分。
 2. 在Javascript中函数是用来执行一个过程或者运算一个数据结果的一堆语句的集合。
@@ -108,3 +108,15 @@ console.log(joinStrings("#", 'harry', 'potter', 'bran', 'stark'))
 ## 递归函数
 
 ![](https://github.com/marszhou/javascript-tutorials/blob/master/lesson-03/demo/func3.png?raw=true)
+
+以上是使用递归函数计算阶乘的例子，可以对比普通非递归写法：
+
+```js
+function fab(times) {
+  var s = 1
+  for(var i=1; i<=times; i++) {
+    s = s*i
+  }
+  return s
+}
+```
