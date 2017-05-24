@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+/* body {
+  background: #ff0
+} */
+body  {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+ul#cal {
+  list-style: none;
+  padding: 0;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  width: 232px;
+  /* height: 320px; */
+  background: rgb(131,131,131);
+
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: flex-start; */
+  align-content: flex-start;
+}
+
+ul#cal li{
+  flex: 1 21%;
+  height: 45px;
+  background: #dcdcdc;
+  text-align: center;
+  line-height: 45px;
+  margin-left: 1px;
+  margin-bottom: 1px;
+  cursor: default;
+}
+
+ul#cal li.size2 {
+  flex: 2 45%;
+}
+
+ul#cal li.size4 {
+  flex: 1 100%;
+}
+
+ul#cal li.input {
+  background: #A0A0A0;
+  font-size: 36px;
+  height: 81px;
+  line-height: 110px;
+  color: white;
+  text-align: right;
+  padding-right: 6px;
+  font-family: "Shree Devanagari 714"
+}
+
+ul#cal li.func {
+  background: #d0d0d0;
+}
+
+ul#cal li.operator {
+  background: #f6872c;
+  color: white;
+}
+
+ul#cal li.key:active {
+  background: #a9a9a9;
+}
+
+ul#cal li.operator:active {
+  background: #bd6821;
+  color: #5d5d5d;
+}
+  </style>
+</head>
+<body>
+
+  <ul id="cal">
+    <li class='size4 input'>12345</li>
+    <li class='key func'>C</li>
+    <li class='key func'>±</li>
+    <li class='key func'>％</li>
+    <li class='key operator'>÷</li>
+    <li class='key'>7</li>
+    <li class='key'>8</li>
+    <li class='key'>9</li>
+    <li class='key operator'>×</li>
+    <li class='key'>4</li>
+    <li class='key'>5</li>
+    <li class='key'>6</li>
+    <li class='key operator'>-</li>
+    <li class='key'>1</li>
+    <li class='key'>2</li>
+    <li class='key'>3</li>
+    <li class='key operator'>+</li>
+    <li class='key size2'>0</li>
+    <li class='key'>.</li>
+    <li class='key operator'>=</li>
+  </ul>
+
+
+<!--   <div style="line-height: 30px;">
+    挖坑。其实只需要理解以下几个概念：1. “真正的基督徒”概念的发明。2. “人人皆司铎”的问题。3. “异端”羞辱中双方所处的地位。然而关于题述中：“上帝明显歧视了来自中国尤其是农村地区低文化水平的基督徒群体，以致他们有更大几率错误理解教义 ”的描…
+  </div> -->
+
+</body>
+</html>
