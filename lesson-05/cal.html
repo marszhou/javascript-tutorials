@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+/* body {
+  background: #ff0
+} */
+body  {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+ul#cal {
+  list-style: none;
+  padding: 0;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+
+  width: 232px;
+  /* height: 320px; */
+  background: rgb(131,131,131);
+
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: flex-start; */
+  align-content: flex-start;
+}
+
+ul#cal li{
+  flex: 1 21%;
+  height: 45px;
+  background: #dcdcdc;
+  text-align: center;
+  line-height: 45px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+ul#cal li.size2 {
+  flex: 2 42%;
+}
+
+ul#cal li.size4 {
+  flex: 1 100%;
+}
+
+ul#cal li.input {
+  background: #A0A0A0;
+  font-size: 36px;
+  height: 81px;
+  line-height: 110px;
+  color: white;
+  text-align: right;
+  padding-right: 6px;
+  font-family: "Shree Devanagari 714"
+}
+
+ul#cal li.func {
+  background: #d0d0d0;
+}
+
+ul#cal li.operator {
+  background: #f6872c;
+  color: white;
+}
+
+ul#cal li.key:active {
+  background: #a9a9a9;
+}
+
+ul#cal li.operator:active {
+  background: #bd6821;
+  color: #5d5d5d;
+}
+</style>
+<script>
+// https://developer.mozilla.org/en-US/docs/Web/API/Document
+// https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+
+var equation = {
+  left: null,
+  operator: null,
+  right: null
+}
+
+function onClick(e) {
+  var el = e.target
+  var classNames = el.className.split(' ')
+  // debugger
+  if (classNames.indexOf('number') > -1) {
+    clickNumber(el.innerText)
+  } else if (classNames.indexOf('func') > -1) {
+    clickFunc(el.innerText)
+  } else if (classNames.indexOf('dot') > -1) {
+    clickDot()
+  } else if (classNames.indexOf('operator') > -1) {
+    if(el.innerText === '=') {
+      clickEq()
+    } else {
+      clickOperator(el.innerText)
+    }
+  }
+}
+
+function clickNumber(number) {
+  var current = null
+  if (!equation.operator) {
+    current = 'left'
+  } else {
+    current = 'right'
+  }
+  var value = equation[current]
+  if (value === null || value.length === 0) {
+    if (number!=='0') {
+      value = number
+    }
+  } else {
+    if (number !== '0') {
+      value = value + number
+    } else {
+      if (value[0] !== '0') {
+        value = value + number
+      }
+    }
+  }
+  equation[current] = value
+  console.log(equation)
+  renderInput()
+}
+
+function clickDot() {
+  console.log('.')
+}
+
+function clickOperator(op) {
+  equation.operator = op
+  renderInput()
+}
+
+function clickEq() {
+  var op = null
+  switch(equation.operator) {
+    case '÷':
+      op = '/'
+      break
+    case '×':
+      op = '*'
+      break
+    case '-':
+      op = '-'
+      break
+    case '+':
+      op = '+'
+      break
+  }
+  var s = equation.left + op + equation.right
+  var value = eval(s)
+  equation.left = value
+  equation.right = null
+  renderInput()
+}
+
+function clickFunc(func) {
+  if (func === 'C') {
+    equation = {
+      left: null, right: null, operator: null
+    }
+  }
+  renderInput()
+}
+
+function renderInput() {
+  var el = document.querySelector('.input')
+  if (equation.operator && equation.right !== null) {
+    el.innerText = (equation.right === null) ? 0 : equation.right
+  } else {
+    el.innerText = (equation.left === null) ? 0 : equation.left
+  }
+}
+
+</script>
+
+</head>
+<body>
+
+<ul id="cal" onclick="onClick(window.event)">
+    <li class='size4 input'>
+      0
+    </li>
+    <li class='key func'>C</li>
+    <li class='key func'>±</li>
+    <li class='key func'>％</li>
+    <li class='key operator'>÷</li>
+    <li class='key number'>7</li>
+    <li class='key number'>8</li>
+    <li class='key number'>9</li>
+    <li class='key operator'>×</li>
+    <li class='key number'>4</li>
+    <li class='key number'>5</li>
+    <li class='key number'>6</li>
+    <li class='key operator'>-</li>
+    <li class='key number'>1</li>
+    <li class='key number'>2</li>
+    <li class='key number'>3</li>
+    <li class='key operator'>+</li>
+    <li class='key size2 number'>0</li>
+    <li class='key dot'>.</li>
+    <li class='key operator'>=</li>
+  </ul>
+  </body>
+</html>
