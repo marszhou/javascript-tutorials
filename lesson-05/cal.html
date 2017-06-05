@@ -54,7 +54,7 @@ ul#cal li.size4 {
   flex: 1 100%;
 }
 
-ul#cal li.input {
+ul#cal li.output {
   background: #A0A0A0;
   font-size: 36px;
   height: 81px;
@@ -87,10 +87,12 @@ ul#cal li.operator:active {
 // https://developer.mozilla.org/en-US/docs/Web/API/Document
 // https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
 
-var equation = {
-  left: null,
-  operator: null,
-  right: null
+var eq1 = []
+var eq2 = []
+// 公式的形式是 [a, op, b, r]
+function emptyEquation() {
+  eq1 = []
+  eq2 = []
 }
 
 function onClick(e) {
@@ -112,80 +114,175 @@ function onClick(e) {
   }
 }
 
-function clickNumber(number) {
-  var current = null
-  if (!equation.operator) {
-    current = 'left'
-  } else {
-    current = 'right'
-  }
-  var value = equation[current]
-  if (value === null || value.length === 0) {
-    if (number!=='0') {
-      value = number
-    }
-  } else {
-    if (number !== '0') {
-      value = value + number
-    } else {
-      if (value[0] !== '0') {
-        value = value + number
+function clickNumber(n) {
+  var value, index
+  switch(eq1.length) {
+    case 0:
+      index = 0
+      value = ''
+      break
+    case 1:
+      index = 0
+      if (eq2.length) {
+        emptyEquation()
+        clickNumber(n)
+        return
+      } else {
+        value = eq1[index]
       }
-    }
+      break
+    case 2:
+      index = 2
+      value = ''
+      break
+    case 3:
+      index = 2
+      value = eq1[index]
+      break
   }
-  equation[current] = value
-  console.log(equation)
-  renderInput()
+  if (value.length === 0 || (value.length === 1 && value === '0')) {
+    value = n
+  } else {
+    value = value + n
+  }
+  eq1[index] = value
+
+  renderOutput()
 }
 
 function clickDot() {
-  console.log('.')
+  var index, value
+  switch(eq1.length) {
+    case 0:
+      index = 0
+      value = eq1[index]
+      break
+    case 1:
+      index = 0
+      value = eq1[index]
+      if (eq2.length) {
+        return
+      }
+      break
+    case 2:
+    case 3:
+      index = 2
+      value = eq1[index]
+      break
+  }
+  if (value === undefined) {
+    value = '0'
+  }
+  if (value.indexOf('.') === -1) {
+    value = value + '.'
+  }
+  eq1[index] = value
+  renderOutput()
 }
 
-function clickOperator(op) {
-  equation.operator = op
-  renderInput()
+function convertOp(origin) {
+  var ops = {
+    '÷': '/', '×': '*', '-': '-', '+': '+'
+  }
+  return ops[origin]
+}
+
+function clickOperator(newOp) {
+  var newOp = convertOp(newOp)
+  if (eq1.length === 3) {
+    var r = tryCalculate()
+    clickOperator(newOp)
+  } else if (eq1.length === 2 || eq1.length === 1) {
+    eq1[1] = newOp
+  } else if (eq1.length === 0) {
+    eq1[0] = [0]
+    eq1[1] = newOp
+  }
 }
 
 function clickEq() {
-  var op = null
-  switch(equation.operator) {
-    case '÷':
-      op = '/'
-      break
-    case '×':
-      op = '*'
-      break
-    case '-':
-      op = '-'
-      break
-    case '+':
-      op = '+'
-      break
-  }
-  var s = equation.left + op + equation.right
-  var value = eval(s)
-  equation.left = value
-  equation.right = null
-  renderInput()
+  tryCalculate()
+}
+
+function tryCalculate() {
+  var [a, op, b] = eq1
+  var [a2, op2, b2] = eq2
+  if (!a) { return } else { a = parseFloat(a) }
+
+  if (!op) { op = op2 }
+  if (!op) { return }
+
+  if (!b) { b = b2 } else { b = parseFloat(b)}
+  if (b === undefined) { b = a}
+
+  var r = calculate(a, op, b)
+  eq1.push(r + '')
+  eq2 = eq1
+  eq1 = [r + '']
+  renderOutput()
+  return r
+}
+
+function calculate(a, op, b) {
+  eq1 = [a, op, b]
+  var s = eq1.join('')
+  var r = eval(s)
+  return r
 }
 
 function clickFunc(func) {
   if (func === 'C') {
-    equation = {
-      left: null, right: null, operator: null
+    emptyEquation()
+  } else if (func === '±' || func === '％') {
+    var index, value
+    switch(eq1.length) {
+      case 0:
+        break;
+      case 1:
+        index = 0
+        value = eq1[index]
+        break
+      case 2:
+        break
+      case 3:
+        index = 2
+        value = eq1[index]
+        break
     }
+
+    if (parseFloat(value) !== 0) {
+      if (func === '±') {
+        if (value.indexOf('-') === 0) {
+          value = value.substr(1)
+        } else {
+          value = '-' + value
+        }
+      } else {
+        value = value * 0.01 + ''
+      }
+    }
+    eq1[index] = value
   }
-  renderInput()
+  renderOutput()
 }
 
-function renderInput() {
-  var el = document.querySelector('.input')
-  if (equation.operator && equation.right !== null) {
-    el.innerText = (equation.right === null) ? 0 : equation.right
-  } else {
-    el.innerText = (equation.left === null) ? 0 : equation.left
+function renderOutput() {
+  var el = document.querySelector('.output')
+  var [a, , b, r] = eq1
+  var value = (r === undefined) ? (
+                (b === undefined) ? a : b
+              ) : r
+  value = (value !== undefined) ? value : 0
+  var value2 = +value + ''
+  if (value.indexOf('.') > -1) {
+    var match = value.match(/0*/)
+    if (match) {
+      value2 = value2 + match[0]
+    }
   }
+  var fontSize = value2.length > 10 ? Math.floor(36 * 10 / value2.length) : 36
+  el.style.fontSize = fontSize+'px'
+  el.innerText = value2
 }
 
 </script>
@@ -194,7 +291,7 @@ function renderInput() {
 <body>
 
 <ul id="cal" onclick="onClick(window.event)">
-    <li class='size4 input'>
+    <li class='size4 output'>
       0
     </li>
     <li class='key func'>C</li>
