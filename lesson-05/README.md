@@ -9,5 +9,12 @@
 * document.getElementsByTagName
 * document.querySelector
 
+### 修改DOM 元素
+* element.innerHTML
+* element.innerText
+* element.className
+* element.style
+* element.getAttribute / element.setAttribute
+
 ## 事件处理
 ##
