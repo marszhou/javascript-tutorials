@@ -2,12 +2,12 @@
 
 # 知识点
 
-  ## DOM
-    ### 查询DOM 元素
-    * document.getElementById
-    * document.getElementsByClassName
-    * document.getElementsByTagName
-    * document.querySelector
+## DOM
+### 查询DOM 元素
+* document.getElementById
+* document.getElementsByClassName
+* document.getElementsByTagName
+* document.querySelector
 
-  ## 事件处理
-  ##
+## 事件处理
+##
