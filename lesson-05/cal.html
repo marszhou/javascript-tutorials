@@ -272,12 +272,12 @@ function renderOutput() {
   var value = (r === undefined) ? (
                 (b === undefined) ? a : b
               ) : r
-  value = (value !== undefined) ? value : 0
+  value = (value !== undefined) ? value : '0'
   var value2 = +value + ''
   if (value.indexOf('.') > -1) {
-    var match = value.match(/0*/)
+    var match = value.match(/0*$/)
     if (match) {
-      value2 = value2 + match[0]
+      value2 = value2 + (value2.indexOf('.') > -1 ? '':'.') +match[0]
     }
   }
   var fontSize = value2.length > 10 ? Math.floor(36 * 10 / value2.length) : 36
