@@ -12,7 +12,7 @@
 * navigator
 * document
 
-### 查询DOM 元素
+### 查询DOM元素
 * document.getElementById
 * document.getElementsByClassName
 * document.getElementsByTagName
@@ -24,12 +24,19 @@
 * element.previousSibling / element.previousElementSibling
 * element.parentNode / element.parentElement
 
-### 修改DOM 元素
+### 读/写DOM元素属性
 * element.innerHTML
 * element.innerText
 * element.className
 * element.style
 * element.getAttribute / element.setAttribute
+
+### 添加插入元素
+* element.append
+* element.prepend
+* element.insertAdjacentElement
+* element.remove
+* element.removeChild
 
 ## 事件处理
 ### onclick事件在html里的绑定方式
