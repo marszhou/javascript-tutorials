@@ -274,7 +274,7 @@ function renderOutput() {
               ) : r
   value = (value !== undefined) ? value : '0'
   var value2 = +value + ''
-  if (value.indexOf('.') > -1) {
+  if (value.indexOf('.') > -1 && value.indexOf('e') === -1) {
     var match = value.match(/0*$/)
     if (match) {
       value2 = value2 + (value2.indexOf('.') > -1 ? '':'.') +match[0]
