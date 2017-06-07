@@ -16,25 +16,40 @@
 * document.getElementById
 * document.getElementsByClassName
 * document.getElementsByTagName
-* document.querySelector
+* document.querySelector / document.querySelectorAll
 
-### 元素间的关系 (前一种包含了TextNode，后一种不包含)
-* element.childNodes / element.children
-* element.nextSibling / element.nextElementSibling
-* element.previousSibling / element.previousElementSibling
-* element.parentNode / element.parentElement
+### 元素间的关系
+* element.children 得到某元素下所有子元素列表
+* element.nextElementSibling 得到某元素同级的下一个元素
+* element.previousElementSibling 得到某元素同级的前一个元素
+* element.parentElement 得到父级元素
 
 ### 读/写DOM元素属性
 * element.innerHTML
-* element.innerText
+* element.innerText 注意innerHTML 和 innerText的区别，前者对特殊字符不转义，后者转义（仅仅做必要转义，比如空格innerText也不会转）
 * element.className
+```js
+// 添加class
+element.className = element.className.split(/\s+/).concat(newClassName).join(' ')
+// 去除class
+element.className = element.className.split(/\s+/).filter(c => c !== 要删除的className).join(' ')
+```
 * element.style
+```js
+element.style.background = 'rgb(0,0,0)'
+element.style.width = '100px'
+element.style.fontSize = '1.2em' // 注意css中两个单词组成的指令，会用-连接起来，在js代码中要用驼峰形式代替
+```
 * element.getAttribute / element.setAttribute
+```js
+element.getAttribute('href')
+element.setAttribute('src', './loading.gif')
+```
 
 ### 添加插入元素
 * element.append
 * element.prepend
-* element.insertAdjacentElement
+* [element.insertAdjacentElement](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement)
 * element.remove
 * element.removeChild
 
