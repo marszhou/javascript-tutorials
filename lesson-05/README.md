@@ -11,6 +11,9 @@
 
 ![](click_eq.png)
 
+## 点击数字按键
+![](click_number.png)
+
 # 知识点
 
 ## DOM
