@@ -143,7 +143,9 @@ function clickNumber(n) {
   if (value.length === 0 || (value.length === 1 && value === '0')) {
     value = n
   } else {
-    value = value + n
+    if (value.indexOf('e') === -1) {
+      value = value + n
+    }
   }
   eq1[index] = value
 
