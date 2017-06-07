@@ -216,7 +216,7 @@ function tryCalculate() {
   if (b === undefined) { b = a}
 
   var r = calculate(a, op, b)
-  eq1.push(r + '')
+  eq1 = [a, op, b, r + '']
   eq2 = eq1
   eq1 = [r + '']
   renderOutput()
