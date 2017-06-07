@@ -1,5 +1,11 @@
 # 实战：计算器 [源码](cal.html)
 
+## 代码解读
+
+* 有两个全局变量eq1, eq2（eq是equation的意思），两个变量都是数组类型
+** eq 结构是[a, op, b, r]  (r代表result)
+
+
 # 知识点
 
 ## DOM
