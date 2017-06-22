@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Form</title>
+</head>
+
+<body>
+  <form onSubmit="" target='_blank' action='http://localhost/' method='get'>
+    <table>
+      <tr>
+        <td>*username:</td>
+        <td>
+          <input type="text" name='username'>
+        </td>
+      </tr>
+      <tr>
+        <td>*password:</td>
+        <td>
+          <input type="password" name='password'>
+        </td>
+      </tr>
+      <tr>
+        <td>*email:</td>
+        <td>
+          <input type="text" name='email'>
+        </td>
+      </tr>
+      <tr>
+        <td>*gender:</td>
+        <td>
+          <label>
+            <input type="radio" name='gender' value='1'>male</label>
+          <label>
+            <input type="radio" name='gender' value='2'>female</label>
+        </td>
+      </tr>
+      <tr>
+        <td>hobbies:</td>
+        <td>
+          <label>
+            <input type="checkbox" name='hobbies[]' value='reading'>reading</label>
+          <label>
+            <input type="checkbox" name='hobbies[]' value='tvgame'>tv game</label>
+          <label>
+            <input type="checkbox" name='hobbies[]' value='sports'>sports</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type='reset'>reset</button>
+          <button type='submit'>register</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+
+</html>

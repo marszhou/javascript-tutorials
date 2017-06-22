@@ -50,7 +50,7 @@ element.className = element.className.split(/\s+/).concat(newClassName).join(' '
 // 去除class
 element.className = element.className.split(/\s+/).filter(c => c !== 要删除的className).join(' ')
 ```
-* element.style
+* [element.style](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style)
 ```js
 element.style.background = 'rgb(0,0,0)'
 element.style.width = '100px'
