@@ -35,7 +35,7 @@
     * [keydown](http://www.w3school.com.cn/tags/event_onkeydown.asp)
     * [keyup](http://www.w3school.com.cn/tags/event_onkeyup.asp)
     * [keypress](http://www.w3school.com.cn/tags/event_onkeypress.asp)
-* [正则表达式](http://www.w3school.com.cn/js/js_obj_regexp.asp)/[完整手册](http://www.w3school.com.cn/jsref/jsref_obj_regexp.asp)/[阅读](http://javascript.ruanyifeng.com/stdlib/regexp.html)
+* [正则表达式](http://www.w3school.com.cn/js/js_obj_regexp.asp)/[完整手册](http://www.w3school.com.cn/jsref/jsref_obj_regexp.asp)/[阅读](http://javascript.ruanyifeng.com/stdlib/regexp.html)/[阅读2](http://www.cnblogs.com/onepixel/p/5218904.html)
 
 ## 练习
 
