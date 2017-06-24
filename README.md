@@ -1,4 +1,4 @@
-# javascript-tutorials
+# Javascript-Tutorials
 
 ## Links
 
