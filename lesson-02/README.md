@@ -8,8 +8,6 @@
   * [for](#for)
   * [for ... in](#for--in)
   * [break和continue](#break和continue)
-* 其他
-  * [关于调试](#关于调试)
 * [作业](#作业)
 
 ### while
@@ -190,37 +188,6 @@
     }
     console.log(i)
   }
-
-```
-### 关于调试
-
-本地开启http server的方法，如果Mac或Windows中安装了php或者Python的话可以按以下方法开启服务
-
-第一步
-
-```  cd {网站所在的目录}```
-
-例如
-
-```
-  cd ~/Documents/javascript/lesson-02
-```
-
-第二步
-PHP方法
-
-```
-  php -S 127.0.0.1:8000
-```
-
-Python方法
-
-```
-  python -m SimpleHTTPServer
-```
-
-如果以上成功
-第三步，打开浏览器，地址栏输入localhost:8000回车
 
 # 作业
 
