@@ -24,7 +24,6 @@
   * [JSBin](http://jsbin.com/)
   * [GitHub](https://github.com)
 
-```
 ## 关于调试
 
 本地开启http server的方法，如果Mac或Windows中安装了php或者Python的话可以按以下方法开启服务
@@ -51,7 +50,9 @@ Python方法
 ```
   python -m SimpleHTTPServer
 
-  // 让python支持utf8编码的命令
+
+  让python支持utf8编码的命令
+
   python -c "import SimpleHTTPServer; m = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; m[''] = 'text/plain'; m.update(dict([(k, v + ';charset=UTF-8') for k, v in m.items()])); SimpleHTTPServer.test();"
 ```
 
