@@ -1,5 +1,8 @@
 # 实战：表单验证2
 
+## Bootstrap
+[bootstrap](http://v3.bootcss.com/getting-started/)
+
 ## sublime安装HTML-CSS-JS Prettify插件
 1. 根据不同的操作系统（Linux/Windows/OS X）Ctrl+Shift+P 或 Cmd+Shift+P
 2. 选择 Install Package
