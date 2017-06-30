@@ -5,7 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-  <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="./css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="./css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <style>
   button {
     flex-grow: 1;
@@ -23,34 +28,26 @@
 
 <body>
   <div class="container">
-
     <h1>注册</h1>
     <form onSubmit="return validateForm()" target='_blank' action='http://localhost/' method='get'>
       <fieldset>
         <legend>填写以下信息</legend>
         <div class="form-group" id='username-container'>
           <label><span class='required'>*</span>用户名:</label>
-          <input class="form-control"
-                 type="text"
-                 name='username'
-                 placeholder="4到20个字符，由英文数字下划线组成"
-                 />
+          <input class="form-control" type="text" name='username' placeholder="4到20个字符，由英文数字下划线组成" />
           <span class="help-block tips"></span>
-
         </div>
         <div class="form-group" id='password-container'>
           <label for=""><span class='required'>*</span>密码:</label>
-          <input class="form-control" type="password" name='password' placeholder="8-20位，必须包含数字，大小写字母和标点符号"/>
+          <input class="form-control" type="password" name='password' placeholder="8-20位，必须包含数字，大小写字母和标点符号" />
           <span class="help-block tips"></span>
-
         </div>
         <div class="form-group" id='email-container'>
           <label for=""><span class='required'>*</span>电子邮件:</label>
           <input class="form-control" type="text" name='email' />
           <span class="help-block tips"></span>
-
         </div>
-        <div class="form-group has-success"  id='gender-container'>
+        <div class="form-group" id='gender-container'>
           <label><span class='required'>*</span>性别:</label>
           <div class="radio">
             <label>
@@ -61,7 +58,6 @@
               <input type="radio" name='gender' value='2' /> 女</label>
           </div>
           <span class="help-block tips"></span>
-
         </div>
         <div class="form-group">
           <label>爱好:</label>
