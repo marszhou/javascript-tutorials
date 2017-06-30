@@ -1,4 +1,6 @@
 # 实战：表单验证2
+## 流程
+![](https://ws1.sinaimg.cn/large/006tNc79ly1fh3jjt3epzj30z10sw0ts.jpg)
 
 ## Bootstrap
 [bootstrap](http://v3.bootcss.com/getting-started/)
