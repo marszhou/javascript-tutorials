@@ -6,6 +6,7 @@ function inherit(p) {
 
   var t = typeof p
   if (t !== 'object' && t !== 'function') throw TypeError()
+
   function f() {}
   f.prototype = p
   return new f()
@@ -21,7 +22,9 @@ function addPrivateProperty(o, name, predicate) {
   var value
 
   Object.defineProperty(o, name, {
-    get: function() {return value},
+    get: function() {
+      return value
+    },
     set: function(v) {
       if (predicate && !predicate(v)) {
         throw Error('set' + name + ': invalid value ' + v)
@@ -43,7 +46,7 @@ function not(f) {
 
 function memorize(f) {
   var cache = {}
-  return function () {
+  return function() {
     var key = arguments.length + Array.prototype.join.call(arguments, ',')
     if (key in cache) {
       return cache[key]
@@ -56,14 +59,13 @@ function memorize(f) {
 
 Object.defineProperty(
   Object.prototype,
-  'extend',
-  {
+  'extend', {
     writable: true,
     enumerable: false,
     configurable: true,
     value: function(o) {
       var names = Object.getOwnPropertyNames(o)
-      for(var i=0; i < names.length; i++) {
+      for (var i = 0; i < names.length; i++) {
         if (names[i] in this) {
           continue
         }
@@ -88,8 +90,8 @@ function type(o) {
   var t, c, n
 
   if (o === null) return 'null'
-  if (o !==  o) return 'nan'
-  if ((t =  typeof o) !== 'object') return t
+  if (o !== o) return 'nan'
+  if ((t = typeof o) !== 'object') return t
   if ((c = classof(o)) !== 'Object') return c
   if (o.constructor && typeof o.constructor === 'function' &&
     (n = o.constructor.getName())) return n
@@ -105,8 +107,8 @@ Function.prototype.getName = function() {
   return this.name = this.toString().match(/function\s*([^(]*)\(/)[1]
 }
 
-function quacks(o/*, ... */) {
-  for (var i=1; i< arguments.length; i++) {
+function quacks(o /*, ... */ ) {
+  for (var i = 1; i < arguments.length; i++) {
     var arg = arguments[i]
     switch (typeof arg) {
       case 'string':
@@ -144,7 +146,7 @@ function defineSubclass(superclass, constructor, methods, statics) {
 if (!Function.prototype.softBind) {
   Function.prototype.softBind = function(obj) {
     var fn = this,
-      curried = [].slice.call( arguments, 1 ),
+      curried = [].slice.call(arguments, 1),
       bound = function bound() {
         return fn.apply(
           (!this ||
@@ -153,10 +155,10 @@ if (!Function.prototype.softBind) {
             (typeof global !== "undefined" &&
               this === global)
           ) ? obj : this,
-          curried.concat.apply( curried, arguments )
+          curried.concat.apply(curried, arguments)
         );
       };
-    bound.prototype = Object.create( fn.prototype );
+    bound.prototype = Object.create(fn.prototype);
     return bound;
   };
 }
@@ -168,14 +170,14 @@ var myObject = {
   b: 3
 };
 
-Object.defineProperty( myObject, Symbol.iterator, {
+Object.defineProperty(myObject, Symbol.iterator, {
   enumerable: false,
   writable: false,
   configurable: true,
   value: function() {
     var o = this;
     var idx = 0;
-    var ks = Object.keys( o );
+    var ks = Object.keys(o);
     return {
       next: function() {
         return {
@@ -185,7 +187,7 @@ Object.defineProperty( myObject, Symbol.iterator, {
       }
     };
   }
-} );
+});
 
 // iterate `myObject` manually
 var it = myObject[Symbol.iterator]();
@@ -197,7 +199,7 @@ it.next(); // { value:undefined, done:true }
 
 if (!Object.create) {
   Object.create = function(o) {
-    function F(){}
+    function F() {}
     F.prototype = o;
     return new F();
   };
@@ -213,16 +215,16 @@ Foo.prototype.identify = function() {
 };
 
 function Bar(who) {
-  Foo.call( this, who );
+  Foo.call(this, who);
 }
-Bar.prototype = Object.create( Foo.prototype );
+Bar.prototype = Object.create(Foo.prototype);
 
 Bar.prototype.speak = function() {
-  alert( "Hello, " + this.identify() + "." );
+  alert("Hello, " + this.identify() + ".");
 };
 
-var b1 = new Bar( "b1" );
-var b2 = new Bar( "b2" );
+var b1 = new Bar("b1");
+var b2 = new Bar("b2");
 
 b1.speak();
 b2.speak();
@@ -238,115 +240,113 @@ var Foo = {
   }
 };
 
-var Bar = Object.create( Foo );
+var Bar = Object.create(Foo);
 
 Bar.speak = function() {
-  alert( "Hello, " + this.identify() + "." );
+  alert("Hello, " + this.identify() + ".");
 };
 
-var b1 = Object.create( Bar );
-b1.init( "b1" );
-var b2 = Object.create( Bar );
-b2.init( "b2" );
+var b1 = Object.create(Bar);
+b1.init("b1");
+var b2 = Object.create(Bar);
+b2.init("b2");
 
 b1.speak();
 b2.speak();
 
 // class style
 // Parent class
-function Widget(width,height) {
+function Widget(width, height) {
   this.width = width || 50;
   this.height = height || 50;
   this.$elem = null;
 }
 
-Widget.prototype.render = function($where){
+Widget.prototype.render = function($where) {
   if (this.$elem) {
-    this.$elem.css( {
+    this.$elem.css({
       width: this.width + "px",
       height: this.height + "px"
-    } ).appendTo( $where );
+    }).appendTo($where);
   }
 };
 
 // Child class
-function Button(width,height,label) {
+function Button(width, height, label) {
   // "super" constructor call
-  Widget.call( this, width, height );
+  Widget.call(this, width, height);
   this.label = label || "Default";
 
-  this.$elem = $( "<button>" ).text( this.label );
+  this.$elem = $("<button>").text(this.label);
 }
 
 // make `Button` "inherit" from `Widget`
-Button.prototype = Object.create( Widget.prototype );
+Button.prototype = Object.create(Widget.prototype);
 
 // override base "inherited" `render(..)`
 Button.prototype.render = function($where) {
   // "super" call
-  Widget.prototype.render.call( this, $where );
-  this.$elem.click( this.onClick.bind( this ) );
+  Widget.prototype.render.call(this, $where);
+  this.$elem.click(this.onClick.bind(this));
 };
 
 Button.prototype.onClick = function(evt) {
-  console.log( "Button '" + this.label + "' clicked!" );
+  console.log("Button '" + this.label + "' clicked!");
 };
 
-$( document ).ready( function(){
-  var $body = $( document.body );
-  var btn1 = new Button( 125, 30, "Hello" );
-  var btn2 = new Button( 150, 40, "World" );
+$(document).ready(function() {
+  var $body = $(document.body);
+  var btn1 = new Button(125, 30, "Hello");
+  var btn2 = new Button(150, 40, "World");
 
-  btn1.render( $body );
-  btn2.render( $body );
-} );
+  btn1.render($body);
+  btn2.render($body);
+});
 
 // delegating style / oloo
 
 var Widget = {
-  init: function(width,height){
+  init: function(width, height) {
     this.width = width || 50;
     this.height = height || 50;
     this.$elem = null;
   },
-  insert: function($where){
+  insert: function($where) {
     if (this.$elem) {
-      this.$elem.css( {
+      this.$elem.css({
         width: this.width + "px",
         height: this.height + "px"
-      } ).appendTo( $where );
+      }).appendTo($where);
     }
   }
 };
 
-var Button = Object.create( Widget );
-
-Button.setup = function(width,height,label){
+var Button = Object.create(Widget);
+Button.setup = function(width, height, label) {
   // delegated call
-  this.init( width, height );
+  this.init(width, height);
   this.label = label || "Default";
 
-  this.$elem = $( "<button>" ).text( this.label );
+  this.$elem = $("<button>").text(this.label);
 };
 Button.build = function($where) {
   // delegated call
-  this.insert( $where );
-  this.$elem.click( this.onClick.bind( this ) );
+  this.insert($where);
+  this.$elem.click(this.onClick.bind(this));
 };
 Button.onClick = function(evt) {
-  console.log( "Button '" + this.label + "' clicked!" );
+  console.log("Button '" + this.label + "' clicked!");
 };
 
-$( document ).ready( function(){
-  var $body = $( document.body );
+$(document).ready(function() {
+  var $body = $(document.body);
 
-  var btn1 = Object.create( Button );
-  btn1.setup( 125, 30, "Hello" );
+  var btn1 = Object.create(Button);
+  btn1.setup(125, 30, "Hello");
 
-  var btn2 = Object.create( Button );
-  btn2.setup( 150, 40, "World" );
+  var btn2 = Object.create(Button);
+  btn2.setup(150, 40, "World");
 
-  btn1.build( $body );
-  btn2.build( $body );
-} );
-
+  btn1.build($body);
+  btn2.build($body);
+});
