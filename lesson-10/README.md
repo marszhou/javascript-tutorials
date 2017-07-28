@@ -92,5 +92,16 @@ setTimeout和setInterval的区别是，setTimeout只执行一次，setInterval�
 [[示例:倒计时](http://jsbin.com/puvogoy/edit?html,css,js,output)]
 [[示例:电子时钟](http://jsbin.com/gidopok/9/edit?html,css,js,output)]
 
-## 作业
+## 作业：赛车
 
+需求
+1. 竖排有5个正方形同样大小的并列的div(x值相同，y不同)
+1. 有一个『开始』按钮
+1. 有一个显示结果的div
+1. 有一条终点线
+1. 点击开始按钮时，启动一个计时器，计时器延迟n毫秒后执行
+1. 计时器执行时，会分配给5个div各自一个随机长度，并将5个div的left值增加这个随机长度
+1. 每次计时器执行完，检查是否有某个div越过终点
+1. 越过终点的div停止移动
+1. 如果没有全部5个div越过终点，则再次启动一个新的计时器，执行5-8步内容
+1. 所有div都越过终点后，在显示结果div处显示最终的名次和每个div的成绩（总计用时）
