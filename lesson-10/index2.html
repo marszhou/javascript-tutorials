@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script>
+  var isMoving = false
+  var clickPos = {}
+  function handleMouseMove(e) {
+    var div = document.querySelector('body > div > div')
+    if (isMoving) {
+      div.style.left = (e.clientX - clickPos.left) + 'px'
+      div.style.top = (e.clientY - clickPos.top) + 'px'
+    }
+  }
+
+  function handleClick(e) {
+    console.log(e)
+    isMoving = !isMoving
+    clickPos.left = e.layerX
+    clickPos.top = e.layerY
+  }
+  </script>
+  <style>
+    body > div > div {
+      border: 10px dotted black;
+    }
+  </style>
+</head>
+<body onMouseMove='handleMouseMove(event)' style='margin:0; padding:0'>
+  <div style="height: 10000px; background: #FFF">
+    <div onClick='handleClick(event)' style="height: 100px; width: 100px; position: absolute; left: 100px; top:100px; background: red"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>
+body{
+  background: #DDD;
+  padding: 0;
+  margin: 0;
+}
+
+#container{
+  border: 1px solid black;
+}
+
+  </style>
+</head>
+<body>
+<script>
+var timer;
+var i = 0;
+
+function work() {
+  var container = document.getElementById('container')
+  i = i+1
+  container.innerText = container.innerText + i
+
+  timer = setTimeout(startTimer, 500)
+}
+
+function buttonStatus() {
+  var start = document.getElementById('start')
+  var stop = document.getElementById('stop')
+  start.disabled = !!timer
+  stop.disabled = !timer
+}
+
+function stopTimer() {
+  clearTimeout(timer)
+  timer = 0
+  buttonStatus()
+}
+
+var total = 60
+function startTimer() {
+  total = total - 1
+  var container = document.getElementById('container')
+  container.innerText = total
+  if (total > 0) {
+    timer = setTimeout(startTimer, 1000)
+  }
+  buttonStatus()
+}
+</script>
+
+  <button id='start' onclick="startTimer()">start timer</button>
+  <button id='stop' onclick="stopTimer()">stop timer</button>
+
+  <div id="container">
+
+  </div>
+</body>
+</html>

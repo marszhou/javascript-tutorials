@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+  <style>
+    .layer {
+      position: absolute;
+      border: 10px dotted black;
+      border-radius: 10%;
+    }
+  </style>
+  <script>
+  window.onload = function() {
+    document.documentElement.addEventListener('click', handleClick)
+  }
+
+  function handleClick(e) {
+    var position = {x:e.pageX, y:e.pageY}
+    if (!isRunning) {
+      isRunning = true
+      letsRoll(position)()
+    }
+  }
+
+  var isRunning = false
+
+  // 翻滚起来~
+  function letsRoll(origin) {
+    var divs = Array.prototype.slice.call(document.querySelectorAll('.layer'))
+
+    var infos = divs.map(div => {
+      var rect = div.getBoundingClientRect()
+      var center = {
+        x: rect.left + rect.width/2,
+        y: rect.top + rect.height/2
+      }
+      var r = Math.sqrt(
+        Math.pow(center.x - origin.x, 2) + Math.pow(center.y - origin.y, 2)
+      )
+      var startAngle = Math.atan2(center.y-origin.y, center.x-origin.x)
+      return [div, rect, startAngle, r]
+    })
+
+    var step = 0
+    var func = function() {
+      infos.forEach(function([div, rect, startAngle, r]) {
+        move(div, rect, startAngle, r, step, origin)
+      })
+
+      if (step < 360) {
+        ++step
+        setTimeout(func, 0)
+      } else {
+        isRunning = false
+      }
+    }
+    return func
+  }
+
+  /**
+   * 移动层
+   * @param div         HTMLElement - 要移动的元素
+   * @param startRect   Object      - 元素的起始rect
+   * @param startAngle  Number      - 元素的起始角度（和原点之间的夹角)
+   * @param r           Number      - 半径
+   * @param step        Number      - 当前步
+   * @param origin      Object      - 原点
+   *
+   * @return void
+   */
+  function move(div, startRect, startAngle, r, step, origin) {
+    var angle = startAngle - step / 360 * 2 * Math.PI
+    var newCenter = {
+      x: origin.x + r * Math.cos(angle),
+      y: origin.y + r * Math.sin(angle)
+    }
+    div.style.left = (newCenter.x - startRect.width/2) + 'px'
+    div.style.top = (newCenter.y - startRect.height/2) + 'px'
+    div.style.transform = `rotate(${step/360*2}turn)`
+  }
+
+  </script>
+</head>
+<body onClick='handleClick(event)' style="background: white; width:100%; height:100%">
+  <div class="layer" style='width:100px; height: 100px; left: 300px; top: 200px; background: red'></div>
+  <div class="layer" style='width:20px; height: 20px; left: 10px; top: 600px; background: blue'></div>
+  <div class="layer" style='width:80px; height: 80px; left: 900px; top: 700px; background: green'></div>
+  <div class="layer" style='width:120px; height: 120px; left: 670px; top: 540px; background: purple'></div>
+  <div class="layer" style='width: 300px'>历史上的太多了</div>
+</body>
+</html>

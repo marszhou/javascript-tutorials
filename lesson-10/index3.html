@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script>
+  var start = false
+  var angle = 0
+  var moveLength = 5
+
+  function move() {
+    if (!start) return
+    var div = document.querySelector('body > div > div')
+    var rect = div.getBoundingClientRect()
+    var xdiff = moveLength * Math.cos(angle)
+    var ydiff = moveLength * Math.sin(angle)
+    div.style.zIndex = (rect.left + xdiff) + 'px'
+    div.style.top = (rect.top + ydiff) + 'px'
+    setTimeout(move, 1)
+  }
+  function handleClick(e) {
+    start = !start
+    if (start) {
+      angle = Math.random()
+      move()
+    }
+  }
+  </script>
+  <style>
+    body > div > div {
+      border: 10px dotted black;
+    }
+  </style>
+</head>
+<body style='margin:0; padding:0' onClick='handleClick(event)'>
+  <div style="height: 10000px; background: #FFF">
+    <div style="height: 100px; width: 100px; position: absolute; left: 100px; top:100px; background: red"></div>
+    <div style="height: 100px; width: 100px; position: absolute; left: 50px; top:80px; background: blue"></div>
+  </div>
+</body>
+</html>
