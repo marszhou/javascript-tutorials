@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+.clock-background {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 100%;
+  background: black;
+}
+
+.label {
+  position: absolute;
+  color: white;
+  width: 200px;
+  left: 0px;
+  top: 45px;
+  font-size: 24px;
+  text-align: center;
+}
+
+#clock {
+  border: 1px dotted black;
+  width: 150px;
+  height: 2em;
+  line-height: 2em;
+  margin-left: 25px;
+  margin-top: 80px;
+  background: white;
+  text-align: center;
+  letter-spacing: 0.5em;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class='clock-background'>
+    <div class='label'>电子表</div>
+    <div id='clock'></div>
+  </div>
+  <script type="text/javascript">
+function getTime() {
+  var d = new Date()
+  var hour = '0' + d.getHours()
+  var minute = '0' + d.getMinutes()
+  var second = '0' + d.getSeconds()
+  return `${hour.substr(-2)}:${minute.substr(-2)}:${second.substr(-2)}`
+}
+
+function tick() {
+  clock.innerText = getTime()
+}
+
+var el = document.getElementById('clock')
+setInterval(tick, 1000)
+
+tick()
+
+  </script>
+</body>
+</html>

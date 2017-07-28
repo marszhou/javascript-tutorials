@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+body{
+  margin: 0;
+  padding: 0;
+  background: #EDEDED;
+  height: 5000px;
+}
+
+.layer {
+  position: absolute;
+  border: 1px solid blue;
+  background: yellow;
+}
+
+.highlight {
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+  </style>
+</head>
+<body>
+  <div class='layer' style='left: 120px; top: 410px; width: 300px; height: 200px;background:orange;z-index:2'>
+    绝对定位 div1
+  </div>
+
+  <div class='layer' style='left: 100px; top: 300px; width: 300px; height: 220px; z-index:1'>
+    绝对定位 div2
+  </div>
+
+  <div class='layer' style='left: 300px; top: 320px; width: 300px; height: 220px; background: cyan;z-index:3; text-align: right'>
+    绝对定位 div3
+    <div style='position: absolute; left:10px; top:10px; border: 2px dashed black'>
+      相对定位
+    </div>
+  </div>
+
+  <div style='position: absolute; bottom: 270px; right: 280px; border: 1px dotted black;background: white; z-index: 100'>
+    绝对定位<br/>
+    内联样式
+  </div>
+
+  <div style='position: fixed; top: 0; width: 100%; background: red; color: white; height: 100px; z-index:101'>
+    <div id='info'>
+
+    </div>
+  </div>
+
+  <div style='position: fixed; bottom: 0; width: 100%; background: black; color: white; height: 100px'>
+    <h1>fixed footer</h1>
+  </div>
+
+  <script type="text/javascript">
+document.documentElement.addEventListener('mousemove', handleMouseMove)
+document.documentElement.addEventListener('mouseover', function(e) {
+  e.target.classList.add('highlight')
+})
+document.documentElement.addEventListener('mouseout', function(e) {
+  e.target.classList.remove('highlight')
+})
+
+function handleMouseMove(event) {
+  var info = document.getElementById('info')
+
+  info.innerHTML = `
+    clientX=${event.clientX}, clientY=${event.clientY}<br/>
+    pageX=${event.pageX}, pageY=${event.pageY}<br/>
+    offsetX=${event.offsetX}, offsetY=${event.offsetY}
+  `
+}
+  </script>
+</body>
+</html>

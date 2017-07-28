@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+#countdown {
+  display: inline-block;
+  width: 150px;
+  height: 2em;
+  line-height: 2em;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.btn {
+  height: 2em;
+  line-height: 2em;
+}
+  </style>
+</head>
+<body>
+  <div id='countdown'>...</div>
+  <button class='btn' id='btnStart'>开始</button>
+  <button class='btn' id='btnPause'>暂停</button>
+  <button class='btn' id='btnStop'>清除</button>
+  <script type="text/javascript">
+var status = 'idle'
+
+function buttonStatus() {
+  switch(status) {
+    case 'idle':
+      btnStart.disabled = false
+      btnPause.disabled = true
+      btnStop.disabled = true
+      break
+    case 'running':
+      btnStart.disabled = true
+      btnPause.disabled = false
+      btnStop.disabled = false
+      break
+    case 'paused':
+      btnStart.disabled = false
+      btnPause.disabled = true
+      btnStop.disabled = false
+      break
+  }
+}
+
+var n = 3
+function countdown() {
+  if (n < 0) {
+    alert('起床演雷雨了!!!')
+    reset()
+    return
+  }
+  countdownDiv.innerText = n
+  n = n - 1
+  timer = setTimeout(countdown, 1000)
+}
+
+function reset() {
+  countdownDiv.innerText = '...'
+  n = 60
+}
+
+var countdownDiv = document.getElementById('countdown')
+var btnStart = document.getElementById('btnStart')
+var btnPause = document.getElementById('btnPause')
+var btnStop = document.getElementById('btnStop')
+
+var timer = 0
+btnStart.addEventListener('click', function(){
+  status = 'running'
+  countdown()
+  buttonStatus()
+})
+
+btnPause.addEventListener('click', function(){
+  status = 'paused'
+  clearTimeout(timer)
+  buttonStatus()
+})
+
+btnStop.addEventListener('click', function() {
+  status = 'idle'
+  clearTimeout(timer)
+  buttonStatus()
+  reset()
+})
+
+
+buttonStatus()
+  </script>
+</body>
+</html>

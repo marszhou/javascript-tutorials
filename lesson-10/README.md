@@ -7,10 +7,10 @@
 ## 定位类型
 
 * 静态定位 position: static (默认值)
-* 绝对定位 position: absolute [示例1](http://jsbin.com/hevano/1/edit?html,css,output) [示例2](http://jsbin.com/yarixed/1/edit?html,css,output)
-* 相对定位 position: relative ***相对定位是根据自身所在静态位置计算出来的相对位置*** [示例1](http://jsbin.com/xotije/1/edit?html,css,output) [示例2](http://jsbin.com/yonuluf/edit?html,css,output)
-* 固定定位 position: fixed [示例](http://jsbin.com/noxinak/1/edit?html,css,output)
-* 粘性定位 position: sticky ***试验特性，可以大致了解一下*** [示例](http://jsbin.com/besadaj/edit?html,css,output)
+* 绝对定位 position: absolute [[示例1](http://jsbin.com/hevano/1/edit?html,css,output)] [[示例2](http://jsbin.com/yarixed/1/edit?html,css,output)]
+* 相对定位 position: relative ***相对定位是根据自身所在静态位置计算出来的相对位置*** [[示例1](http://jsbin.com/xotije/1/edit?html,css,output)] [[示例2](http://jsbin.com/yonuluf/edit?html,css,output)]
+* 固定定位 position: fixed [[示例](http://jsbin.com/noxinak/1/edit?html,css,output)]
+* 粘性定位 position: sticky ***试验特性，可以大致了解一下*** [[示例](http://jsbin.com/besadaj/edit?html,css,output)]
 
 ## 与坐标位置、尺寸相关的css
 
@@ -23,7 +23,7 @@
 
 ***涉及到宽高位置等css值注意给单位比如100是无效的，100px是有效的***
 
-[综合示例](http://jsbin.com/boluzuj/8/edit?html,css,output)
+[[综合示例](http://jsbin.com/boluzuj/8/edit?html,css,output)]
 
 ## 显隠层的方式
 
@@ -39,7 +39,7 @@
 * pageX/pageY 在当前显示页面的位置（相对于浏览器页面左上角)
 * offsetX/offsetY 事件发生元素内部的相对位置
 
-  [示例](http://jsbin.com/vofanet/7/edit?html,css,js,output)
+  [[示例](http://jsbin.com/vofanet/7/edit?html,css,js,output)]
 
 ```diff
 - 鼠标在页面上移动看效果，注意要先点一下『run with js』按钮
@@ -56,7 +56,7 @@
 * document.documentElement.scrollWidth/scrollHeight 文档滚动区域的宽度/高度
 * document.documentElement.scrollLeft/scrollTop 文档滚动条当前的位置
 
-[示例](http://jsbin.com/faregeg/17/edit?html,css,js,output)
+[[示例](http://jsbin.com/faregeg/17/edit?html,css,js,output)]
 ```diff
 - 滚动窗口或中间的div看效果，注意要先点一下『run with js』按钮
 ```
@@ -66,7 +66,7 @@
 
 * z-index: n *** n是整数，数字越大越靠前 ***
 
-[示例](http://jsbin.com/muyewic/4/edit?html,css,js,output)
+[[示例](http://jsbin.com/muyewic/4/edit?html,css,js,output)]
 
 ```diff
 - 点击层查看效果，注意要先点一下『run with js』按钮
@@ -85,8 +85,8 @@ setTimeout和setInterval的区别是，setTimeout只执行一次，setInterval�
 
 运行setTimeout得到的返回值是一个timerId，用clearTimeout(timerId)可以终止timer效果，setInterval和clearInterval也是一样
 
-[示例:倒计时](http://jsbin.com/puvogoy/edit?html,css,js,output)
-[示例:电子时钟](http://jsbin.com/gidopok/9/edit?html,css,js,output)
+[[示例:倒计时](http://jsbin.com/puvogoy/edit?html,css,js,output)]
+[[示例:电子时钟](http://jsbin.com/gidopok/9/edit?html,css,js,output)]
 
 ## 作业
 

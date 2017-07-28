@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style type="text/css" media="screen">
+body{
+  background: white;
+}
+.layer {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  /* border: 1px solid #FEFEFE; */
+  border-radius: 10px;
+}
+
+.highlight {
+  box-shadow: 0px 0px 6px rgba(35,173,255,1);
+  border
+}
+  </style>
+</head>
+<body>
+
+  <div class="layer" style="left: 10px; top:10px; background: AntiqueWhite "></div>
+  <div class="layer" style="left: 30px; top:30px; background: Aquamarine"></div>
+  <div class="layer" style="left: 50px; top:50px; background: BlueViolet"></div>
+  <div class="layer" style="left: 70px; top:70px; background: Brown"></div>
+  <div class="layer" style="left: 90px; top:90px; background: BurlyWood"></div>
+  <div class="layer" style="left: 110px; top:110px; background: Chartreuse"></div>
+  <div class="layer" style="left: 130px; top:130px; background: DarkBlue"></div>
+  <div class="layer" style="left: 150px; top:150px; background: DarkSalmon"></div>
+  <div class="layer" style="left: 170px; top:170px; background: DarkSeaGreen "></div>
+
+<script>
+function getEl(e) {
+  var el = e.target;
+  if (e.target.classList.contains('layer')) {
+    return el
+  }
+}
+
+var z = 0
+document.documentElement.addEventListener('mouseover', function(e) {
+  var el = getEl(e)
+  if (!el) return
+  el.classList.add('highlight')
+})
+
+document.documentElement.addEventListener('mouseout', function(e) {
+  var el = getEl(e)
+  if (!el) return
+  el.classList.remove('highlight')
+})
+
+document.documentElement.addEventListener('click', function(e) {
+  var el = getEl(e)
+  if (!el) return
+  el.style.zIndex = ++z
+})
+</script>
+</body>
+</html>

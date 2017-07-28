@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+body{
+  margin: 0;
+  padding: 0;
+  background: #EDEDED;
+  height: 5000px;
+  width: 5000px;
+}
+
+#scrollPane {
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+}
+#info {
+  position: fixed;
+  bottom: 0px;
+}
+  </style>
+</head>
+<body>
+  <div id='scrollPane'>
+    Id cillum aliqua in ut enim reprehenderit proident ad tempor amet in do amet esse excepteur esse sint veniam reprehenderit dolore laborum nulla velit dolor ea minim eiusmod esse ea ut nostrud aliqua eu commodo sed reprehenderit dolor ullamco quis labore occaecat est in dolor irure eiusmod nulla est commodo laborum ullamco tempor dolor ut dolor voluptate adipisicing incididunt labore dolor do cupidatat do amet elit consectetur proident ut in cillum aliqua irure et qui quis sed ex ut cupidatat culpa aliquip commodo tempor proident amet in sunt enim amet dolor dolor occaecat dolor in in nostrud non aliqua eiusmod in nulla aliqua nostrud sint velit aliquip elit in incididunt consectetur et reprehenderit fugiat enim id mollit est dolor sit velit aliqua aliquip ea do eu nisi cillum officia deserunt deserunt aliquip et anim ullamco ad tempor sunt do adipisicing duis quis duis veniam sunt in ex commodo anim ut officia culpa nisi proident laboris adipisicing anim aute sed nulla est aliqua cupidatat ut laboris sed eu magna pariatur deserunt aliqua sit pariatur in deserunt reprehenderit id anim ut amet consectetur dolore duis incididunt eu aute in ad in ex commodo id culpa laborum velit incididunt incididunt tempor consectetur in velit officia in non cillum culpa sint velit pariatur ullamco.
+  </div>
+  <div id='info'></div>
+  <script type="text/javascript">
+window.addEventListener('scroll', function(e) {
+  handleScroll('scroll body', 'document.body', document.body, e)
+})
+
+document.getElementById('scrollPane').addEventListener('scroll', function(e) {
+  handleScroll('scroll div', '#scrollPane', e.target, e)
+})
+
+function handleScroll(title, name, el, e) {
+  var info = document.getElementById('info')
+  info.innerHTML = `
+    ${title}<br/>
+    ${name}.clientWidth = ${el.clientWidth}<br/>
+    ${name}.clientHeight = ${el.clientHeight}<br/>
+    ${name}.scrollWidth = ${el.scrollWidth}<br/>
+    ${name}.scrollHeight = ${el.scrollHeight}<br/>
+    ${name}.scrollLeft = ${el.scrollLeft}<br/>
+    ${name}.scrollTop = ${el.scrollTop}<br/>
+    `
+}
+  </script>
+</body>
+</html>
