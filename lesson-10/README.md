@@ -105,3 +105,5 @@ setTimeout和setInterval的区别是，setTimeout只执行一次，setInterval�
 1. 越过终点的div停止移动
 1. 如果没有全部5个div越过终点，则再次启动一个新的计时器，执行5-8步内容
 1. 所有div都越过终点后，在显示结果div处显示最终的名次和每个div的成绩（总计用时）
+
+[框架](http://jsbin.com/tutovu/12/edit?html,css,js,output) 也可以使用编辑本地html的方法[模板](./assignment.html)

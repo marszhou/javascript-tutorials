@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+body{
+  margin:0;
+  padding:0;
+}
+.car {
+  width: 50px;
+  height:50px;
+  left: 0;
+  position: absolute;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 24px;
+  line-height: 50px;
+  text-shadow: 0 0 6px rgba(255,255,255,0.8)
+}
+.lines {
+  position: absolute;
+  left: 51px;
+  top: 30px;
+  width: 500px;
+  height: 290px;
+  border-style: solid solid solid dashed;
+  border-width: 0px 3px;
+  border-color: black red black black;
+}
+.info {
+  position: absolute;
+  border: 1px solid black;
+  width: 98%;
+  top: 330px;
+  min-height: 30px;
+}
+  </style>
+</head>
+<body>
+  <button id='btnStart'>开始！</button>
+  <div class='car' style='top: 30px; background:AntiqueWhite'>1</div>
+  <div class='car' style='top: 90px; background:Aquamarine'>2</div>
+  <div class='car' style='top: 150px; background:BlueViolet'>3</div>
+  <div class='car' style='top: 210px; background:Brown'>4</div>
+  <div class='car' style='top: 270px; background:BurlyWood'>5</div>
+
+  <div class='lines'></div>
+  <div class='info'>
+    <p>结果</p>
+    <div id='result'>
+      最终结果显示在这里
+    </div>
+
+  </div>
+
+  <script>
+// 距离500
+var distance = 500
+// 按钮
+var button = document.getElementById('btnStart')
+// 5个方块
+var divs = Array.prototype.slice.call( document.querySelectorAll('.layer'))
+//
+var resultDiv = document.getElementById('result')
+// 结果存储, 数组里应该有5条数据
+var results = [
+  /*{using: 累计用时, isFinsihed: 是否完成了？}*/
+  {using:0, isFinished: false},
+  {using:0, isFinished: false},
+  {using:0, isFinished: false},
+  {using:0, isFinished: false},
+  {using:0, isFinished: false}
+]
+
+// 1 绑定按钮的点击事件
+button.addEventListener(/*你的代码*/)
+
+function handleClick() {
+  /*你的代码*/
+}
+
+var last = 0;
+// 2
+//
+function run() {
+  if (isAllFinished()) {
+    outputResults()
+    return
+  }
+
+  var now = Date.now()
+  var diff = last===0 ? 0 : (now - last)
+  var last = now
+  divs.forEach(function(div, index) {
+    if (!results[index].isFinished) {
+      /*你的代码*/
+      // step = ?
+      // move(index, div, step, diff)
+    }
+  })
+}
+
+function move(index, div, step, ms) {
+  // 如何移动div?
+  // 如何记录总计的时间？
+
+  /*你的代码*/
+  if (isFinished(div)) {
+    results[index].isFinished = true
+  }
+}
+
+// 是否某个方块通过了终点?
+function isFinished(div) {
+  // 如何判断是否越过终点？
+  /*你的代码*/
+}
+
+// 是否所有的方块都通过了终点?
+function isAllFinished() {
+  /*你的代码*/
+}
+
+// 3 打印结果
+function outputResults() {
+  // 是否要对results排个序？
+  results.sort(/*你的代码*/)
+  /*resultDiv.innerHTML = ``*/
+}
+  </script>
+</body>
+</html>
