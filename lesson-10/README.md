@@ -92,6 +92,8 @@ setTimeout和setInterval的区别是，setTimeout只执行一次，setInterval�
 [[示例:倒计时](http://jsbin.com/puvogoy/edit?html,css,js,output)]
 [[示例:电子时钟](http://jsbin.com/gidopok/9/edit?html,css,js,output)]
 
+[[综合示例：Let's Roll!](./circle.html)] ***点击屏幕任意位置，可看到所有div都以点击位置为圆心运动一周***
+
 ## 作业：赛车
 
 需求
