@@ -2,7 +2,7 @@
 
 ## 浏览器里的坐标系
 
-左上角原点，X轴从左到右(0->∞)，Y轴从上到下(0->∞)
+左上角原点，X轴从左到右(0->+∞)，Y轴从上到下(0->+∞)
 
 ## 定位类型
 
@@ -42,7 +42,7 @@
   [示例](http://jsbin.com/vofanet/7/edit?html,css,js,output)
 
 ```diff
-- 鼠标在页面上移动看效果，注意要点一下『run with js』按钮
+- 鼠标在页面上移动看效果，注意要先点一下『run with js』按钮
 ```
 
 ## 浏览器中的空间信息
@@ -58,10 +58,35 @@
 
 [示例](http://jsbin.com/faregeg/17/edit?html,css,js,output)
 ```diff
-- 滚动窗口或中间的div看效果，注意要点一下『run with js』按钮
+- 滚动窗口或中间的div看效果，注意要先点一下『run with js』按钮
 ```
 
+## Z坐标
+浏览器屏幕从内到外是Z轴方向（0->+∞）
+
+* z-index: n *** n是整数，数字越大越靠前 ***
+
+[示例](http://jsbin.com/muyewic/4/edit?html,css,js,output)
+
+```diff
+- 点击层查看效果，注意要先点一下『run with js』按钮
+```
+
+***CSS中的属性名称是复合词的（两个单词组成，中间用-连接的），在Javascript中使用时要转换成驼峰形式，如background-color在Javascript中就变成了backgroundColor***
+
 ## 定时器
+
+* setTimeout/clearTimeout
+* setInterval/clearInterval
+
+setTimeout和setInterval调用形式类似，第一个参数都是不需要参数的回调函数，第二个参数是延迟时间（duration, 单位毫秒)
+
+setTimeout和setInterval的区别是，setTimeout只执行一次，setInterval会一直循环执行
+
+运行setTimeout得到的返回值是一个timerId，用clearTimeout(timerId)可以终止timer效果，setInterval和clearInterval也是一样
+
+[示例:倒计时](http://jsbin.com/puvogoy/edit?html,css,js,output)
+[示例:电子时钟](http://jsbin.com/gidopok/9/edit?html,css,js,output)
 
 ## 作业
 
