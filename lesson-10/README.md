@@ -64,7 +64,7 @@
 ## Z坐标
 浏览器屏幕从内到外是Z轴方向（0->+∞）
 
-* z-index: n *** n是整数，数字越大越靠前 ***
+* z-index: n ***n是整数，数字越大越靠前***
 
 [[示例](http://jsbin.com/muyewic/4/edit?html,css,js,output)]
 
