@@ -74,6 +74,10 @@
 
 ***CSS中的属性名称是复合词的（两个单词组成，中间用-连接的），在Javascript中使用时要转换成驼峰形式，如background-color在Javascript中就变成了backgroundColor***
 
+## 获得任意DOM元素的尺寸及位置
+
+* el.getBoundingClientRect()
+
 ## 定时器
 
 * setTimeout/clearTimeout
