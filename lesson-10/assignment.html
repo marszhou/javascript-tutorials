@@ -62,31 +62,31 @@ var distance = 500
 // 按钮
 var button = document.getElementById('btnStart')
 // 5个方块
-var divs = Array.prototype.slice.call( document.querySelectorAll('.car'))
+var divs = Array.prototype.slice.call(document.querySelectorAll('.car'))
 //
 var resultDiv = document.getElementById('result')
 // 结果存储, 数组里应该有5条数据
 var results = [
   /*{using: 累计用时, isFinsihed: 是否完成了？}*/
-  {using:0, isFinished: false},
-  {using:0, isFinished: false},
-  {using:0, isFinished: false},
-  {using:0, isFinished: false},
-  {using:0, isFinished: false}
+  {using:0, distance: 0, isFinished: false, id: 1},
+  {using:0, distance: 0, isFinished: false, id: 2},
+  {using:0, distance: 0, isFinished: false, id: 3},
+  {using:0, distance: 0, isFinished: false, id: 4},
+  {using:0, distance: 0, isFinished: false, id: 5}
 ]
 
 // 1 绑定按钮的点击事件
 button.addEventListener('click', handleClick)
-
 function handleClick() {
-  alert(1)
   /*你的代码*/
+  run()
 }
 
 var last = 0;
 // 2
 //
 function run() {
+  // 先判断是否所有的div都到达目的地
   if (isAllFinished()) {
     outputResults()
     return
@@ -94,47 +94,64 @@ function run() {
 
   var now = Date.now()
   var diff = last===0 ? 0 : (now - last)
-  var last = now
+  last = now
   divs.forEach(function(div, index) {
     if (!results[index].isFinished) {
       /*你的代码*/
-      // step = ?
-      // move(index, div, step, diff)
+      var len = Math.random() * 5
+      move(index, len, diff)
     }
   })
+
+  setTimeout(run)
 }
 
-function move(index, div, step, ms) {
+function move(i, s, m) {
   // 如何移动div?
   // 如何记录总计的时间？
+  var d = divs[i]
+  var r = results[i]
+  r.using += m
+  r.distance += s
+
+  var rect = d.getBoundingClientRect()
+  d.style.left = (rect.left + s) + 'px'
 
   /*你的代码*/
-  if (isFinished(div)) {
-    results[index].isFinished = true
+  if (r.distance >= distance) {
+    r.isFinished = true
   }
-}
-
-// 是否某个方块通过了终点?
-function isFinished(div) {
-  // 如何判断是否越过终点？
-  /*你的代码*/
 }
 
 // 是否所有的方块都通过了终点?
 function isAllFinished() {
   /*你的代码*/
+  var ret = true
+  results.forEach(function(r) {
+    ret = ret && r.isFinished
+  })
+  return ret
 }
 
 // 3 打印结果
 function outputResults() {
   // 是否要对results排个序？
-  results.sort(/*你的代码*/)
+  results.sort(function(a, b) {
+    if (a.using < b.using) {
+      return -1
+    } else if (a.using > b.using) {
+      return 1
+    }
+    return 0
+  })
   // 结果文字格式应为：
   // 1. div{n}用时{x}秒
   // 2. div{n}用时{x}秒
   // ...
 
-  /*resultDiv.innerHTML = ``*/
+  resultDiv.innerHTML = results.map(function(r, index) {
+    return `第${index+1}名是(${r.id})用时=${r.using}`
+  }).join('<br/>')
 }
   </script>
 </body>
