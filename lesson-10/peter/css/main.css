@@ -1,0 +1,67 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+div.control{
+	left: 10px;
+	top: 10px;
+	position: absolute;
+
+}
+div.show{
+	width:500px;
+	height: 20px;
+	left : 150px;
+	top : 0px;
+	position: absolute;
+	background: #000000;
+	color: #99FF66;
+}
+div.track{	
+}
+div.car {
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	position: absolute;
+}
+div #car1{
+	left : 10px;
+	top : 40px;
+	background: #66FFCC;
+}
+div #car2{
+	left : 10px;
+	top : 100px;
+	background: #FFFF99;
+}
+div #car3{
+	left : 10px;
+	top : 160px;
+	background: #FF0066;
+}
+div #car4{
+	left : 10px;
+	top : 220px;
+	background: #99FFFF;
+}
+div #car5{
+	left : 10px;
+	top : 280px;
+	background: #9900CC;
+}
+div.line{
+	height: 290px;
+	width: 10px;
+	position: absolute;
+	border-left:2px black dashed;
+}
+div.line.startLine{
+	left: 60px;
+	top: 40px;
+}
+div.line.stopLine{
+	left: 500px;
+	top: 40px;
+}
