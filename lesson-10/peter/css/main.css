@@ -65,3 +65,7 @@ div.line.stopLine{
 	left: 500px;
 	top: 40px;
 }
+div.info{
+	top: 400px;
+	position: absolute;
+}
