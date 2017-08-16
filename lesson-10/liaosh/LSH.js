@@ -14,27 +14,30 @@ function handleClick() {
   run()
 }
 function run() {
-for (var i = 0; i < results.length; i++) {
-  if (results[i].distance>=distance) {
-    outputResults()
-    return
+  for (var i = 0; i < results.length; i++) {
+    if (results[i].distance>=distance) {
+      outputResults()
+      return
+    }
+    else {
+      move(i)
+    }
   }
-  else {
-    move()
-  }
-  setTimeout(run,100)
+  setTimeout(run,1000/24)
 }
-  function move(){
+function move(i){
   var d = divs[i]
   var r = results[i]
   var k=0
   r.using = k*100
-  r.distance += Math.random()
+  var s = Math.random() * 100
+  r.distance += s
   var rect = d.getBoundingClientRect()
   d.style.left = (rect.left + s) + 'px'
   if(results[i].distance<distance){
       k=k+1
   }
+}
 function outputResults() {
   results.sort(function(a, b) {
     if (a.using < b.using) {
@@ -48,6 +51,3 @@ function outputResults() {
     return `第${index+1}名是(${r.id})用时=${r.using}`
   }).join('<br/>')
 }
-</script>>
-</body>
-</html>>

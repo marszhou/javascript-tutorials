@@ -3,7 +3,7 @@
 <head>
 	<title>test01</title>
 	<meta charset="utf-8">
-	<link href="./css/main.css" rel="stylesheet" type="text/css"/> 
+	<link href="./css/main.css" rel="stylesheet" type="text/css"/>
 	<script src = "./js/main.js"></script>
 
 	<!-- <script type="text/javascript">
@@ -13,7 +13,7 @@
 		var stopLine =document.getElementById('stopLine')
 		var resultDiv = document.getElementById('result')
 		var n = 0
-		var times 
+		var times
 		var last = 0
 		var results = [
 			{using:0, isFinished: false, distance: 0, id: 1},
@@ -35,7 +35,7 @@
 
 			var now = Date.now()
 			var diff = last ===0 ? 0 : (now - last)
-			last = now 
+			last = now
 			for(i = 0; i < 5; i++){
 				var rand = Math.random()
 				if((cars[i].offsetWidth + cars[i].offsetLeft) < 500){
@@ -46,8 +46,8 @@
 			times = setTimeout(startRun,100)
 		}
 
-		function moveDiv(car,rand,diff){  
-			var car = cars[i] 
+		function moveDiv(car,rand,diff){
+			var car = cars[i]
 			//var d = [i]
 			var r = results[i]
 			r.using += diff
@@ -63,7 +63,7 @@
 		function checkFinish(){
 			var ret = true
 			results.forEach(function(r) {
-				ret = ret && r.isFinished	
+				ret = ret && r.isFinished
 			})
 			return ret
 		}
@@ -90,18 +90,18 @@
 </head>
 <body>
 	<div class = 'control'>
-		<button id = 'start' onClick = "startRun()">开始</button>
-		<button id = 'stop' onClick = "stopRun()">结束</button>
+		<button id = 'start'>开始</button>
+		<button id = 'stop'>结束</button>
 		<div class = 'show'>最终结果
 			<div  class = 'show' id = 'show' name = 'show'></div>
 		</div>
 	</div>
 	<div class = 'track'>
 		<div class = 'car' id = 'car1' name = 'car'>peter</div><br>
-		<div class = 'car' id = 'car2' name = 'car'>bob</div><br> 
-		<div class = 'car' id = 'car3' name = 'car'>tom</div><br> 
-		<div class = 'car' id = 'car4' name = 'car'>john</div><br> 
-		<div class = 'car' id = 'car5' name = 'car'>dave</div><br> 
+		<div class = 'car' id = 'car2' name = 'car'>bob</div><br>
+		<div class = 'car' id = 'car3' name = 'car'>tom</div><br>
+		<div class = 'car' id = 'car4' name = 'car'>john</div><br>
+		<div class = 'car' id = 'car5' name = 'car'>dave</div><br>
 	</div>
 	<div class = 'line startLine'>起点</div>
 	<div class = 'line stopLine' id ='stopLine'>终点</div>
@@ -113,5 +113,6 @@
     </div>
 
   </div>
+
 </body>
 </html>
