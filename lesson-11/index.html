@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+  <script src='index2.js'></script>
+  <script src='index.js'></script>
+
+  <style type="text/css" media="screen">
+    .layer1 {
+      padding: 100px;
+      border: 5px solid red;
+      background: black;
+    }
+
+    .layer2 {
+      padding: 100px;
+      border: 5px solid blue;
+      background: brown;
+    }
+
+    .layer3 {
+      width: 100px;
+      height: 100px;
+      border: 5px solid green;
+      background: skyblue;
+    }
+
+    div {
+      display: inline-block;
+    }
+  </style>
+
+</head>
+<body>
+  <div class='layer1' style='display: none'>
+    <div class='layer2'>
+      <div class='layer3'>
+      </div>
+    </div>
+  </div>
+  <button id='a'>button</button>
+<script>
+
+document.querySelector('.layer1').addEventListener('click', (event) => {
+  event.stopPropagation()
+  console.log('layer1 clicked')
+})
+
+document.querySelector('.layer2').addEventListener('click', (event) => {
+  event.stopPropagation()
+  console.log('layer2 clicked')
+})
+
+document.querySelector('.layer3').addEventListener('click', (event) => {
+  event.stopPropagation()
+  console.log('layer3 clicked')
+})
+
+function showLayer(event) {
+  event.preventDefault()
+  document.getElementsByClassName('layer1')[0].style.display = ''
+}
+
+</script>
+
+  <a href='#' onClick='showLayer(event)'>
+    显示隐藏层
+  </a>
+
+  <a href='http://www.baidu.com' target='_blank' onClick="showLayer(event)">
+    baidu.com
+  </a>
+
+</body>
+</html>
