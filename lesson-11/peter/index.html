@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Todo</title>
+  <style type="text/css">
+    .finish{
+      text-decoration: line-through;
+    }
+
+  </style>
+  
+</head>
+<body>
+
+<form>
+  <input type = 'text' id = 'strWorks'/>
+  <button id = 'addWork'>添加</button>
+</form>
+<div id = ''>
+  <ul id = works>
+    <li>待办事项1</li>
+    <li>Learn Javascript</li>
+    <li class = "finish" >Go Shopping</li>
+  </ul>
+</div>
+<p>
+  查看：
+  <a href = '#' id = 'showAll' >全部</a>,
+  <a href = '#' id = 'showFinish'>未完成</a>,
+  <a href = '#' id = 'showUnFinish'>已完成</a>
+</p>
+
+<script type="text/javascript">
+  var allWorks = []
+  var finishWorks = []
+  var unFinishWorks = []
+  let works = document.getElementById('works')
+  var strWorks = document.getElementById('strWorks')
+  var worksNum = works.childNodes
+  //添加新的工作
+  document.getElementById('addWork').addEventListener('click', function (){
+    let li = document.createElement('li')
+    li.innerHTML = strWorks.value
+    allWorks.push(strWorks.value)
+    works.appendChild(li);
+  })
+
+  //点击完成工作
+  document.getElementById('finish').addEventListener('click',function (){
+
+  })    
+
+  //查看全部
+  document.getElementById("showAll").addEventListener("click", function (event){
+    //event.preventDefault()
+    //清空原来的li
+    for(var i= worksNum.length -1; i>=0; i--){
+      works.removeChild(works.childNodes[i])
+    }   
+    //重新便利li
+    allWorks.forEach(function(value,index,array){
+      let li = document.createElement('li')
+      li.innerHTML = value
+      works.appendChild(li)
+    })
+  })  
+
+
+  //查看未完成
+  document.getElementById('showFinish').addEventListener('click',function (event){
+
+  })
+
+  //查看完成
+  document.getElementById('showUnFinish').addEventListener('click',function (event){
+    
+  })
+
+</script>
+</body>
+</html>
