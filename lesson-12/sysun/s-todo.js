@@ -94,12 +94,16 @@ const todoApp = {
     e.preventDefault()
     // your code
     // 应该处理什么？
+    /*
     todoStore.todos[nextTodoId] = {id: '', text: '', completed: ''}
     let ele = todoStore.todos[nextTodoId]
     ele.id = nextTodoId
     ele.text = document.querySelector('#todothing').value
     ele.completed = false
     nextTodoId++
+    */
+    let text = document.querySelector('#todothing').value
+    todoApp.addTodo(text)
   },
   // 过滤条件点击时
   onFilterLinkClick(linkElement, e) {
@@ -116,16 +120,17 @@ const todoApp = {
   // 添加一条todo
   addTodo(text) {
     const todo = {
-      id: ++nextTodoId,
+      id: nextTodoId,
       text: text,
       completed: false // 新添加的todo，completed值是false
     }
     // (2)
     // your code
     // 如何向todoStore.todos里插入一条todo？
-
+    todoStore.todos[nextTodoId] = todo
+    nextTodoId++
     // 数据模型被更改后，要重新渲染
-    this.render()
+    this._render()
   },
   // 切换todo状态
   toggleTodo(id) {
