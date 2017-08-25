@@ -1,0 +1,9 @@
+.filter-link .active{
+  display: none
+}
+.filter-link.current .active {
+  display: initial;
+}
+.filter-link.current .not-active {
+  display: none
+}
