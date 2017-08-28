@@ -139,16 +139,24 @@ const todoApp = {
     // 根据id如何更改todoStore.todos里对应的todo.complete值？
 
     // 数据模型被更改后，要重新渲染
-    this.render()
+    this._render()
   },
   // 设置过滤条件
   setVisibilityFilter(filter) {
     todoStore.visibilityFilter = filter
-    this.render()
+    this._render()
   },
   renderTodoList() {
     // your code
     // 如何显示todo列表？
+    document.querySelector('.list').innerHTML = ''
+    todoStore.todos.forEach((todos,index)=>{
+      let li = document.createElement('li')
+      let text = todos.text
+      let txt = document.createTextNode(text)
+      li.appendChild(txt)
+      document.querySelector('.list').appendChild(li)
+    })
   },
   renderFooter() {
     // your code
