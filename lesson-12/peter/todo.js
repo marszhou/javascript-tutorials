@@ -29,7 +29,24 @@ const todoStore = {
     // (1)
     // your code
     // 如何根据过滤条件，返回不同的todos呢？
-    console.log(this.todos, this.visibilityFilter)
+    let showWork = []
+    if(this.visibilityFilter === 'SHOW_ALL'){
+      showWork = this.todos
+    }else if(this.visibilityFilter === 'SHOW_ACTIVE'){
+      this.todos.forEach(function(value,index,array){
+        if(value.completed = 'false'){
+          showWork = value
+        }
+      })
+    }else{
+      this.todos.forEach(function(value,index,array){
+        if(value.completed = 'true'){
+          showWork = value  
+        }
+      })
+    }
+    return showWork
+    //console.log(this.todos, this.visibilityFilter)
   }
 }
 
@@ -56,7 +73,7 @@ const todoApp = {
 
         <span class='filter-link active'>
           <span class='active'>未完成</span>
-          <a href='#'>未完成</a>
+          <a class='not-active' href='#'>未完成</a>
         </span>,
 
         <span class='filter-link completed'>
@@ -104,16 +121,29 @@ const todoApp = {
   // 过滤条件点击时
   onFilterLinkClick(linkElement, e) {
     e.preventDefault()
-    console.log(e, linkElement)
+    //linkElement.
     // your code
     // 应该处理什么？
-    if(linkElement === 'all'){
 
-    }else if(linkElement === 'active'){
-      this.renderFooter()
+    //1.处理样式
+    let firstChild = linkElement.firstElementChild.className
+    linkElement.firstElementChild.className = linkElement.lastElementChild.className
+    linkElement.lastElementChild.className = firstChild
+    
+    // console.log(linkElement)
+    //1.查看全部
+    //2.查看完成
+    //3.查看未完成
+
+    if(linkElement.className === 'filter-link current all'){
+      this.setVisibilityFilter('SHOW_ALL') 
+    }else if(linkElement.className === 'filter-link active'){
+      this.setVisibilityFilter('SHOW_ACTIVE') 
     }else{
-      this.renderTodoList()
+      this.setVisibilityFilter('SHOW_COMPLETED') 
     }
+    this.renderTodoList() 
+    this.renderFooter(linkElement.className)
   },
   onTodoItemClick(e) {
     const li = e.target
@@ -134,12 +164,10 @@ const todoApp = {
     // (2)
     // your code
     // 如何向todoStore.todos里插入一条todo？
-
     todoStore.todos.push(todo)
-
     //console.log(todoStore.todos)
     // 数据模型被更改后，要重新渲染
-    this.render()
+    this._render()
   },
   // 切换todo状态
   toggleTodo(id) {
@@ -149,36 +177,42 @@ const todoApp = {
     todoStore.todos[id].completed = true
     //console.log(todoStore.todos)
     // 数据模型被更改后，要重新渲染
-    this.render()
+    this._render()
   },
   // 设置过滤条件
   setVisibilityFilter(filter) {
     todoStore.visibilityFilter = filter
-    this.render()
+    this._render()
   },
   renderTodoList() {
     // your code
     // 如何显示todo列表？
-    // this.list = ''
-    // todoStore.todos.forEach(function(value,index,array){
-    //   if(value.completed){
-    //     let li = document.createElement('li')
-    //     li.id = index
-    //     li.innerHTML = value.text
-    //     li.style.cssText = "text-decoration: line-through;"
-    //     list.appendChild(li)
-    //   }else{
-    //     let li = document.createElement('li')
-    //     li.id = index
-    //     li.innerHTML = value
-    //     list.appendChild(li)
+    //1.清除源节点数据
+    // for(var i= todoStore.todos.length - 1; i>=0; i--){
+    //   this.list.removeChild(this.list.childNodes[i])
+    //   //console.log(this.list.childNodes[i])
+    // }     
+
+    //2.重新显示节点数据
+    // todoStore.getVisibleTodos().forEach(function(value,index,array){
+    //   let li = document.createElement('li')
+    //   li.id = index
+    //   li.innerHTML = value.text
+    //   if(value.completed === 'false'){
+    //     li.style.cssText = "text-decoration: line-through;" 
     //   }
-     
+    //   this.list.appendChild(li)
     // })
   },
-  renderFooter() {
+  renderFooter(firstChild) {
     // your code
     // 如何显示当前状态？
+    //let firstChild = linkElement.firstElementChild.className
+    let p = document.getElementsByTagName('p')
+    
+    console.log(p)
+    // linkElement.firstElementChild.className = linkElement.lastElementChild.className
+    // linkElement.lastElementChild.className = firstChild
   }
 }
 
