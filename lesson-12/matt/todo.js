@@ -110,7 +110,7 @@ const todoApp = {
 
     let text = this.form.todoText.value.trim()
     if (text.length > 0) {
-      this.addTodo(text)
+      this.addTodo(htmlEncode(text))
     }
     this.form.todoText.value = ''
   },
@@ -191,6 +191,12 @@ const todoApp = {
     const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
     currentFilterLink.classList.add('current')
   }
+}
+
+function htmlEncode(text) {
+  const div = document.createElement('div')
+  div.innerText = text
+  return div.innerHTML
 }
 
 // 起点
