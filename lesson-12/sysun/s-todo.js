@@ -116,19 +116,20 @@ const todoApp = {
     const li = e.target
     // your code
     // 应该处理什么？
+    let id = li.id
+    todoApp.toggleTodo(id)
   },
   // 添加一条todo
   addTodo(text) {
     const todo = {
-      id: nextTodoId,
+      id: ++nextTodoId,
       text: text,
       completed: false // 新添加的todo，completed值是false
     }
     // (2)
     // your code
     // 如何向todoStore.todos里插入一条todo？
-    todoStore.todos[nextTodoId] = todo
-    nextTodoId++
+    todoStore.todos[nextTodoId-1] = todo
     // 数据模型被更改后，要重新渲染
     this._render()
   },
@@ -137,7 +138,12 @@ const todoApp = {
     // (3)
     // your code
     // 根据id如何更改todoStore.todos里对应的todo.complete值？
-
+    if((todoStore.todos[id-1].completed) == false){
+      todoStore.todos[id-1].completed = true
+    }
+    else{
+      todoStore.todos[id-1].completed = false
+    }
     // 数据模型被更改后，要重新渲染
     this._render()
   },
@@ -155,7 +161,11 @@ const todoApp = {
       let text = todos.text
       let txt = document.createTextNode(text)
       li.appendChild(txt)
+      li.setAttribute('id', nextTodoId)
       document.querySelector('.list').appendChild(li)
+      if((todoStore.todos[nextTodoId-1].completed) == true){
+        li.style.textDecoration = 'line-through'
+      }
     })
   },
   renderFooter() {
