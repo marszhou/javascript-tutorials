@@ -161,7 +161,7 @@ const todoApp = {
     const todoHTMLs = todos.map(todo =>
       `
         <li style='text-decoration:${todo.completed?"line-through": "none"}' todo-id='${todo.id}'>
-          ${todo.text}
+          ${htmlEncode(todo.text)}
         </li>
       `
     )
@@ -178,6 +178,13 @@ const todoApp = {
       }
     })
   }
+}
+
+function htmlEncode(html) {
+  // return html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  const temp = document.createElement('div')
+  temp.innerText = html
+  return temp.innerHTML
 }
 
 // 起点
