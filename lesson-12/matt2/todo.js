@@ -29,7 +29,16 @@ const todoStore = {
     // (1)
     // your code
     // 如何根据过滤条件，返回不同的todos呢？
-    console.log(this.todos, this.visibilityFilter)
+    switch(this.visibilityFilter) {
+      case 'SHOW_ALL':
+        return this.todos
+      case 'SHOW_ACTIVE':
+        return this.todos.filter(todo => !todo.completed)
+      case 'SHOW_COMPLETED':
+        return this.todos.filter(todo => todo.completed)
+      default:
+        throw new Error('undefined filter value: ' + this.visibilityFilter)
+    }
   }
 }
 
@@ -103,7 +112,6 @@ const todoApp = {
   // 过滤条件点击时
   onFilterLinkClick(linkElement, e) {
     e.preventDefault()
-    console.log(e, linkElement)
     // your code
     // 应该处理什么？
     this.setVisibilityFilter(linkElement.getAttribute('filter-value'))
@@ -149,7 +157,8 @@ const todoApp = {
   renderTodoList() {
     // your code
     // 如何显示todo列表？
-    const todoHTMLs = todoStore.todos.map(todo =>
+    const todos = todoStore.getVisibleTodos()
+    const todoHTMLs = todos.map(todo =>
       `
         <li style='text-decoration:${todo.completed?"line-through": "none"}' todo-id='${todo.id}'>
           ${todo.text}
