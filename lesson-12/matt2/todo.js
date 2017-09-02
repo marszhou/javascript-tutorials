@@ -111,6 +111,8 @@ const todoApp = {
     const li = e.target
     // your code
     // 应该处理什么？
+    const todoId = +li.getAttribute('todo-id')
+    this.toggleTodo(todoId)
   },
   // 添加一条todo
   addTodo(text) {
@@ -131,7 +133,10 @@ const todoApp = {
     // (3)
     // your code
     // 根据id如何更改todoStore.todos里对应的todo.complete值？
-
+    const findTodo = todoStore.todos.find(todo => todo.id === id)
+    if (findTodo) {
+      findTodo.completed = ! findTodo.completed
+    }
     // 数据模型被更改后，要重新渲染
     this._render()
   },
@@ -145,7 +150,7 @@ const todoApp = {
     // 如何显示todo列表？
     const todoHTMLs = todoStore.todos.map(todo =>
       `
-        <li style='text-decoration:${todo.completed?"line-through": "none"}'>
+        <li style='text-decoration:${todo.completed?"line-through": "none"}' todo-id='${todo.id}'>
           ${todo.text}
         </li>
       `
