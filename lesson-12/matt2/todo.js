@@ -49,17 +49,17 @@ const todoApp = {
       <p>
         查看：
 
-        <span class='filter-link current all'>
+        <span class='filter-link current' filter-value='SHOW_ALL'>
           <span class='active'>全部</span>
           <a class='not-active' href='#'>全部</a>
         </span>,
 
-        <span class='filter-link active'>
+        <span class='filter-link' filter-value='SHOW_ACTIVE'>
           <span class='active'>未完成</span>
-          <a href='#'>未完成</a>
+          <a class='not-active' href='#'>未完成</a>
         </span>,
 
-        <span class='filter-link completed'>
+        <span class='filter-link' filter-value='SHOW_COMPLETED'>
           <span class='active'>已完成</span>
           <a class='not-active' href='#'>已完成</a>
         </span>
@@ -106,6 +106,7 @@ const todoApp = {
     console.log(e, linkElement)
     // your code
     // 应该处理什么？
+    this.setVisibilityFilter(linkElement.getAttribute('filter-value'))
   },
   onTodoItemClick(e) {
     const li = e.target
@@ -143,7 +144,7 @@ const todoApp = {
   // 设置过滤条件
   setVisibilityFilter(filter) {
     todoStore.visibilityFilter = filter
-    this.render()
+    this._render()
   },
   renderTodoList() {
     // your code
@@ -160,6 +161,13 @@ const todoApp = {
   renderFooter() {
     // your code
     // 如何显示当前状态？
+    this.filterLinks.forEach(filterLink => {
+      if (filterLink.getAttribute('filter-value') === todoStore.visibilityFilter) {
+        filterLink.classList.add('current')
+      } else {
+        filterLink.classList.remove('current')
+      }
+    })
   }
 }
 
