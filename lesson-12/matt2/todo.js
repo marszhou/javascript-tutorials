@@ -143,7 +143,14 @@ const todoApp = {
   renderTodoList() {
     // your code
     // 如何显示todo列表？
-
+    const todoHTMLs = todoStore.todos.map(todo =>
+      `
+        <li style='text-decoration:${todo.completed?"line-through": "none"}'>
+          ${todo.text}
+        </li>
+      `
+    )
+    this.list.innerHTML = todoHTMLs.join('')
   },
   renderFooter() {
     // your code
