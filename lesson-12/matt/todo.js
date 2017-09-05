@@ -122,6 +122,8 @@ const todoApp = {
     this.setVisibilityFilter(filter)
   },
   onTodoItemClick(e) {
+    if (e.target.tagName !== 'LI') return
+
     const li = e.target
     let id = +li.getAttribute('todo-id')
     this.toggleTodo(id)
