@@ -84,10 +84,10 @@ const person = {
     }
 }
 
-person.loop1()
-person.loop2()
-person.loop3()
-person.loop4()
+person.loop1(3)
+person.loop2(3)
+person.loop3(3)
+person.loop4(3)
 ```
 ***注意: 对比 Array(3) 和 [...Array(3)]的区别***
 
