@@ -11,7 +11,7 @@ const person = {
     }
 }
 
-var firstName = 'Nobody'
+var firstName = 'Nobody' // 只是为了为全局顶级对象window加一个firstName属性所以用了var
 person.describe()       // correct! this = person -> "I'm Matt Zhou"
 const d = person.describe
 d()                     // wrong! this = window -> "I'm Nobody undefined"
@@ -69,14 +69,14 @@ const person = {
     },
     // 仅为测试用, 无任何意义，作用循环count次，调用this.describe
     // 请对比loop1,loop2,loop3
-    loop1: function(count) { // correct         
+    loop1: function(count) { // correct
         [...Array(count)].forEach(() => this.describe())
     },
     loop2: function(count) { // wrong
         [...Array(count)].forEach(function(){ this.describe()})
     },
     loop3: function(count) { // correct
-        const self = this 
+        const self = this
         [...Array(count)].forEach(function(){ self.describe()})
     },
     loop4: function(count) { // correct
@@ -110,7 +110,7 @@ function echoThreeString(s1, s2, s3) {
     console.log(s1)
     console.log(s2)
     console.log(s3)
-} 
+}
 
 echoThreeString('cat', 'dog', 'fish') // (1)
 const echoThird = echoThreeString.bind(null, 'cat', 'dog')
@@ -130,7 +130,7 @@ function echoThreeString(s1, s2, s3) {
     console.log(s1)
     console.log(s2)
     console.log(s3)
-} 
+}
 const echoFirst = _.partialRight(echoThreeString, 'dog', 'fish')
 echoFirst('cat') // 打印结果和(1)一样，因为后两个参数已经被填上了
 ```
@@ -166,7 +166,7 @@ joinString.apply(null, ['|', 'a', 'b', 'c'])    // -> "a|b|c"
 ```
 const xs = [1, 2, 3]
 const ys = [11, 12, ...xs]  // [11, 12, 1, 2, 3]
-                            // 等同于 [11, 12].concat(xs)，但比它还强大 
+                            // 等同于 [11, 12].concat(xs)，但比它还强大
                             // 试试 [11, ...xs, 12]
 const a = {
     a1: 1,
