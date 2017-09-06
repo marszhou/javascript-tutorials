@@ -125,7 +125,7 @@ echoThird('fish') // 打印结果和(1)一样，因为前两个参数已经被�
 <script src='https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js'></script>
 ```
 
-```
+```js
 function echoThreeString(s1, s2, s3) {
     console.log(s1)
     console.log(s2)
@@ -139,7 +139,7 @@ echoFirst('cat') // 打印结果和(1)一样，因为后两个参数已经被填
 
 *第一个参数和bind一样，是指函数运行上下文所需的this是哪个，这里不演示了*
 
-```
+```js
 function sum() {
     const args = Array.prototype.slice.call(arguments)
     let ret = 0
@@ -163,7 +163,7 @@ joinString.apply(null, ['|', 'a', 'b', 'c'])    // -> "a|b|c"
 ## ...spread
 
 
-```
+```js
 const xs = [1, 2, 3]
 const ys = [11, 12, ...xs]  // [11, 12, 1, 2, 3]
                             // 等同于 [11, 12].concat(xs)，但比它还强大
