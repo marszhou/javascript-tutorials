@@ -68,7 +68,7 @@ const person = {
         return `I'm ${this.firstName} ${this.lastName}`
     },
     // 仅为测试用, 无任何意义，作用循环count次，调用this.describe
-    // 请对比loop1,loop2,loop3
+    // 请对比loop1,loop2,loop3,loop4
     loop1: function(count) { // correct
         [...Array(count)].forEach(() => this.describe())
     },
