@@ -76,7 +76,7 @@ const person = {
         [...Array(count)].forEach(function(){ this.describe()})
     },
     loop3: function(count) { // correct
-        const self = this
+        const self = this;
         [...Array(count)].forEach(function(){ self.describe()})
     },
     loop4: function(count) { // correct
@@ -85,7 +85,8 @@ const person = {
 }
 
 person.loop1(3)
-person.loop2(3)
+// 会报错
+// person.loop2(3)
 person.loop3(3)
 person.loop4(3)
 ```
