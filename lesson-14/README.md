@@ -21,9 +21,9 @@
 创建xhr
 
 ```js
-// 兼容老浏览器的写法，现在应该不需要了
+// 兼容老浏览器的写法，现在应该不需要如此判断了
 if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
-    httpRequest = new XMLHttpRequest();
+    httpRequest = new XMLHttpRequest(); // <---- 直接执行这一行即可
 } else if (window.ActiveXObject) { // IE 6 and older
     httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 }
