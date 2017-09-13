@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+
+<script>
+// if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
+//     httpRequest = new XMLHttpRequest();
+// } else if (window.ActiveXObject) { // IE 6 and older
+//     httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+// }
+
+function sendRequest() {
+  var dest = "./server.php";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", dest, true);
+
+  var myObject = {};
+  myObject.prop1 = document.querySelector('input[name="prop1"]').value;
+  myObject.prop2 = document.querySelector('input[name="prop2"]').value;
+  xhr.send(JSON.stringify(myObject));
+
+  xhr.onreadystatechange = function(e) {
+    const {target: request} = e
+
+    if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+      document.getElementById('result').innerText = (request.responseText)
+    }
+  }
+}
+
+</script>
+
+<input name='prop1'/> +
+<input name='prop2'/> = <span id='result'>?</span>
+<input type='submit' onClick='sendRequest()'/>
+
+</body>
+</html>

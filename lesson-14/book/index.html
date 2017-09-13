@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<body>
+
+<script>
+window.onload = () => {
+  document.querySelectorAll('ul#chapters a').forEach((link) => {
+    link.addEventListener('click', e => {
+      e.preventDefault()
+      const url = './' + link.getAttribute('data-chapter') + '.html'
+      $.get(url, (responseText) => {
+        document.getElementById('content').innerHTML = responseText
+      })
+
+    })
+  })
+}
+</script>
+
+<table>
+  <tr>
+    <td style='width: 200px;vertical-align: top'>
+      <ul id='chapters'>
+        <li><a href='#' data-chapter='1'>第1章</a></li>
+        <li><a href='#' data-chapter='2'>第2章</a></li>
+        <li><a href='#' data-chapter='3'>第3章</a></li>
+        <li><a href='#' data-chapter='4'>第4章</a></li>
+      </ul>
+
+    </td>
+    <td style='width: 80%' id='content'>
+
+    </td>
+  </tr>
+</table>
+<script>
+console.log('end')
+</script>
+
+</body>
+</html>
