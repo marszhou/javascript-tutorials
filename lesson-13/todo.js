@@ -205,14 +205,3 @@ function generate_todo(selector) {
   const element = document.querySelector(selector)
   todoApp.init()
 }
-
-
-function a() {
-  let i = 0
-
-  return () => {
-    i = i+1
-    return i
-  }
-}
-
