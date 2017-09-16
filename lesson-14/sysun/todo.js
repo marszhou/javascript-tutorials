@@ -29,8 +29,7 @@ const todoStore = {
     // (1)
     // your code
     // 如何根据过滤条件，返回不同的todos呢？
-    // let todosGet = localStorage.getItem('todosSave')
-    // this.todos = JSON.parse(todosGet)
+    todoApp.readTodos()
     switch(filter) {
       case 'SHOW_ALL':
         return this.todos
@@ -45,7 +44,11 @@ const todoStore = {
 }
 
 let nextTodoId = 0
-
+let todosGet = localStorage.getItem('todosSave')
+let todoArray = JSON.parse(todosGet)
+if(todoArray){
+  nextTodoId = todoArray.length
+}
 const todoApp = {
   // 初始化，插入UI
   init() {
@@ -144,8 +147,7 @@ const todoApp = {
     // 如何向todoStore.todos里插入一条todo？
     this._log('before', todoStore)
     todoStore.todos.push(todo)
-    // let todosString = JSON.stringify(todoStore.todos)
-    // localStorage.setItem('todosSave',todoString)
+    this.saveTodos()
     this._log('after', todoStore)
     // 数据模型被更改后，要重新渲染
     this._render()
@@ -168,12 +170,13 @@ const todoApp = {
     // }
 
     // new style
+    this.readTodos()
     let findIndex = todoStore.todos.findIndex( todo => todo.id === id )
     if (findIndex >= 0) {
       let findTodo = todoStore.todos[findIndex]
       findTodo.completed = !findTodo.completed
     }
-
+    this.saveTodos()
     this._render()
   },
   // 设置过滤条件
@@ -196,6 +199,16 @@ const todoApp = {
     this.filterLinks.forEach( filterLink => filterLink.classList.remove('current') )
     const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
     currentFilterLink.classList.add('current')
+  },
+  saveTodos(){
+    let todosString = JSON.stringify(todoStore.todos)
+    localStorage.setItem('todosSave',todosString)
+  },
+  readTodos(){
+    let todosGet = localStorage.getItem('todosSave')
+    if(todosGet){
+      todoStore.todos = JSON.parse(todosGet)
+    }
   }
 }
 
