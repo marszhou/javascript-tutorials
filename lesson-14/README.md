@@ -6,7 +6,7 @@
 * [localStorage.getItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem)
 * [localStorage.removeItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem)
 
-## JSON
+## JSON - JavaScript Object Notation
 
 * [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 * [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
