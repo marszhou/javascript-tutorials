@@ -39,7 +39,7 @@ xhr的ready state含义
 
 例子：发起请求，并alert返回结果 [source](./alert1/index.html)
 
-```
+```html
 <button id="ajaxButton" type="button">Make a request</button>
 
 <script>
@@ -75,7 +75,7 @@ xhr的ready state含义
 
 例子：发送数据并返回 [source](./alert2/index.html)
 
-```js
+```html
 <input type='text' id='name'/>
 <button id="ajaxButton" type="button">Make a request</button>
 
