@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script src='https://cdn.bootcss.com/jquery/3.2.1/jquery.js'></script>
+<script type="text/javascript">
+  function onSubmit(e) {
+    e.preventDefault()
+    const input = document.querySelector('input[name="query"]')
+    const loc = input.value.trim()
+    if (loc.length > 0) {
+      queryWeather(loc)
+    }
+  }
+
+  function queryWeather(loc) {
+    const url  = 'https://query.yahooapis.com/v1/public/yql?q=select%20item.condition.temp%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22'+ encodeURIComponent(loc) +'%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
+
+    $.get(url, result => {
+      document.querySelector('input[name="query"]').value = '' // 清空input
+      const temperature = ((result.query.results.channel.item.condition.temp-32)/(9/5)).toFixed(1)
+      addResult(loc, temperature)
+    })
+  }
+
+  let results = []
+  function addResult(loc, temperature) {
+    const result = {
+      time: new Date(),
+      loc: loc,
+      temperature: temperature
+    }
+    results.push(result)
+    printResults()
+  }
+
+  function printResults() {
+    document.getElementById('results').innerHTML =
+    results.map(result => (`<li>${result.time} - ${result.loc}: ${result.temperature}°C</li>`)).join('')
+  }
+</script>
+<form onsubmit="onSubmit(event)">
+<input type='text' name='query'/>
+<input type='submit'/>
+</form>
+
+<ul id='results'>
+</ul>
+
+</body>
+</html>

@@ -116,6 +116,7 @@ xhr的ready state含义
 
 * [服务器加法](./add/)
 * [使用jQuery阅读小说](./book/)
+* [使用jQuery查询世界城市气温](./weather-man/)
 
 ### window.fetch
 
