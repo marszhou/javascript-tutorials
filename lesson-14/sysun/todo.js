@@ -43,12 +43,12 @@ const todoStore = {
   }
 }
 
-let nextTodoId = 0
-let todosGet = localStorage.getItem('todosSave')
-let todoArray = JSON.parse(todosGet)
-if(todoArray){
-  nextTodoId = todoArray.length
-}
+
+// let todosGet = localStorage.getItem('todosSave')
+// let todoArray = JSON.parse(todosGet)
+// if(todoArray){
+//   nextTodoId = todoArray.length
+// }
 const todoApp = {
   // 初始化，插入UI
   init() {
@@ -130,15 +130,16 @@ const todoApp = {
     if (e.target.tagName !== 'LI') return
 
     const li = e.target
-    let id = +li.getAttribute('todo-id')
+    let id = li.getAttribute('todo-id')
     this.toggleTodo(id)
     // your code
     // 应该处理什么？
   },
   // 添加一条todo
   addTodo(text) {
+    let randomId = Math.random().toString(36).substr(2)
     const todo = {
-      id: nextTodoId++,
+      id: randomId,
       text: text,
       completed: false // 新添加的todo，completed值是false
     }
