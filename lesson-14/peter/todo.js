@@ -1,7 +1,8 @@
-function generate_todo(selector){
+// function generate_todo(selector){
   const todoStore = {
     // todos 为 todo item 列表
     todos: [
+    //[
       // {
       //   id: 0,
       //   text: 'Goto Gym',
@@ -41,13 +42,18 @@ function generate_todo(selector){
         default:
           throw new Error('未知filter值: ' + filter)
       }
-    }
+    },
   }
 
   let nextTodoId = 0
   const todoApp = {
     // 初始化，插入UI
     init() {
+      let getTodos = localStorage.getItem('todos') 
+      if(getTodos != null){
+        todoStore.todos = getTodos.split('^').map(todo => JSON.parse(todo))
+      }
+
       const html = `
         <form>
           <input type='text' name = 'todoName'/>
@@ -97,6 +103,11 @@ function generate_todo(selector){
     },
     // 更新界面
     _render() {
+      let getTodos = todoStore.todos
+      if(getTodos != null){
+        var strTodos = todoStore.todos.map(todo => JSON.stringify(todo)).join('^')
+        localStorage.setItem('todos',strTodos)
+      }
       this.renderTodoList()
       this.renderFooter()
     },
@@ -129,8 +140,9 @@ function generate_todo(selector){
     },
     // 添加一条todo
     addTodo(text) {
+      let randomID = Math.random().toString(36).substr(2)
       const todo = {
-        id: ++nextTodoId,
+        id: randomID,
         text: text,
         completed: false // 新添加的todo，completed值是false
       }
@@ -138,6 +150,7 @@ function generate_todo(selector){
       // your code
       // 如何向todoStore.todos里插入一条todo？
       todoStore.todos.push(todo)
+      //setTodo(todo)      
       // 数据模型被更改后，要重新渲染
       this._render()
     },
@@ -151,6 +164,7 @@ function generate_todo(selector){
       //   todo.id === id
       // })
       if (findIndex > 0 ){
+
         let todo = todoStore.todos[findIndex]
         todo.completed = !todo.completed
       }
@@ -185,4 +199,4 @@ function generate_todo(selector){
   // 起点
   const element = document.getElementById('root')
   todoApp.init()
-}
+// }
