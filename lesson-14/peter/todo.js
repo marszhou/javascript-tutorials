@@ -1,4 +1,4 @@
-// function generate_todo(selector){
+function generate_todo(selector){
   const todoStore = {
     // todos 为 todo item 列表
     todos: [
@@ -195,11 +195,13 @@
       let getTodos = todoStore.todos
       if(getTodos != null){
         localStorage.setItem('todos',JSON.stringify(getTodos))
+        // sessionStorage.setItem('todos',JSON.stringify(getTodos))
       }
     },
 
     getLocalStorage(){
       let getTodos = localStorage.getItem('todos') 
+      // let getTodos = sessionStorage.getItem('todos') 
       if(getTodos != null){
         todoStore.todos = JSON.parse(getTodos)
       }
@@ -209,4 +211,4 @@
   // 起点
   const element = document.getElementById('root')
   todoApp.init()
-// }
+}
