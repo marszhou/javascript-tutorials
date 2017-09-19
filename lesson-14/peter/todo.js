@@ -45,14 +45,11 @@
     },
   }
 
-  let nextTodoId = 0
+  // let nextTodoId = 0
   const todoApp = {
     // 初始化，插入UI
     init() {
-      let getTodos = localStorage.getItem('todos') 
-      if(getTodos != null){
-        todoStore.todos = getTodos.split('^').map(todo => JSON.parse(todo))
-      }
+      this.getLocalStorage()
 
       const html = `
         <form>
@@ -103,14 +100,10 @@
     },
     // 更新界面
     _render() {
-      let getTodos = todoStore.todos
-      if(getTodos != null){
-        var strTodos = todoStore.todos.map(todo => JSON.stringify(todo)).join('^')
-        localStorage.setItem('todos',strTodos)
-      }
       this.renderTodoList()
       this.renderFooter()
     },
+
     // 表单提交时
     onSubmit(e) {
       e.preventDefault()
@@ -152,6 +145,7 @@
       todoStore.todos.push(todo)
       //setTodo(todo)      
       // 数据模型被更改后，要重新渲染
+      this.updateLocalStorage()
       this._render()
     },
     // 切换todo状态
@@ -168,6 +162,8 @@
         let todo = todoStore.todos[findIndex]
         todo.completed = !todo.completed
       }
+
+      this.updateLocalStorage()
       // 数据模型被更改后，要重新渲染
       this._render()
     },
@@ -193,6 +189,20 @@
       this.filterLinks.forEach(filterLink => filterLink.classList.remove('current'))
       const currentFilterLink = element.querySelector(`[id=${todoStore.visibilityFilter}]`)
       currentFilterLink.classList.add('current')
+    },
+
+    updateLocalStorage(){
+      let getTodos = todoStore.todos
+      if(getTodos != null){
+        localStorage.setItem('todos',JSON.stringify(getTodos))
+      }
+    },
+
+    getLocalStorage(){
+      let getTodos = localStorage.getItem('todos') 
+      if(getTodos != null){
+        todoStore.todos = JSON.parse(getTodos)
+      }
     }
   }
 
