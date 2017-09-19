@@ -129,7 +129,7 @@ function generate_todo(selector) {
     // 添加一条todo
     addTodo(text) {
       const todo = {
-        id: nextTodoId++,
+        id: Math.random().toString(36).substr(2),
         text: text,
         completed: false // 新添加的todo，completed值是false
       }
@@ -142,10 +142,10 @@ function generate_todo(selector) {
       // 数据模型被更改后，要重新渲染
       this._render()
     
-    for(let i = 0 ; i < todoStore.todos.length; i++ ) {
-      let todo = todoStore.todos[i]
-        localStorage.setItem('test',JSON.stringify(todo))
-    }
+    
+      let savetodo = todoStore.todos
+        localStorage.setItem('test',JSON.stringify(savetodo))
+         JSON.parse(localStorage.getItem('test'))
   },
         
     // 切换todo状态
