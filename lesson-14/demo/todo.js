@@ -1,7 +1,11 @@
 function generate_todo(selector, storageKey) {
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
+    // 工具方法
     getVisibleTodos(filter) {
+      // (1)
+      // your code
+      // 如何根据过滤条件，返回不同的todos呢？
       const todos = this.loadTodos()
       switch(filter) {
         case 'SHOW_ALL':
@@ -14,18 +18,31 @@ function generate_todo(selector, storageKey) {
           throw new Error('未知filter值: ' + filter)
       }
     },
-    addTodo(text) {
-      const todos = this.loadTodos()
-      const todo = {
-        id: this.genTodoId(),
-        text: text,
-        completed: false
+    saveTodos(todos) {
+      localStorage.setItem(storageKey, JSON.stringify(todos))
+    },
+    loadTodos() {
+      let todos
+      try {
+        todos = JSON.parse(localStorage.getItem(storageKey))
+      } catch(e) {
+        console.log(e)
       }
+      return todos || []
+    },
+    addTodo(text) {
+      const todo = {
+        id: this.nextTodoId(),
+        text: text,
+        completed: false // 新添加的todo，completed值是false
+      }
+      const todos = this.loadTodos()
       todos.push(todo)
+      // 数据模型被更改后，要重新渲染
       this.saveTodos(todos)
     },
     toggleTodo(id) {
-      let todos = this.loadTodos()
+      const todos = this.loadTodos()
       let findIndex = todos.findIndex( todo => todo.id === id )
       if (findIndex >= 0) {
         let findTodo = todos[findIndex]
@@ -36,22 +53,13 @@ function generate_todo(selector, storageKey) {
     setVisibilityFilter(filter) {
       this.visibilityFilter = filter
     },
-    saveTodos(todos) {
-      localStorage.setItem(storageKey, JSON.stringify(todos))
-    },
-    loadTodos () {
-      let todos = null
-      try {
-        todos = JSON.parse(localStorage.getItem(storageKey))
-      } catch (e) {}
-      return todos || []
-    },
-    genTodoId() {
+    nextTodoId() {
       return Math.random().toString(36).substr(2)
     }
   }
 
   const todoApp = {
+    // 初始化，插入UI
     init() {
       const html = `
         <form>
@@ -87,6 +95,7 @@ function generate_todo(selector, storageKey) {
       this._bindHanlders()
       this.render()
     },
+    // 绑定事件
     _bindHanlders() {
       this.form = element.querySelector('form')
       this.form.addEventListener('submit', this.onSubmit.bind(this))
@@ -99,22 +108,28 @@ function generate_todo(selector, storageKey) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
+    // 更新界面
     render() {
       this.renderTodoList()
       this.renderFooter()
     },
+    // 表单提交时
     onSubmit(e) {
       e.preventDefault()
+      // your code
+      // 应该处理什么？
 
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
         todoStore.addTodo(htmlEncode(text))
       }
-      this.form.todoText.value = ''
       this.render()
+      this.form.todoText.value = ''
     },
+    // 过滤条件点击时
     onFilterLinkClick(linkElement, e) {
       e.preventDefault()
+      // your code
       const filter = linkElement.getAttribute('filter-value')
       todoStore.setVisibilityFilter(filter)
       this.render()
@@ -122,7 +137,8 @@ function generate_todo(selector, storageKey) {
     onTodoItemClick(e) {
       if (e.target.tagName !== 'LI') return
 
-      let id = e.target.getAttribute('todo-id')
+      const li = e.target
+      let id = li.getAttribute('todo-id')
       todoStore.toggleTodo(id)
       this.render()
     },
@@ -151,5 +167,9 @@ function generate_todo(selector, storageKey) {
   const element = document.querySelector(selector)
   todoApp.init()
 
-  window.addEventListener('storage', () => todoApp.render())
+  window.addEventListener('storage', (e) => {
+    if (e.key === storageKey) {
+      todoApp.render()
+    }
+  })
 }
