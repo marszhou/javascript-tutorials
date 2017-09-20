@@ -17,7 +17,7 @@ function generate_todo(selector, storageKey) {
     addTodo(text) {
       const todos = this.loadTodos()
       const todo = {
-        id: nextTodoId(),
+        id: this.genTodoId(),
         text: text,
         completed: false
       }
@@ -45,10 +45,11 @@ function generate_todo(selector, storageKey) {
         todos = JSON.parse(localStorage.getItem(storageKey))
       } catch (e) {}
       return todos || []
+    },
+    genTodoId() {
+      return Math.random().toString(36).substr(2)
     }
   }
-
-  const nextTodoId = () => Math.random().toString(36).substr(2)
 
   const todoApp = {
     init() {
@@ -104,8 +105,6 @@ function generate_todo(selector, storageKey) {
     },
     onSubmit(e) {
       e.preventDefault()
-      // your code
-      // 应该处理什么？
 
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
@@ -123,8 +122,7 @@ function generate_todo(selector, storageKey) {
     onTodoItemClick(e) {
       if (e.target.tagName !== 'LI') return
 
-      const li = e.target
-      let id = li.getAttribute('todo-id')
+      let id = e.target.getAttribute('todo-id')
       todoStore.toggleTodo(id)
       this.render()
     },
