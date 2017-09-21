@@ -5,12 +5,33 @@ function generate_todo(selector) {
     visibilityFilter: 'SHOW_ALL',
     getVisibleTodos(todos, filter) {
     },
+    postTodo(todo){
+      $.ajax(url,{
+        data: JSON.stringify(todo),
+        processData: true,
+        type: 'post',
+        contentType: 'application/json',
+        success: (todo) => {
+          console.log('post response', todo)
+        }
+      });
+    },
+    putTodo(){
+
+    },
     getTodos(callback) {
       $.ajax(URL, {
         success: callback
       })
     },
-    addTodo(text, callback) {
+    addTodo(text) {  //添加post函数
+      const todo = {
+      id: this.nextTodoId(),
+      text: text,
+      completed: false // 新添加的todo，completed值是false
+      }
+      postTodo(todo)
+      render()  //get在这里
     },
     toggleTodo(id, callback) {
     },
@@ -72,15 +93,27 @@ function generate_todo(selector) {
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
     render(todos) {
-      console.log(todos)
+      this.renderTodoList()
+      this.renderFooter()
     },
     onSubmit() {
-
+      e.preventDefault()
+      let text = this.form.todoText.value.trim()
+      if (text.length > 0) {
+        todoStore.addTodo(text)
+      }
+      this.form.todoText.value = ''
     },
     onTodoItemClick() {
 
     },
     onFilterLinkClick() {
+
+    },
+    renderTodoList(){
+
+    },
+    renderFooter(){
 
     }
   }
