@@ -3,14 +3,15 @@ function generate_todo(selector) {
 
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
+    tododata: [],
     getVisibleTodos(todos, filter) {
       switch(filter) {
         case 'SHOW_ALL':
-          return this.tododata
+          return todos
         case 'SHOW_ACTIVE':
-          return this.tododata.filter(todo => !todo.completed)
+          return todos.filter(todo => !todo.completed)
         case 'SHOW_COMPLETED':
-          return this.tododata.filter(todo => todo.completed)
+          return todos.filter(todo => todo.completed)
         default:
           throw new Error('未知filter值: ' + filter)
       }
@@ -34,6 +35,7 @@ function generate_todo(selector) {
         type: 'get',
         success: (todos) =>{
           todoStore.tododata = todos
+          console.log('get response', todos)
         }
       })
     },
@@ -50,6 +52,8 @@ function generate_todo(selector) {
       todoApp.render()
     },
     setVisibilityFilter(filter, callback) {
+      todoStore.visibilityFilter = filter
+      todoApp.render()
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
@@ -90,8 +94,7 @@ function generate_todo(selector) {
       `
       element.innerHTML = html
       this._bindHanlders()
-
-      todoStore.getTodos(this.render.bind(this))
+      this.render()
     },
     // 绑定事件
     _bindHanlders() {
@@ -106,7 +109,7 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    render(todos) {
+    render() {
       this.renderTodoList()
       this.renderFooter()
     },
@@ -117,7 +120,7 @@ function generate_todo(selector) {
         todoStore.addTodo(text)
       }
       this.form.todoText.value = ''
-      this.render()
+      this.renderTodoList()
     },
     onTodoItemClick(e) {
       if (e.target.tagName !== 'LI') return
@@ -125,8 +128,10 @@ function generate_todo(selector) {
       let id = li.getAttribute('todo-id')
       todoStore.toggleTodo(id)
     },
-    onFilterLinkClick() {
-
+    onFilterLinkClick(linkElement,e) {
+      e.preventDefault()
+      const filter = linkElement.getAttribute('filter-value')
+      todoStore.setVisibilityFilter(filter)
     },
     renderTodoList(){
       todoStore.getTodos()
