@@ -4,6 +4,16 @@ function generate_todo(selector) {
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
     getVisibleTodos(todos, filter) {
+      switch(filter) {
+        case 'SHOW_ALL':
+          return this.tododata
+        case 'SHOW_ACTIVE':
+          return this.tododata.filter(todo => !todo.completed)
+        case 'SHOW_COMPLETED':
+          return this.tododata.filter(todo => todo.completed)
+        default:
+          throw new Error('未知filter值: ' + filter)
+      }
     },
     postTodo(todo){
       $.ajax(URL,{
@@ -16,12 +26,15 @@ function generate_todo(selector) {
         }
       });
     },
-    putTodo(){
+    putTodo(id){
 
     },
-    getTodos(callback) {
+    getTodos() {
       $.ajax(URL, {
-        success: callback
+        type: 'get',
+        success: (todos) =>{
+          todoStore.tododata = todos
+        }
       })
     },
     addTodo(text) {  //添加post函数
@@ -31,9 +44,10 @@ function generate_todo(selector) {
       completed: false // 新添加的todo，completed值是false
       }
       this.postTodo(todo)
-      todoApp.render()  //get在这里
     },
     toggleTodo(id, callback) {
+      this.putTodo(id)
+      todoApp.render()
     },
     setVisibilityFilter(filter, callback) {
     },
@@ -103,18 +117,31 @@ function generate_todo(selector) {
         todoStore.addTodo(text)
       }
       this.form.todoText.value = ''
+      this.render()
     },
-    onTodoItemClick() {
-
+    onTodoItemClick(e) {
+      if (e.target.tagName !== 'LI') return
+      const li = e.target
+      let id = li.getAttribute('todo-id')
+      todoStore.toggleTodo(id)
     },
     onFilterLinkClick() {
 
     },
     renderTodoList(){
-
+      todoStore.getTodos()
+      const todos = todoStore.getVisibleTodos(todoStore.tododata,todoStore.visibilityFilter)
+      let content = todos.map(todo => `
+      <li style='text-decoration: ${ todo.completed ? 'line-through' : 'none'}' todo-id='${todo.id}'>
+        ${todo.text}
+      </li>
+      `).join('')
+      this.list.innerHTML = content
     },
     renderFooter(){
-
+      this.filterLinks.forEach( filterLink => filterLink.classList.remove('current') )
+      const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
+      currentFilterLink.classList.add('current')
     }
   }
 
