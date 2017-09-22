@@ -6,13 +6,13 @@ function generate_todo(selector) {
     getVisibleTodos(todos, filter) {
     },
     postTodo(todo){
-      $.ajax(url,{
+      $.ajax(URL,{
         data: JSON.stringify(todo),
         processData: true,
         type: 'post',
         contentType: 'application/json',
-        success: (todo) => {
-          console.log('post response', todo)
+        success: (todos) => {
+          console.log('post response', todos)
         }
       });
     },
@@ -30,8 +30,8 @@ function generate_todo(selector) {
       text: text,
       completed: false // 新添加的todo，completed值是false
       }
-      postTodo(todo)
-      render()  //get在这里
+      this.postTodo(todo)
+      todoApp.render()  //get在这里
     },
     toggleTodo(id, callback) {
     },
@@ -96,7 +96,7 @@ function generate_todo(selector) {
       this.renderTodoList()
       this.renderFooter()
     },
-    onSubmit() {
+    onSubmit(e) {
       e.preventDefault()
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
