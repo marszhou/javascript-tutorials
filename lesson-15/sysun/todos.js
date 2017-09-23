@@ -24,8 +24,13 @@ function generate_todo(selector) {
         success: callback
       });
     },
-    putTodo(id){
-
+    putTodo(id,callback){
+      $.ajax(URL + '?&todoId=id', {
+        method: 'put',
+        success: (todos) =>{
+          console.log('idValue',id,todos)
+        }
+      })
     },
     getTodos(callback) {
       $.ajax(URL, {
@@ -42,12 +47,11 @@ function generate_todo(selector) {
       this.postTodo(todo,callback)
     },
     toggleTodo(id, callback) {
-      this.putTodo(id)
-      todoApp.render()
+      this.putTodo(id,callback)
     },
     setVisibilityFilter(filter, callback) {
       todoStore.visibilityFilter = filter
-      todoApp.render()
+      this.getTodos(callback)
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
@@ -119,12 +123,12 @@ function generate_todo(selector) {
       if (e.target.tagName !== 'LI') return
       const li = e.target
       let id = li.getAttribute('todo-id')
-      todoStore.toggleTodo(id)
+      todoStore.toggleTodo(id,todoApp.render)
     },
     onFilterLinkClick(linkElement,e) {
       e.preventDefault()
       const filter = linkElement.getAttribute('filter-value')
-      todoStore.setVisibilityFilter(filter)
+      todoStore.setVisibilityFilter(filter,todoApp.render)
     },
     renderTodoList(todoObject){
       todoStore.getTodos()
