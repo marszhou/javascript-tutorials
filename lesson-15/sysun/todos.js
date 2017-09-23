@@ -25,11 +25,9 @@ function generate_todo(selector) {
       });
     },
     putTodo(id,callback){
-      $.ajax(URL + '?&todoId=id', {
+      $.ajax(URL + '?&todoId='+id, {
         method: 'put',
-        success: (todos) =>{
-          console.log('idValue',id,todos)
-        }
+        success: callback
       })
     },
     getTodos(callback) {
