@@ -61,7 +61,7 @@ function generate_todo(selector) {
 
         <img src='giphy.gif' class='loading' style='display:none'/>
 
-        <ul class='list'>
+        <ul class='list' style='display: '>
         </ul>
 
         <p>
@@ -87,6 +87,7 @@ function generate_todo(selector) {
       element.innerHTML = html
       this._bindHanlders()
       todoStore.getTodos(this.render.bind(this))
+      this.whenRequesting()
     },
     // 绑定事件
     _bindHanlders() {
@@ -102,11 +103,13 @@ function generate_todo(selector) {
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
     render(todos) {
+      this.completedLoading()
       this.renderTodoList(todos)
       this.renderFooter()
     },
     onSubmit(e) {
       e.preventDefault()
+      this.whenRequesting()
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
         todoStore.addTodo(htmlEncode(text),this.render.bind(this))
@@ -115,12 +118,14 @@ function generate_todo(selector) {
     },
     onTodoItemClick(e) {
       if (e.target.tagName !== 'LI') return
+      this.whenRequesting()
       const li = e.target
       let id = li.getAttribute('todo-id')
       todoStore.toggleTodo(id,this.render.bind(this))
     },
     onFilterLinkClick(linkElement,e) {
       e.preventDefault()
+      this.whenRequesting()
       const filter = linkElement.getAttribute('filter-value')
       todoStore.setVisibilityFilter(filter,this.render.bind(this))
     },
@@ -137,6 +142,14 @@ function generate_todo(selector) {
       this.filterLinks.forEach( filterLink => filterLink.classList.remove('current') )
       const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
       currentFilterLink.classList.add('current')
+    },
+    whenRequesting(){
+      this.list.style = 'display: none'
+      document.querySelector('.loading').style = 'display: '
+    },
+    completedLoading(){
+      this.list.style = 'display: '
+      document.querySelector('.loading').style = 'display: none'
     }
   }
   function htmlEncode(text) {
