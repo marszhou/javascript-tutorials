@@ -15,21 +15,6 @@ function generate_todo(selector) {
           throw new Error('未知filter值: ' + filter)
       }
     },
-    postTodo(todo,callback){
-      $.ajax(URL,{
-        data: JSON.stringify(todo),
-        processData: true,
-        type: 'post',
-        contentType: 'application/json',
-        success: callback
-      });
-    },
-    putTodo(id,callback){
-      $.ajax(URL + '?&todoId='+id, {
-        method: 'put',
-        success: callback
-      })
-    },
     getTodos(callback) {
       $.ajax(URL, {
         type: 'get',
@@ -42,10 +27,19 @@ function generate_todo(selector) {
       text: text,
       completed: false // 新添加的todo，completed值是false
       }
-      this.postTodo(todo,callback)
+      $.ajax(URL,{
+        data: JSON.stringify(todo),
+        processData: true,
+        type: 'post',
+        contentType: 'application/json',
+        success: callback
+      });
     },
     toggleTodo(id, callback) {
-      this.putTodo(id,callback)
+      $.ajax(URL + '?&todoId='+id, {
+        method: 'put',
+        success: callback
+      });
     },
     setVisibilityFilter(filter, callback) {
       todoStore.visibilityFilter = filter
@@ -106,14 +100,14 @@ function generate_todo(selector) {
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
     render(todos) {
-      todoApp.renderTodoList(todos)
-      todoApp.renderFooter()
+      this.renderTodoList(todos)
+      this.renderFooter()
     },
     onSubmit(e) {
       e.preventDefault()
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
-        todoStore.addTodo(text,todoApp.render)
+        todoStore.addTodo(htmlEncode(text),this.render.bind(this))
       }
       this.form.todoText.value = ''
     },
@@ -121,15 +115,14 @@ function generate_todo(selector) {
       if (e.target.tagName !== 'LI') return
       const li = e.target
       let id = li.getAttribute('todo-id')
-      todoStore.toggleTodo(id,todoApp.render)
+      todoStore.toggleTodo(id,this.render.bind(this))
     },
     onFilterLinkClick(linkElement,e) {
       e.preventDefault()
       const filter = linkElement.getAttribute('filter-value')
-      todoStore.setVisibilityFilter(filter,todoApp.render)
+      todoStore.setVisibilityFilter(filter,this.render.bind(this))
     },
     renderTodoList(todoObject){
-      todoStore.getTodos()
       const todos = todoStore.getVisibleTodos(todoObject,todoStore.visibilityFilter)
       let content = todos.map(todo => `
       <li style='text-decoration: ${ todo.completed ? 'line-through' : 'none'}' todo-id='${todo.id}'>
@@ -144,7 +137,11 @@ function generate_todo(selector) {
       currentFilterLink.classList.add('current')
     }
   }
-
+  function htmlEncode(text) {
+    const div = document.createElement('div')
+    div.innerText = text
+    return div.innerHTML
+  }
   const element = document.querySelector(selector)
   todoApp.init()
 }
