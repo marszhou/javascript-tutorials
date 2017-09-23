@@ -3,7 +3,6 @@ function generate_todo(selector) {
 
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
-    tododata: [],
     getVisibleTodos(todos, filter) {
       switch(filter) {
         case 'SHOW_ALL':
@@ -16,44 +15,41 @@ function generate_todo(selector) {
           throw new Error('未知filter值: ' + filter)
       }
     },
-    postTodo(todo){
+    postTodo(todo,callback){
       $.ajax(URL,{
         data: JSON.stringify(todo),
         processData: true,
         type: 'post',
         contentType: 'application/json',
-        success: (todos) => {
-          console.log('post response', todos)
-        }
+        success: callback
       });
     },
-    putTodo(id){
-
-    },
-    getTodos() {
-      $.ajax(URL, {
-        type: 'get',
-        success: (todos) =>{
-          todoStore.tododata = todos
-          console.log('get response', todos)
-        }
+    putTodo(id,callback){
+      $.ajax(URL + '?&todoId='+id, {
+        method: 'put',
+        success: callback
       })
     },
-    addTodo(text) {  //添加post函数
+    getTodos(callback) {
+      $.ajax(URL, {
+        type: 'get',
+        success: callback
+      })
+    },
+    addTodo(text,callback) {  //添加post函数
       const todo = {
       id: this.nextTodoId(),
       text: text,
       completed: false // 新添加的todo，completed值是false
       }
-      this.postTodo(todo)
+      this.postTodo(todo,callback)
     },
     toggleTodo(id, callback) {
-      this.putTodo(id)
-      todoApp.render()
+      this.putTodo(id,callback)
     },
     setVisibilityFilter(filter, callback) {
       todoStore.visibilityFilter = filter
-      todoApp.render()
+      this.getTodos(callback)
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
@@ -94,7 +90,7 @@ function generate_todo(selector) {
       `
       element.innerHTML = html
       this._bindHanlders()
-      this.render()
+      todoStore.getTodos(this.render.bind(this))
     },
     // 绑定事件
     _bindHanlders() {
@@ -109,33 +105,32 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    render() {
-      this.renderTodoList()
-      this.renderFooter()
+    render(todos) {
+      todoApp.renderTodoList(todos)
+      todoApp.renderFooter()
     },
     onSubmit(e) {
       e.preventDefault()
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
-        todoStore.addTodo(text)
+        todoStore.addTodo(text,todoApp.render)
       }
       this.form.todoText.value = ''
-      this.renderTodoList()
     },
     onTodoItemClick(e) {
       if (e.target.tagName !== 'LI') return
       const li = e.target
       let id = li.getAttribute('todo-id')
-      todoStore.toggleTodo(id)
+      todoStore.toggleTodo(id,todoApp.render)
     },
     onFilterLinkClick(linkElement,e) {
       e.preventDefault()
       const filter = linkElement.getAttribute('filter-value')
-      todoStore.setVisibilityFilter(filter)
+      todoStore.setVisibilityFilter(filter,todoApp.render)
     },
-    renderTodoList(){
+    renderTodoList(todoObject){
       todoStore.getTodos()
-      const todos = todoStore.getVisibleTodos(todoStore.tododata,todoStore.visibilityFilter)
+      const todos = todoStore.getVisibleTodos(todoObject,todoStore.visibilityFilter)
       let content = todos.map(todo => `
       <li style='text-decoration: ${ todo.completed ? 'line-through' : 'none'}' todo-id='${todo.id}'>
         ${todo.text}
