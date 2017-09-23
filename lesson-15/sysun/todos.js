@@ -65,6 +65,8 @@ function generate_todo(selector) {
           <button>添加</button>
         </form>
 
+        <img src='giphy.gif' class='loading' style='display:none'/>
+
         <ul class='list'>
         </ul>
 
