@@ -17,9 +17,10 @@ function generate_todo(selector) {
     },
     getTodos(callback) {
       $.ajax(URL, {
+        beforeSend: todoApp.whenRequesting(),
         type: 'get',
         success: callback
-      })
+      });
     },
     addTodo(text,callback) {  //添加post函数
       const todo = {
@@ -28,6 +29,7 @@ function generate_todo(selector) {
       completed: false // 新添加的todo，completed值是false
       }
       $.ajax(URL,{
+        beforeSend: todoApp.whenRequesting(),
         data: JSON.stringify(todo),
         processData: true,
         type: 'post',
@@ -37,6 +39,7 @@ function generate_todo(selector) {
     },
     toggleTodo(id, callback) {
       $.ajax(URL + '?&todoId='+id, {
+        beforeSend: todoApp.whenRequesting(),
         method: 'put',
         success: callback
       });
@@ -86,7 +89,7 @@ function generate_todo(selector) {
       `
       element.innerHTML = html
       this._bindHanlders()
-      todoStore.getTodos(this.render.bind(this))
+      todoStore.getTodos(this.renderTodoList.bind(this))
       this.whenRequesting()
     },
     // 绑定事件
@@ -102,34 +105,28 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    render(todos) {
-      this.completedLoading()
-      this.renderTodoList(todos)
-      this.renderFooter()
-    },
     onSubmit(e) {
       e.preventDefault()
-      this.whenRequesting()
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
-        todoStore.addTodo(htmlEncode(text),this.render.bind(this))
+        todoStore.addTodo(htmlEncode(text),this.renderTodoList.bind(this))
       }
       this.form.todoText.value = ''
     },
     onTodoItemClick(e) {
       if (e.target.tagName !== 'LI') return
-      this.whenRequesting()
       const li = e.target
       let id = li.getAttribute('todo-id')
-      todoStore.toggleTodo(id,this.render.bind(this))
+      todoStore.toggleTodo(id,this.renderTodoList.bind(this))
     },
     onFilterLinkClick(linkElement,e) {
       e.preventDefault()
-      this.whenRequesting()
       const filter = linkElement.getAttribute('filter-value')
-      todoStore.setVisibilityFilter(filter,this.render.bind(this))
+      todoStore.setVisibilityFilter(filter,this.renderTodoList.bind(this))
+      this.renderFooter()
     },
     renderTodoList(todoObject){
+      this.completedLoading()
       const todos = todoStore.getVisibleTodos(todoObject,todoStore.visibilityFilter)
       let content = todos.map(todo => `
       <li style='text-decoration: ${ todo.completed ? 'line-through' : 'none'}' todo-id='${todo.id}'>
