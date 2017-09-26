@@ -4,17 +4,54 @@ function generate_todo(selector) {
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
     getVisibleTodos(todos, filter) {
+      switch(filter){
+        case 'SHOW_ALL':
+          return todos
+        case 'SHOW_ACTIVE':
+          return todos.filter(todo => !todo.completed)
+        case 'SHOW_COMPLETED':
+          return todos.filter(todo => todo.completed)
+        default:
+          throw new Error('未知filter值: ' + filter)
+      }
     },
     getTodos(callback) {
       $.ajax(URL, {
         success: callback
-      })
+      });
     },
     addTodo(text, callback) {
+      const todo = {
+        id: this.nextTodoId(),
+        text: text,
+        completed: false // 新添加的todo，completed值是false
+      }
+
+      $.ajax(URL,{
+        data: JSON.stringify(todo),
+        processData: true,
+        type: 'post',
+        contentType: 'application/json',
+        success: (todos) => {
+          todoApp.render(todos)
+        }
+      });
     },
     toggleTodo(id, callback) {
+      $.ajax(URL + '?&todoId='+id, {
+        method: 'put',
+        success: (todos) => {
+          todoApp.render(this.getVisibleTodos(todos, this.visibilityFilter))
+        }
+      })      
     },
     setVisibilityFilter(filter, callback) {
+      this.visibilityFilter = filter
+      $.ajax(URL, {
+        success: (todos) =>{
+          todoApp.render(this.getVisibleTodos(todos, filter))
+        }
+      });
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
@@ -71,17 +108,32 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    render(todos) {
-      console.log(todos)
+    render(todos) {      
+      let addTodos = todos.map(todo =>`
+        <li id = '${todo.id}' style = 'text-decoration : ${todo.completed ? 'line-through' : 'none'}' >
+        ${todo.text}
+        </li>`
+      ).join('')
+      this.list.innerHTML = addTodos
     },
-    onSubmit() {
-
+    onSubmit(e) {
+      e.preventDefault()
+      let todoName = this.form.todoText.value.trim()
+      if (todoName.length>0){
+        todoStore.addTodo(todoName)
+      } 
     },
-    onTodoItemClick() {
-
+    onTodoItemClick(e) {
+      const li = e.target
+      li.style.cssText = "text-decoration: line-through;"
+      todoStore.toggleTodo(li.id)
     },
-    onFilterLinkClick() {
-
+    onFilterLinkClick(linkElement,e) {
+      e.preventDefault()
+      todoStore.setVisibilityFilter(linkElement.getAttribute('filter-value'))
+      this.filterLinks.forEach(filterLink => filterLink.classList.remove('current'))
+      const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
+      currentFilterLink.classList.add('current')
     }
   }
 
