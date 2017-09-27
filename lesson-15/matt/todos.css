@@ -1,0 +1,17 @@
+/*1*/
+.filter-link > .active{
+  display: none
+}
+/*2*/
+.filter-link.current > .active {
+  display: initial;
+}
+/*3*/
+.filter-link.current > .not-active {
+  display: none
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+}
