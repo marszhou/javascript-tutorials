@@ -38,7 +38,7 @@ function generate_todo(selector) {
           <button>添加</button>
         </form>
 
-        <img src='giphy.gif' class='loading' style='display:none'/>
+        <img src='../giphy.gif' class='loading' style='display:none'/>
 
         <ul class='list'>
         </ul>
@@ -118,19 +118,19 @@ function generate_todo(selector) {
 }
 
 // 请求示例代码
-// const url = './todos.php'
+const URL = './todos.php'
 
 // GET
-// $.get(url, (todos) => {
+// $.get(URL, (todos) => {
 //   console.log(todos)
 // })
 
 
 // POST
-// $.ajax(url,{
-//   data: JSON.stringify({id: 'aaaa', text: 'xxx'}),
+// $.ajax(URL,{
+//   data: JSON.stringify({id: 'bbb', text: 'xxx'}),
 //   processData: true,
-//   type: 'post',
+//   method: 'post',
 //   contentType: 'application/json',
 //   success: (todos) => {
 //     console.log('post response', todos)
@@ -138,8 +138,27 @@ function generate_todo(selector) {
 // });
 
 // PUT
-// $.ajax(url + '?&todoId=b', {
+// $.ajax(URL + '?&todoId=b', {
 //   method: 'put',
+//   success: (todos) => {
+//     console.log('put response', todos)
+//   }
+// })
+
+// PATCH
+// $.ajax(URL + '?&todoId=bbb', {
+//   method: 'patch',
+//   data: JSON.stringify({text: 'zzz'}),
+//   processData: true,
+//   contentType: 'application/json',
+//   success: (todos) => {
+//     console.log('put response', todos)
+//   }
+// })
+
+// DELETE
+// $.ajax(URL + '?&todoId=bbb', {
+//   method: 'delete',
 //   success: (todos) => {
 //     console.log('put response', todos)
 //   }
