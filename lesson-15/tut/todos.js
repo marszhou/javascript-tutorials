@@ -118,15 +118,15 @@ function generate_todo(selector) {
 }
 
 // 请求示例代码
-const URL = './todos.php'
+// const URL = './todos.php'
 
-// GET
+// 获取列表
 // $.get(URL, (todos) => {
 //   console.log(todos)
 // })
 
 
-// POST
+// 创建
 // $.ajax(URL,{
 //   data: JSON.stringify({id: 'bbb', text: 'xxx'}),
 //   processData: true,
@@ -137,7 +137,7 @@ const URL = './todos.php'
 //   }
 // });
 
-// PUT
+// 切换complete状态
 // $.ajax(URL + '?&todoId=b', {
 //   method: 'put',
 //   success: (todos) => {
@@ -145,7 +145,7 @@ const URL = './todos.php'
 //   }
 // })
 
-// PATCH
+// 修改
 // $.ajax(URL + '?&todoId=bbb', {
 //   method: 'patch',
 //   data: JSON.stringify({text: 'zzz'}),
@@ -156,7 +156,7 @@ const URL = './todos.php'
 //   }
 // })
 
-// DELETE
+// 删除
 // $.ajax(URL + '?&todoId=bbb', {
 //   method: 'delete',
 //   success: (todos) => {
