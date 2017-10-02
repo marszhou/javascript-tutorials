@@ -11,10 +11,6 @@ function generate_todo(selector) {
       })
     },
     addTodo(text, callback) {
-      setTimeout(() => {
-        this.setLoading(false)
-        callback()
-      }, 1000)
     },
     toggleTodo(id, callback) {
     },
@@ -22,10 +18,6 @@ function generate_todo(selector) {
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
-    },
-    loading: false,
-    setLoading(bool) {
-      this.loading = bool
     }
   }
 
@@ -82,34 +74,15 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    showLoading(bool) {
-      if (bool) {
-        this.loading.style.display = ''
-        this.list.style.display = 'none'
-      } else {
-        this.loading.style.display = 'none'
-        this.list.style.display = ''
-      }
-    },
 
     render(todos) {
-      this.showLoading(todoStore.loading)
-      if (todoStore.loading) {
-        return
-      }
     },
 
     onSubmit(e) {
-      e.preventDefault()
-      todoStore.setLoading(true)
-      todoStore.addTodo(null, this.render.bind(this))
-      this.render()
     },
     onTodoItemClick() {
-
     },
     onFilterLinkClick() {
-
     }
   }
 
@@ -125,10 +98,9 @@ function generate_todo(selector) {
 //   console.log(todos)
 // })
 
-
 // 创建
 // $.ajax(URL,{
-//   data: JSON.stringify({id: 'bbb', text: 'xxx'}),
+//   data: JSON.stringify({id: 'ccc1', text: 'xxx'}),
 //   processData: true,
 //   method: 'post',
 //   contentType: 'application/json',
@@ -138,7 +110,7 @@ function generate_todo(selector) {
 // });
 
 // 切换complete状态
-// $.ajax(URL + '?&todoId=b', {
+// $.ajax(URL + '?todoId=ccc', {
 //   method: 'put',
 //   success: (todos) => {
 //     console.log('put response', todos)
@@ -146,7 +118,7 @@ function generate_todo(selector) {
 // })
 
 // 修改
-// $.ajax(URL + '?&todoId=bbb', {
+// $.ajax(URL + '?todoId=bbb', {
 //   method: 'patch',
 //   data: JSON.stringify({text: 'zzz'}),
 //   processData: true,
@@ -157,7 +129,7 @@ function generate_todo(selector) {
 // })
 
 // 删除
-// $.ajax(URL + '?&todoId=bbb', {
+// $.ajax(URL + '?todoId=bbb', {
 //   method: 'delete',
 //   success: (todos) => {
 //     console.log('put response', todos)
