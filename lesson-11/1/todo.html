@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Todo</title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+
+  <div id='app'>
+
+  </div>
+
+<form>
+  <input type='text'/>
+  <button>添加</button>
+</form>
+
+<ul>
+  <li>待办事项1</li>
+  <li>Learn Javascript</li>
+  <li style='text-decoration: line-through;'>Go Shopping</li>
+</ul>
+
+<p>
+  查看：
+  <a href='#'>全部</a>,
+  <a href='#'>未完成</a>,
+  <a href='#'>已完成</a>
+</p>
+
+
+<script src='./todo.js'></script>
+<script type="text/javascript">
+  initTodo(document.getElementById('app'))
+</script>
+</body>
+</html>
