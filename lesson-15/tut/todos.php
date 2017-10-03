@@ -1,5 +1,7 @@
 <?php
 
+sleep(2.5);
+
 function findTodoIndex($todos, $todoId) {
   foreach ($todos as $i => $todo) {
     if ($todo['id'] === $todoId) {
