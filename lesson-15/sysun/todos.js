@@ -4,38 +4,49 @@ function generate_todo(selector) {
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
     getVisibleTodos(todos, filter) {
-    },
-    postTodo(todo){
-      $.ajax(URL,{
-        data: JSON.stringify(todo),
-        processData: true,
-        type: 'post',
-        contentType: 'application/json',
-        success: (todos) => {
-          console.log('post response', todos)
-        }
-      });
-    },
-    putTodo(){
-
+      switch(filter) {
+        case 'SHOW_ALL':
+          return todos
+        case 'SHOW_ACTIVE':
+          return todos.filter(todo => !todo.completed)
+        case 'SHOW_COMPLETED':
+          return todos.filter(todo => todo.completed)
+        default:
+          throw new Error('未知filter值: ' + filter)
+      }
     },
     getTodos(callback) {
       $.ajax(URL, {
+        beforeSend: todoApp.whenRequesting(),
+        type: 'get',
         success: callback
-      })
+      });
     },
-    addTodo(text) {  //添加post函数
+    addTodo(text,callback) {  //添加post函数
       const todo = {
       id: this.nextTodoId(),
       text: text,
       completed: false // 新添加的todo，completed值是false
       }
-      this.postTodo(todo)
-      todoApp.render()  //get在这里
+      $.ajax(URL,{
+        beforeSend: todoApp.whenRequesting(),
+        data: JSON.stringify(todo),
+        processData: true,
+        type: 'post',
+        contentType: 'application/json',
+        success: callback
+      });
     },
     toggleTodo(id, callback) {
+      $.ajax(URL + '?&todoId='+id, {
+        beforeSend: todoApp.whenRequesting(),
+        method: 'put',
+        success: callback
+      });
     },
     setVisibilityFilter(filter, callback) {
+      todoStore.visibilityFilter = filter
+      this.getTodos(callback)
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
@@ -51,7 +62,9 @@ function generate_todo(selector) {
           <button>添加</button>
         </form>
 
-        <ul class='list'>
+        <img src='giphy.gif' class='loading' style='display:none'/>
+
+        <ul class='list' style='display: '>
         </ul>
 
         <p>
@@ -76,8 +89,8 @@ function generate_todo(selector) {
       `
       element.innerHTML = html
       this._bindHanlders()
-
-      todoStore.getTodos(this.render.bind(this))
+      todoStore.getTodos(this.renderTodoList.bind(this))
+      this.whenRequesting()
     },
     // 绑定事件
     _bindHanlders() {
@@ -92,32 +105,55 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    render(todos) {
-      this.renderTodoList()
-      this.renderFooter()
-    },
     onSubmit(e) {
       e.preventDefault()
       let text = this.form.todoText.value.trim()
       if (text.length > 0) {
-        todoStore.addTodo(text)
+        todoStore.addTodo(htmlEncode(text),this.renderTodoList.bind(this))
       }
       this.form.todoText.value = ''
     },
-    onTodoItemClick() {
-
+    onTodoItemClick(e) {
+      if (e.target.tagName !== 'LI') return
+      const li = e.target
+      let id = li.getAttribute('todo-id')
+      todoStore.toggleTodo(id,this.renderTodoList.bind(this))
     },
-    onFilterLinkClick() {
-
+    onFilterLinkClick(linkElement,e) {
+      e.preventDefault()
+      const filter = linkElement.getAttribute('filter-value')
+      todoStore.setVisibilityFilter(filter,this.renderTodoList.bind(this))
+      this.renderFooter()
     },
-    renderTodoList(){
-
+    renderTodoList(todoObject){
+      this.completedLoading()
+      const todos = todoStore.getVisibleTodos(todoObject,todoStore.visibilityFilter)
+      let content = todos.map(todo => `
+      <li style='text-decoration: ${ todo.completed ? 'line-through' : 'none'}' todo-id='${todo.id}'>
+        ${todo.text}
+      </li>
+      `).join('')
+      this.list.innerHTML = content
     },
     renderFooter(){
-
+      this.filterLinks.forEach( filterLink => filterLink.classList.remove('current') )
+      const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
+      currentFilterLink.classList.add('current')
+    },
+    whenRequesting(){
+      this.list.style = 'display: none'
+      document.querySelector('.loading').style = 'display: '
+    },
+    completedLoading(){
+      this.list.style = 'display: '
+      document.querySelector('.loading').style = 'display: none'
     }
   }
-
+  function htmlEncode(text) {
+    const div = document.createElement('div')
+    div.innerText = text
+    return div.innerHTML
+  }
   const element = document.querySelector(selector)
   todoApp.init()
 }

@@ -1,6 +1,5 @@
 <?php
-
-sleep(1.5);
+sleep(2);
 
 function findTodoIndex($todos, $todoId) {
   foreach ($todos as $i => $todo) {
@@ -35,6 +34,8 @@ function saveTodos($todos, $filePath) {
 
 function outputTodos($todos) {
   header('Content-Type: application/json');
+  // header('Content-Type: text/plain');
+
   echo json_encode($todos);
 }
 
@@ -56,16 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   $findIndex = findTodoIndex($todos, $todoId);
   if ($findIndex > -1) {
     $todos[$findIndex]['completed'] = !$todos[$findIndex]['completed'];
-  }
-  saveTodos($todos, $filePath);
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
-  $todoId = $_GET['todoId'];
-  $findIndex = findTodoIndex($todos, $todoId);
-  if ($findIndex > -1) {
-    $newValue = json_decode(file_get_contents('php://input'), true);
-    $todos[$findIndex] = array_merge($todos[$findIndex], $newValue);
   }
   saveTodos($todos, $filePath);
 }

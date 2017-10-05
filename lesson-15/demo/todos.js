@@ -3,8 +3,8 @@ function generate_todo(selector) {
 
   const todoStore = {
     visibilityFilter: 'SHOW_ALL',
-    getVisibleTodos(todos, filter) {
-      switch(filter){
+    getVisibleTodos(todos) {
+      switch(this.visibilityFilter) {
         case 'SHOW_ALL':
           return todos
         case 'SHOW_ACTIVE':
@@ -15,46 +15,44 @@ function generate_todo(selector) {
           throw new Error('未知filter值: ' + filter)
       }
     },
-    getTodos(callback) {
+    getTodos(cb) {
+      this.setLoading(true)
+      cb()
       $.ajax(URL, {
-        success: callback
-      });
+        success: (todos) => {
+          this.setLoading(false)
+          cb(todos)
+        }
+      })
     },
     addTodo(text, callback) {
-      const todo = {
-        id: this.nextTodoId(),
-        text: text,
-        completed: false // 新添加的todo，completed值是false
-      }
-
       $.ajax(URL,{
-        data: JSON.stringify(todo),
+        data: JSON.stringify({id: this.nextTodoId(), text: text}),
         processData: true,
         type: 'post',
         contentType: 'application/json',
         success: (todos) => {
-          todoApp.render(todos)
+          callback(todos)
         }
       });
     },
     toggleTodo(id, callback) {
-      $.ajax(URL + '?&todoId='+id, {
+      $.ajax(URL + '?todoId=' + id, {
         method: 'put',
         success: (todos) => {
-          todoApp.render(this.getVisibleTodos(todos, this.visibilityFilter))
+          callback(todos)
         }
-      })      
+      })
     },
-    setVisibilityFilter(filter, callback) {
+    setVisibilityFilter(filter) {
       this.visibilityFilter = filter
-      $.ajax(URL, {
-        success: (todos) =>{
-          todoApp.render(this.getVisibleTodos(todos, filter))
-        }
-      });
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
+    },
+    loading: false,
+    setLoading(bool) {
+      this.loading = bool
     }
   }
 
@@ -66,6 +64,8 @@ function generate_todo(selector) {
           <input type='text' name='todoText' autocomplete='off'/>
           <button>添加</button>
         </form>
+
+        <img src='../giphy.gif' class='loading' style='display:none'/>
 
         <ul class='list'>
         </ul>
@@ -93,10 +93,14 @@ function generate_todo(selector) {
       element.innerHTML = html
       this._bindHanlders()
 
-      todoStore.getTodos(this.render.bind(this))
+      this.render = this.render.bind(this)
+
+      todoStore.getTodos(this.render)
     },
     // 绑定事件
     _bindHanlders() {
+      this.loading = element.querySelector('.loading')
+
       this.form = element.querySelector('form')
       this.form.addEventListener('submit', this.onSubmit.bind(this))
 
@@ -108,51 +112,90 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    render(todos) {      
-      let addTodos = todos.map(todo =>`
-        <li id = '${todo.id}' style = 'text-decoration : ${todo.completed ? 'line-through' : 'none'}' >
-        ${todo.text}
-        </li>`
-      ).join('')
-      this.list.innerHTML = addTodos
+
+    render(todos) {
+      this.renderTodoList(todos)
+      this.renderFooter()
     },
-    onSubmit(e) {
-      e.preventDefault()
-      let todoName = this.form.todoText.value.trim()
-      if (todoName.length>0){
-        todoStore.addTodo(todoName)
-      } 
+
+    renderTodoList(todos) {
+      if (todoStore.loading) {
+        this.loading.style.display = ''
+        this.list.style.display = 'none'
+      } else {
+        this.loading.style.display = 'none'
+        this.list.style.display = ''
+      }
+
+      if (!todos) {
+        return
+      }
+
+      const visibleTodos = todoStore.getVisibleTodos(todos)
+      // console.log(visibleTodos)
+      let content = visibleTodos.map(todo => `
+        <li style='text-decoration: ${ todo.completed ? 'line-through' : 'none'}' todo-id='${todo.id}'>
+          ${todo.text}
+        </li>
+      `).join('')
+      this.list.innerHTML = content
     },
-    onTodoItemClick(e) {
-      const li = e.target
-      li.style.cssText = "text-decoration: line-through;"
-      todoStore.toggleTodo(li.id)
-    },
-    onFilterLinkClick(linkElement,e) {
-      e.preventDefault()
-      todoStore.setVisibilityFilter(linkElement.getAttribute('filter-value'))
-      this.filterLinks.forEach(filterLink => filterLink.classList.remove('current'))
+
+    renderFooter() {
+      this.filterLinks.forEach( filterLink => filterLink.classList.remove('current') )
       const currentFilterLink = element.querySelector(`[filter-value=${todoStore.visibilityFilter}]`)
       currentFilterLink.classList.add('current')
+    },
+
+    onSubmit(e) {
+      e.preventDefault()
+      let text = this.form.todoText.value.trim()
+
+      if (text.length > 0) {
+        todoStore.addTodo(htmlEncode(text), this.render)
+      }
+      this.form.todoText.value = ''
+    },
+    onTodoItemClick(e) {
+      if (e.target.tagName !== 'LI') return
+
+      const li = e.target
+      let id = li.getAttribute('todo-id')
+      todoStore.toggleTodo(id, this.render)
+    },
+    onFilterLinkClick(linkElement, e) {
+      e.preventDefault()
+      // your code
+      const filter = linkElement.getAttribute('filter-value')
+      todoStore.setVisibilityFilter(filter)
+      todoStore.getTodos(this.render)
     }
+  }
+
+  function htmlEncode(text) {
+    const div = document.createElement('div')
+    div.innerText = text
+    return div.innerHTML
   }
 
   const element = document.querySelector(selector)
   todoApp.init()
 }
 
+// console.log(z)
+
 // 请求示例代码
 // const url = './todos.php'
 
 // GET
-// $.get(url, (todos) => {
-//   console.log(todos)
+// $.get(url, (json) => {
+//   // const todos = JSON.parse(text)
+//   console.log(json)
 // })
-
 
 // POST
 // $.ajax(url,{
-//   data: JSON.stringify({id: 'aaaa', text: 'xxx'}),
+//   data: JSON.stringify({id: 'aaaa1', text: 'xxx'}),
 //   processData: true,
 //   type: 'post',
 //   contentType: 'application/json',
@@ -162,7 +205,7 @@ function generate_todo(selector) {
 // });
 
 // PUT
-// $.ajax(url + '?&todoId=b', {
+// $.ajax(url + '?&todoId=aaaa1', {
 //   method: 'put',
 //   success: (todos) => {
 //     console.log('put response', todos)

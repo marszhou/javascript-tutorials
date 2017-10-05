@@ -11,10 +11,6 @@ function generate_todo(selector) {
       })
     },
     addTodo(text, callback) {
-      setTimeout(() => {
-        this.setLoading(false)
-        callback()
-      }, 1000)
     },
     toggleTodo(id, callback) {
     },
@@ -22,10 +18,6 @@ function generate_todo(selector) {
     },
     nextTodoId() {
       return Math.random().toString(36).substr(2)
-    },
-    loading: false,
-    setLoading(bool) {
-      this.loading = bool
     }
   }
 
@@ -38,7 +30,7 @@ function generate_todo(selector) {
           <button>添加</button>
         </form>
 
-        <img src='giphy.gif' class='loading' style='display:none'/>
+        <img src='../giphy.gif' class='loading' style='display:none'/>
 
         <ul class='list'>
         </ul>
@@ -82,34 +74,15 @@ function generate_todo(selector) {
       this.list = element.querySelector('.list')
       this.list.addEventListener('click', this.onTodoItemClick.bind(this))
     },
-    showLoading(bool) {
-      if (bool) {
-        this.loading.style.display = ''
-        this.list.style.display = 'none'
-      } else {
-        this.loading.style.display = 'none'
-        this.list.style.display = ''
-      }
-    },
 
     render(todos) {
-      this.showLoading(todoStore.loading)
-      if (todoStore.loading) {
-        return
-      }
     },
 
     onSubmit(e) {
-      e.preventDefault()
-      todoStore.setLoading(true)
-      todoStore.addTodo(null, this.render.bind(this))
-      this.render()
     },
     onTodoItemClick() {
-
     },
     onFilterLinkClick() {
-
     }
   }
 
@@ -118,28 +91,46 @@ function generate_todo(selector) {
 }
 
 // 请求示例代码
-// const url = './todos.php'
+// const URL = './todos.php'
 
-// GET
-// $.get(url, (todos) => {
+// 获取列表
+// $.get(URL, (todos) => {
 //   console.log(todos)
 // })
 
-
-// POST
-// $.ajax(url,{
-//   data: JSON.stringify({id: 'aaaa', text: 'xxx'}),
+// 创建
+// $.ajax(URL,{
+//   data: JSON.stringify({id: 'ccc1', text: 'xxx'}),
 //   processData: true,
-//   type: 'post',
+//   method: 'post',
 //   contentType: 'application/json',
 //   success: (todos) => {
 //     console.log('post response', todos)
 //   }
 // });
 
-// PUT
-// $.ajax(url + '?&todoId=b', {
+// 切换complete状态
+// $.ajax(URL + '?todoId=ccc', {
 //   method: 'put',
+//   success: (todos) => {
+//     console.log('put response', todos)
+//   }
+// })
+
+// 修改
+// $.ajax(URL + '?todoId=bbb', {
+//   method: 'patch',
+//   data: JSON.stringify({text: 'zzz'}),
+//   processData: true,
+//   contentType: 'application/json',
+//   success: (todos) => {
+//     console.log('put response', todos)
+//   }
+// })
+
+// 删除
+// $.ajax(URL + '?todoId=bbb', {
+//   method: 'delete',
 //   success: (todos) => {
 //     console.log('put response', todos)
 //   }

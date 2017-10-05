@@ -1,7 +1,5 @@
 <?php
 
-sleep(1.5);
-
 function findTodoIndex($todos, $todoId) {
   foreach ($todos as $i => $todo) {
     if ($todo['id'] === $todoId) {
@@ -62,10 +60,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   $todoId = $_GET['todoId'];
+  $content = json_decode(file_get_contents('php://input'), true);
   $findIndex = findTodoIndex($todos, $todoId);
   if ($findIndex > -1) {
-    $newValue = json_decode(file_get_contents('php://input'), true);
-    $todos[$findIndex] = array_merge($todos[$findIndex], $newValue);
+    $todos[$findIndex] = array_merge($todos[$findIndex], $content);
+  }
+  saveTodos($todos, $filePath);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+  $todoId = $_GET['todoId'];
+  $findIndex = findTodoIndex($todos, $todoId);
+  if ($findIndex > -1) {
+    array_splice($todos, $findIndex, 1);
   }
   saveTodos($todos, $filePath);
 }
