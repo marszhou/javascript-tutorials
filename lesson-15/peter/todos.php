@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $newTodo = json_decode(file_get_contents('php://input'), true);
+  $newTodo = json_decode($HTTP_RAW_POST_DATA, true);
   array_push($todos, $newTodo);
   saveTodos($todos, $filePath);
 }
