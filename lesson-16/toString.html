@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const a = {
+      toString() {
+        return '这是一个a'
+      }
+    }
+    const b = []
+    const c = new Date()
+    const d = 1
+    const e = false
+
+    console.log({ a: a.toString(), b: b.toString(), c: c.toString(), d: d.toString(), e: e.toString()})
+
+    const todo = {
+      id: 1, text: 'goto school', completed: true,
+      toString() {
+        return this.id + ":" + this.text
+      }
+    }
+
+    console.log(todo + '')
+
+
+  </script>
+</body>
+</html>

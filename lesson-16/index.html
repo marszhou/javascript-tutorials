@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <div id="output"></div>
+
+</head>
+<body>
+  <div id='output'></div>
+  <!-- Load Babel -->
+  <script src="./babel-browser.min.js"></script>
+  <!-- Your custom script here -->
+  <script type="text/babel">
+  const getMessage = () => "Hello World";
+  document.getElementById('output').innerHTML = getMessage();
+  </script>
+
+<script type="text/babel">
+  class E {
+    constructor() {
+      this.b = 10
+    }
+
+    a() {
+      return 10
+    }
+  }
+
+  class F extends E {
+    constructor() {
+      super()
+      this.c = 100
+    }
+    static d = 1000
+    e = 2000
+    a() {
+      console.log(super.a())
+    }
+  }
+
+  class TV {
+    static brands = ['panda', 'lg', 'sony']
+
+    // static aaa() {
+    //   console.log('aaa')
+    // }
+
+    x = function() {
+      console.log(this)
+    }
+
+    constructor() {
+      this.brand = TV.brands[0]
+    }
+  }
+
+  function TV() {
+    this.x = function() {
+      console.log(this)
+
+    }
+  }
+
+  // console.log(F.d)
+  // const a = new F
+  // console.log(a)
+  // delete a.c
+  // console.log(a)
+  // delete a.e
+  // console.log(a)
+  // console.log(F.e)
+
+</script>
+
+<script>
+  class A{}
+  class B extends A{}
+
+</script>
+</body>
+</html>

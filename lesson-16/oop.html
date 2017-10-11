@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Person {
+      constructor(name) {
+        this.name = name
+      }
+      setPet(pet) {
+        this.pet = pet
+      }
+    }
+
+    class Man extends Person{
+      constructor(name) {
+        super(name)
+      }
+    }
+
+    const m = new Man('Zhou')
+
+    // Pet -> Object
+    class Pet {
+      constructor(name) {
+        console.log('constructor called: '+ name)
+        this.name = name
+        this.age = -1
+        this.color = 'unknown'
+      }
+
+      setAge(age) {
+        this.age = +age
+      }
+
+      setColor(color) {
+        this.color = (typeof color === 'string') ? (
+          color[0] === '#' ? color : '#' + color
+        ) : '[invalid]'
+      }
+
+      sound() {
+        return '...'
+      }
+
+      toString() {
+        return `name=${this.name}, age=${this.age}, color=${this.color}`
+      }
+    }
+    // Cat -> Pet -> Object
+    class Cat extends Pet {
+
+      constructor(price, name) {
+        console.log('cat constructor')
+        super(name)
+        this.price = price
+      }
+
+      sound() {
+        return '喵'
+      }
+
+      toString() {
+        return '🐱这是一只猫🐱' + super.toString()
+      }
+
+      play() {
+        console.log(this.name + ' is playing')
+
+      }
+    }
+
+    class BeijingCat extends Cat {
+
+    }
+
+    class Plant {
+
+    }
+
+    const a = new Pet('小强')
+    const b = new Pet('旺财')
+    // a.setColor('123455')
+    // const a = {name: '小强'}
+    // console.log(a, {name: "宠物"})
+    // console.log(a, b)
+    // console.log(typeof a) // 都返回object
+    // console.log(a instanceof Pet)
+    // console.log(a instanceof Plant)
+
+    const c = new Cat(199, 'Tom')
+    console.log(c instanceof Cat, c instanceof Pet, c instanceof Object, c instanceof Plant)
+    const d = new BeijingCat(1999, 'OOO')
+    m.setPet(c)
+    m.pet.sound()
+
+  </script>
+
+</body>
+</html>
