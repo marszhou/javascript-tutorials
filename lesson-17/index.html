@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<div id='output'></div>
+<script src="/babel-browser.min.js"></script>
+
+<script type="text/babel">
+class A {
+
+  static s = '静态成员';
+  static func() { // 静态成员方法，调用方式A.func()
+    // 这里如果写this就是指A本身
+  }
+  // 可声明成员变量
+  x = 1
+  y = 2
+
+  // 构造方法，不是必须的
+  constructor(xValue, yValue) {
+    this.x = xValue
+    this.y = yValue
+  }
+
+  doThisOne() { // 成员方法
+    // 这里的this是指被实例化后的对象
+    console.log(this.x, this.y)
+  }
+}
+
+class B extends A {
+  // 可省略构造方法，但如果一个子类使用了构造方法则必须调用父级构造方法
+  constructor() {
+    // 使用super特殊变量调用
+    super(1, 2) // 此行必须，否则报错，注释掉这行看看
+    this.z = 10
+  }
+
+  // 覆盖父类方法
+  doThisOne() {
+    super.doThisOne() // 此行不必须
+    console.log(this.z)
+  }
+
+  doThatOne() {
+    //...
+  }
+}
+
+const a = new A()
+console.log("a instanceof B", a instanceof B) // false
+console.log("a instanceof A", a instanceof A) // true
+console.log("a instanceof Object", a instanceof Object) // true
+
+const b = new B()
+console.log("b instanceof B", b instanceof B) // true
+console.log("b instanceof A", b instanceof A) // true
+console.log("b instanceof Object", b instanceof Object) // true
+
+</script>
+</body>
+</html>
