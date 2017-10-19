@@ -52,10 +52,15 @@ class B extends A {
 实例化
 
 ```javascript
+const a = new A()
+console.log("a instanceof B", a instanceof B) // false
+console.log("a instanceof A", a instanceof A) // true
+console.log("a instanceof Object", a instanceof Object) // true
+
 const b = new B()
-console.log(b instanceOf B) // true
-console.log(b instanceOf A) // true
-console.log(b instanceOf Object) // true
+console.log("b instanceof B", b instanceof B) // true
+console.log("b instanceof A", b instanceof A) // true
+console.log("b instanceof Object", b instanceof Object) // true
 ```
 
 ## 原型链
@@ -204,3 +209,7 @@ function sum(n) {
 }
 console.log(sum(10));
 ```
+
+
+
+
