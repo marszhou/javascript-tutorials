@@ -14,3 +14,8 @@ f(11) // 11 -> 二进制为1011，应返回3
 ```
 
 [答案](./answer.js)
+
+参考
+
+* [按位运算](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators)
+* [原码、反码、补码详解](http://www.cnblogs.com/zhangziqiu/archive/2011/03/30/ComputerCode.html)
