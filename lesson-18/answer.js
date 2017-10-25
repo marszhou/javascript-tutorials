@@ -19,11 +19,9 @@ function f1(n) {
   let count = 0;
   do {
     const mod = n % 2;
-    const next = Math.floor(n / 2);
+    const next = n >> 1;
 
-    if (mod) {
-      count += 1;
-    }
+    count += mod;
     if (next === 0) {
       break;
     } else {
@@ -35,8 +33,8 @@ function f1(n) {
 
 // 求模递归版
 function f2(n, count = 0) {
-  count += n % 2 === 0 ? 0 : 1;
-  const next = Math.floor(n / 2);
+  count += n % 2;
+  const next = n >> 1;
   if (next === 0) {
     return count;
   }
@@ -51,7 +49,7 @@ function f3(n) {
     if (n & 1) {
       count += 1;
     }
-    i = n >> 1;
+    n = n >> 1;
   }
   return count;
 }
@@ -82,4 +80,23 @@ function f5(n) {
 function f6(n) {
   const tmp = n - ((n >> 1) & 033333333333) - ((n >> 2) & 011111111111);
   return ((tmp + (tmp >> 3)) & 030707070707) % 63;
+}
+
+function benchmarks(funcs, runTimes) {
+  return funcs.map(func => ({
+    name: func.name,
+    ...benchmark(func, runTimes)
+  }));
+}
+
+function benchmark(func, runTimes) {
+  const start = Date.now();
+  let loopTimes = 0;
+  for (let i = 0; i < runTimes; i++) {
+    ++loopTimes;
+    let n = Math.floor(Math.random() * Math.pow(2, 31));
+    func(n);
+  }
+  const end = Date.now();
+  return {loopTimes, used:end - start};
 }
