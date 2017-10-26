@@ -1,167 +1,211 @@
+function sum(n) {
+  const functions = { true: sum, false: () => 0 };
+  return n + functions[!!(n-1) + ""](n - 1);
+}
+console.log(sum(10));
+
+if (typeof Object.create !== "function") {
+  Object.create = function(proto, propertiesObject) {
+    if (
+      !(
+        proto === null ||
+        typeof proto === "object" ||
+        typeof proto === "function"
+      )
+    ) {
+      throw TypeError("Argument must be an object, or null");
+    }
+    var temp = new Object();
+    temp.__proto__ = proto;
+    if (typeof propertiesObject === "object")
+      Object.defineProperties(temp, propertiesObject);
+    return temp;
+  };
+}
+
 function inherit(p) {
-  if (p == null) throw TypeError()
+  if (p == null) throw TypeError();
   if (Object.create) {
-    return Object.create(p)
+    return Object.create(p);
   }
 
-  var t = typeof p
-  if (t !== 'object' && t !== 'function') throw TypeError()
+  var t = typeof p;
+  if (t !== "object" && t !== "function") throw TypeError();
 
   function f() {}
-  f.prototype = p
-  return new f()
+  f.prototype = p;
+  return new f();
 }
 
 function classOf(o) {
-  if (o === null) return 'Null'
-  if (o === undefined) return 'Undefined'
-  return Object.prototype.toString.call(o).slice(8, -1)
+  if (o === null) return "Null";
+  if (o === undefined) return "Undefined";
+  return Object.prototype.toString.call(o).slice(8, -1);
 }
 
 function addPrivateProperty(o, name, predicate) {
-  var value
+  var value;
 
   Object.defineProperty(o, name, {
     get: function() {
-      return value
+      return value;
     },
     set: function(v) {
       if (predicate && !predicate(v)) {
-        throw Error('set' + name + ': invalid value ' + v)
+        throw Error("set" + name + ": invalid value " + v);
       } else {
-        value = v
+        value = v;
       }
     },
     enumerable: true,
     configurable: true
-  })
+  });
 }
 
 function not(f) {
   return function() {
-    var result = f.apply(this, arguments)
-    return !result
-  }
+    var result = f.apply(this, arguments);
+    return !result;
+  };
 }
 
 function memorize(f) {
-  var cache = {}
+  var cache = {};
   return function() {
-    var key = arguments.length + Array.prototype.join.call(arguments, ',')
+    var key = arguments.length + Array.prototype.join.call(arguments, ",");
     if (key in cache) {
-      return cache[key]
+      return cache[key];
     } else {
-      cache[key] = f.apply(this, arguments)
-      return cache[key]
+      cache[key] = f.apply(this, arguments);
+      return cache[key];
     }
-  }
+  };
 }
 
-Object.defineProperty(
-  Object.prototype,
-  'extend', {
-    writable: true,
-    enumerable: false,
-    configurable: true,
-    value: function(o) {
-      var names = Object.getOwnPropertyNames(o)
-      for (var i = 0; i < names.length; i++) {
-        if (names[i] in this) {
-          continue
-        }
-        var desc = Object.getOwnPropertyDescriptor(o, names[i])
-        Object.defineProperty(this, names[i], desc)
+Object.defineProperty(Object.prototype, "extend", {
+  writable: true,
+  enumerable: false,
+  configurable: true,
+  value: function(o) {
+    var names = Object.getOwnPropertyNames(o);
+    for (var i = 0; i < names.length; i++) {
+      if (names[i] in this) {
+        continue;
       }
+      var desc = Object.getOwnPropertyDescriptor(o, names[i]);
+      Object.defineProperty(this, names[i], desc);
     }
   }
-)
+});
 
 Range = function() {
-  console.log(1)
-}
+  console.log(1);
+};
 
 Object.assign(Range.prototype, {
   print() {
-    console.log('aaa')
+    console.log("aaa");
   }
-})
+});
 
 function type(o) {
-  var t, c, n
+  var t, c, n;
 
-  if (o === null) return 'null'
-  if (o !== o) return 'nan'
-  if ((t = typeof o) !== 'object') return t
-  if ((c = classof(o)) !== 'Object') return c
-  if (o.constructor && typeof o.constructor === 'function' &&
-    (n = o.constructor.getName())) return n
-  return 'Object'
+  if (o === null) return "null";
+  if (o !== o) return "nan";
+  if ((t = typeof o) !== "object") return t;
+  if ((c = classof(o)) !== "Object") return c;
+  if (
+    o.constructor &&
+    typeof o.constructor === "function" &&
+    (n = o.constructor.getName())
+  )
+    return n;
+  return "Object";
 }
 
 function classof(o) {
-  return Object.prototype.toString.call(o).slice(8, -1)
+  return Object.prototype.toString.call(o).slice(8, -1);
 }
 
 Function.prototype.getName = function() {
-  if ('name' in this) return this.name
-  return this.name = this.toString().match(/function\s*([^(]*)\(/)[1]
-}
+  if ("name" in this) return this.name;
+  return (this.name = this.toString().match(/function\s*([^(]*)\(/)[1]);
+};
 
-function quacks(o /*, ... */ ) {
+function quacks(o /*, ... */) {
   for (var i = 1; i < arguments.length; i++) {
-    var arg = arguments[i]
+    var arg = arguments[i];
     switch (typeof arg) {
-      case 'string':
-        if (typeof o[arg] !== 'function') return false
+      case "string":
+        if (typeof o[arg] !== "function") return false;
         continue;
-      case 'function':
-        arg = arg.prototype
-      case 'object':
+      case "function":
+        arg = arg.prototype;
+      case "object":
         for (var m in arg) {
-          if (typeof arg[m] !== 'function') continue
-          if (typeof o[m] !== 'function') return false
+          if (typeof arg[m] !== "function") continue;
+          if (typeof o[m] !== "function") return false;
         }
-        break
+        break;
     }
   }
-  return true
+  return true;
 }
 
 function F(v) {
-  this.value = v
+  this.value = v;
 }
 
 F.prototype.compareTo = function(that) {
-  return this.value - that.value
-}
+  return this.value - that.value;
+};
 
 function defineSubclass(superclass, constructor, methods, statics) {
-  constructor.prototype = inherit(superclass.prototype)
-  constructor.prototype.constructor = constructor
-  if (methods) extend(constructor.prototype, methods)
-  if (statics) extend(constructor, statics)
-  return constructor
+  constructor.prototype = inherit(superclass.prototype);
+  constructor.prototype.constructor = constructor;
+  if (methods) extend(constructor.prototype, methods);
+  if (statics) extend(constructor, statics);
+  return constructor;
 }
 
 if (!Function.prototype.softBind) {
   Function.prototype.softBind = function(obj) {
-    var fn = this,
-      curried = [].slice.call(arguments, 1),
-      bound = function bound() {
-        return fn.apply(
-          (!this ||
-            (typeof window !== "undefined" &&
-              this === window) ||
-            (typeof global !== "undefined" &&
-              this === global)
-          ) ? obj : this,
-          curried.concat.apply(curried, arguments)
-        );
-      };
+    var fn = this;
+    var curried = [].slice.call(arguments, 1);
+    var bound = function bound() {
+      return fn.apply(
+        !this ||
+        (typeof window !== "undefined" && this === window) ||
+        (typeof global !== "undefined" && this === global)
+          ? obj
+          : this,
+        curried.concat.apply(curried, arguments)
+      );
+    };
     bound.prototype = Object.create(fn.prototype);
     return bound;
   };
 }
+
+var a = {
+  v1: 1,
+  v2: 2,
+  print: function(v3) {
+    console.log(this.v1, this.v2, v3, arguments);
+  }
+};
+
+var b = {
+  v1: "a",
+  v2: "b"
+};
+
+var v1 = "x";
+var v2 = "y";
+
+var p = a.print.softBind(b, "ooo");
+p(9, 8, 7);
 
 // iterator
 
@@ -182,7 +226,7 @@ Object.defineProperty(myObject, Symbol.iterator, {
       next: function() {
         return {
           value: o[ks[idx++]],
-          done: (idx > ks.length)
+          done: idx > ks.length
         };
       }
     };
@@ -264,10 +308,12 @@ function Widget(width, height) {
 
 Widget.prototype.render = function($where) {
   if (this.$elem) {
-    this.$elem.css({
-      width: this.width + "px",
-      height: this.height + "px"
-    }).appendTo($where);
+    this.$elem
+      .css({
+        width: this.width + "px",
+        height: this.height + "px"
+      })
+      .appendTo($where);
   }
 };
 
@@ -313,10 +359,12 @@ var Widget = {
   },
   insert: function($where) {
     if (this.$elem) {
-      this.$elem.css({
-        width: this.width + "px",
-        height: this.height + "px"
-      }).appendTo($where);
+      this.$elem
+        .css({
+          width: this.width + "px",
+          height: this.height + "px"
+        })
+        .appendTo($where);
     }
   }
 };
@@ -350,3 +398,24 @@ $(document).ready(function() {
   btn1.build($body);
   btn2.build($body);
 });
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError(
+      "Super expression must either be null or a function, not " +
+        typeof superClass
+    );
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass);
+}
