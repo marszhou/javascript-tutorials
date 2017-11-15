@@ -47,6 +47,8 @@
 * 在线工具
   * [JSBin](http://jsbin.com/)
   * [GitHub](https://github.com)
+* React
+  * [文档](https://reactjs.org/)
 
 ## 关于调试
 
