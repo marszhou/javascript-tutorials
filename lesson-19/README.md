@@ -188,3 +188,5 @@ github上有很多react的模板(boilerplate)项目，是为了让人能快速�
 * React Component
 * VS Code Reactjs snippets
 * Material Icon Theme
+
+字体 [Fira Code](https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions)
