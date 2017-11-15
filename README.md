@@ -18,6 +18,11 @@
 * [lesson-15 - 综合 - todo AJAX版](./lesson-15)
 * [lesson-16 - js - 面向对象OOP es6语法及概念介绍](./lesson-16)
 * [lesson-17 - js - 面向对象OOP原理及原型链](./lesson-17)
+* [lesson-18 - js - Promise](./lesson-18)
+
+----
+
+* [lesson-19 - react - 环境搭建](./lesson-19)
 
 ## Links
 
