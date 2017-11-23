@@ -184,6 +184,11 @@ class Welcome extends React.Component {
 
     * componentDidCatch()
 
+* 错误的使用方法
+    * 在render中调用setState - 会造成死循环
+    * 直接修改state值没有使用setState方法
+    * 试图修改props值 - props值应该视为只读的，不要去直接修改
+
 
 参考资料：
 
