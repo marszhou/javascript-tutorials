@@ -99,7 +99,7 @@ JSX语法可以直接使用html模板外有什么要点呢？★
 
 ## 两种创建React Component的方法
 
-### 函数组件(Functional Component)
+### 函数组件(Functional Component) ★
 
 或者叫无状态组件(Stateless Component)，顾名思义，这种组件是没有自己保存状态的，它用来显示的参数全部来自外部传递进来的属性(props)和上下文(context)
 
