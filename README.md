@@ -23,6 +23,7 @@
 ----
 
 * [lesson-19 - react - 环境搭建](./lesson-19)
+* [lesson-20 - react - 组件](./lesson-20)
 
 ## Links
 
