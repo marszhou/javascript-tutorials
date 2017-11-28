@@ -44,10 +44,11 @@ class Calculator extends React.Component {
               value={value}
               size={size}
               onClick={this.handleButtonClick}
-            >{text}</Button>
+            >
+              {text}
+            </Button>
           );
         })}
-
       </ul>
     );
   }
