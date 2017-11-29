@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Display = ({ value }) => {
-  return <li className="size4 output">{value}</li>;
+  return <li className="size4 output" title={value}>{value}</li>;
 };
 
 Display.propTypes = {

@@ -52,7 +52,10 @@ ul#cal li.output {
   color: white;
   text-align: right;
   padding-right: 6px;
-  font-family: "Shree Devanagari 714"
+  font-family: "Shree Devanagari 714";
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 ul#cal li.func {
