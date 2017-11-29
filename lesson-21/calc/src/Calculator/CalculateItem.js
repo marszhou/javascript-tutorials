@@ -2,16 +2,13 @@ import { isUndefined } from 'lodash';
 import { calculate, isFloat } from '../utils';
 
 export default class CalculateItem {
-  constructor(
-    { v1, operator, v2, hiddenFactor, hiddenOperator } = {},
-    cursor = 1
-  ) {
+  constructor({ v1, operator, v2, last = {} } = {}, cursor = 1) {
     this.v1 = v1;
     this.operator = operator;
     this.v2 = v2;
-    this.hiddenFactor = hiddenFactor;
-    this.hiddenOperator = hiddenOperator;
-    this.cursor = cursor; // 输入指针
+    this.last = last;
+
+    this.cursor = cursor; // 输入指针, 1输入v1，2输入op，3输入v2，>3 无效
     this.result = undefined;
   }
 
@@ -42,54 +39,53 @@ export default class CalculateItem {
       }
     }
     this.operator = operator;
-    this.cursor = 2;
+    this.cursor = 3;
     return true;
   }
 
   getCurrentCursorValue() {
     if (this.cursor === 1) {
       return this.v1;
+    } else if (this.cursor === 3) {
+      return this.v2;
     }
-    return this.v2;
   }
 
   setCurrentCursorValue(v) {
     if (this.cursor === 1) {
       this.v1 = v;
-    } else {
+    } else if (this.cursor === 3) {
       this.v2 = v;
     }
   }
 
-  getChangeKeyName() {
-    if (this.cursor === 1) {
-      return 'v1';
+  currentDisplayKeyName() {
+    if (!isUndefined(this.v1) && !isUndefined(this.v2)) {
+      return 'v2';
     }
-    if (this.cursor === 2) {
-      if (isUndefined(this.v2)) {
-        return 'v1';
-      } else {
-        return 'v2';
-      }
-    }
+    return 'v1';
   }
 
-  executePercent() {
-    const key = this.getChangeKeyName();
-    const value = +this[key];
-    this[key] = value * 0.01;
-    return this[key];
+  getCurrentDisplayValue() {
+    return this[this.currentDisplayKeyName()];
   }
 
-  executeTogglePositive() {
-    const key = this.getChangeKeyName();
+  executeChange(type) {
+    const key = this.currentDisplayKeyName();
     const value = +this[key];
-    this[key] = -value;
-    return this[key];
+    switch (type) {
+      case 'percent':
+        this[key] = value * 0.01;
+        break;
+      case 'toggle_positive':
+        this[key] = -value;
+        break;
+      default:
+    }
   }
 
   insertDigit(digit) {
-    if (this.cursor >= 2 && isUndefined(this.operator)) {
+    if (!(this.cursor === 1 || this.cursor === 3)) {
       return; // 错误
     }
     const v = this.getCurrentCursorValue();
@@ -107,7 +103,7 @@ export default class CalculateItem {
   }
 
   insertDot() {
-    if (this.cursor >= 2 && isUndefined(this.operator)) {
+    if (!(this.cursor === 1 || this.cursor === 3)) {
       return; // 错误
     }
     const v = this.getCurrentCursorValue();
@@ -123,12 +119,12 @@ export default class CalculateItem {
   }
 
   calculate() {
-    let { v1, v2, operator, hiddenFactor, hiddenOperator } = this;
+    let { v1, v2, operator, last } = this;
     if (isUndefined(v1)) {
       v1 = 0;
     }
-    operator = operator || hiddenOperator;
-    v2 = v2 || hiddenFactor;
+    operator = operator || last.operator;
+    v2 = v2 || last.v2;
     if (!operator) {
       if (isUndefined(v2)) {
         // 输入了一个数字，直接按=号
@@ -143,23 +139,25 @@ export default class CalculateItem {
       }
     }
     const result = calculate(+v1, operator, +v2);
-    return { v1, v2, operator, result, hiddenFactor, hiddenOperator };
+    return { v1, v2, operator, result, last };
   }
 
   runEqual() {
     const data = this.calculate();
     this.result = data.result;
     let item;
-    if (data.operator) {
+    if (data.operator) { // 有符号
       item = new CalculateItem(
         {
           v1: data.result,
-          hiddenOperator: data.operator,
-          hiddenFactor: data.v2
+          last: {
+            operator: data.operator,
+            v2: data.v2
+          }
         },
         2
       );
-    } else {
+    } else { // 直接按等号
       item = new CalculateItem(
         {
           v1: data.result
@@ -178,7 +176,7 @@ export default class CalculateItem {
         v1: data.result,
         operator
       },
-      2
+      3
     );
     return item;
   }
