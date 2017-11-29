@@ -2,10 +2,15 @@ import { isUndefined } from 'lodash';
 import { calculate, isFloat } from '../utils';
 
 export default class CalculateItem {
-  constructor({ v1, operator, v2 } = {}, cursor = 1) {
+  constructor(
+    { v1, operator, v2, hiddenFactor, hiddenOperator } = {},
+    cursor = 1
+  ) {
     this.v1 = v1;
     this.operator = operator;
     this.v2 = v2;
+    this.hiddenFactor = hiddenFactor;
+    this.hiddenOperator = hiddenOperator;
     this.cursor = cursor; // 输入指针
     this.result = undefined;
   }
@@ -30,7 +35,7 @@ export default class CalculateItem {
     return !isUndefined(this.result);
   }
 
-  setOperator(operator, force=false) {
+  setOperator(operator, force = false) {
     if (this.operator && !force) {
       if (!isUndefined(this.v2)) {
         return false;
@@ -56,16 +61,42 @@ export default class CalculateItem {
     }
   }
 
+  getChangeKeyName() {
+    if (this.cursor === 1) {
+      return 'v1';
+    }
+    if (this.cursor === 2) {
+      if (isUndefined(this.v2)) {
+        return 'v1';
+      } else {
+        return 'v2';
+      }
+    }
+  }
+
+  executePercent() {
+    const key = this.getChangeKeyName();
+    const value = +this[key];
+    this[key] = value * 0.01;
+    return this[key];
+  }
+
+  executeTogglePositive() {
+    const key = this.getChangeKeyName();
+    const value = +this[key];
+    this[key] = -value;
+    return this[key];
+  }
+
   insertDigit(digit) {
-    if (this.cursor === 3) return; // 超出输入范围
-    if (this.cursor === 2 && isUndefined(this.operator)) {
+    if (this.cursor >= 2 && isUndefined(this.operator)) {
       return; // 错误
     }
     const v = this.getCurrentCursorValue();
     let nextV;
     if (isUndefined(v)) {
       if (digit === 0) {
-        return v; // do nothing
+        return '0';
       }
       nextV = digit; // 非0数字直接赋值
     } else {
@@ -76,6 +107,9 @@ export default class CalculateItem {
   }
 
   insertDot() {
+    if (this.cursor >= 2 && isUndefined(this.operator)) {
+      return; // 错误
+    }
     const v = this.getCurrentCursorValue();
     let nextV;
     if (isUndefined(v)) {
@@ -89,10 +123,12 @@ export default class CalculateItem {
   }
 
   calculate() {
-    let { v1, v2, operator } = this;
+    let { v1, v2, operator, hiddenFactor, hiddenOperator } = this;
     if (isUndefined(v1)) {
       v1 = 0;
     }
+    operator = operator || hiddenOperator;
+    v2 = v2 || hiddenFactor;
     if (!operator) {
       if (isUndefined(v2)) {
         // 输入了一个数字，直接按=号
@@ -107,19 +143,22 @@ export default class CalculateItem {
       }
     }
     const result = calculate(+v1, operator, +v2);
-    return { v1, v2, operator, result };
+    return { v1, v2, operator, result, hiddenFactor, hiddenOperator };
   }
 
   runEqual() {
     const data = this.calculate();
     this.result = data.result;
     let item;
-    if (this.operator) {
-      item = new CalculateItem({
-        v1: data.result,
-        operator: this.operator,
-        v2: data.v2
-      }, 3);
+    if (data.operator) {
+      item = new CalculateItem(
+        {
+          v1: data.result,
+          hiddenOperator: data.operator,
+          hiddenFactor: data.v2
+        },
+        2
+      );
     } else {
       item = new CalculateItem(
         {
@@ -131,5 +170,16 @@ export default class CalculateItem {
     return item;
   }
 
-  runSequence(operator) {}
+  runSequence(operator) {
+    const data = this.calculate();
+    this.result = data.result;
+    let item = new CalculateItem(
+      {
+        v1: data.result,
+        operator
+      },
+      2
+    );
+    return item;
+  }
 }

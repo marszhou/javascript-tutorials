@@ -2,7 +2,7 @@ import React from 'react';
 import './Calculator.css';
 import Display from './Display';
 import Button from './Button';
-import { delay, last } from 'lodash';
+import { delay, last, isUndefined } from 'lodash';
 import CalculateItem from './CalculateItem';
 
 const Buttons = [
@@ -40,22 +40,18 @@ class Calculator extends React.Component {
   }
 
   init() {
-    this.stacks = [];
+    this.item = null;
   }
 
   newItem() {
     return new CalculateItem();
   }
 
-  getLastItem() {
-    return last(this.stacks);
-  }
-
   getLiveItem() {
-    const last = this.getLastItem();
+    const last = this.item;
     if (!last || last.isFinished()) {
       const item = this.newItem();
-      this.stacks.push(item);
+      this.item = item;
       return item;
     } else {
       return last;
@@ -76,7 +72,7 @@ class Calculator extends React.Component {
   }
 
   log() {
-    // console.log(this.stacks);
+    console.log(this.item);
   }
 
   getDisplayValue() {
@@ -121,6 +117,9 @@ class Calculator extends React.Component {
       case 'percent':
         this.executePercent();
         break;
+      case 'toggle_positive':
+        this.executeTogglePositive();
+        break;
       case 'equal':
         this.executeEqual();
         break;
@@ -135,10 +134,22 @@ class Calculator extends React.Component {
     });
   }
 
+  executePercent() {
+    const item = this.getLiveItem();
+    const value = item.executePercent();
+    this.setDisplayValue(value);
+  }
+
+  executeTogglePositive() {
+    const item = this.getLiveItem();
+    const value = item.executeTogglePositive();
+    this.setDisplayValue(value);
+  }
+
   executeEqual() {
     const item = this.getLiveItem();
     const newItem = item.runEqual();
-    this.stacks.push(newItem);
+    this.item = newItem;
     this.setDisplayValue(newItem.v1);
   }
 
@@ -146,18 +157,19 @@ class Calculator extends React.Component {
     const item = this.getLiveItem();
     const success = item.setOperator(operator);
     if (!success) {
-      // this.executeEqual();
-      // this.setOperator(operator);
+      const newItem = item.runSequence(operator);
+      this.item = newItem;
+      this.setDisplayValue(newItem.v1);
     }
   }
 
   insertDigit(digit) {
     const item = this.getLiveItem();
     const value = item.insertDigit(digit);
-    if (value === false) {
+    if (isUndefined(value)) {
       this.init();
       this.insertDigit(digit); // 重置
-      return
+      return;
     }
     this.setDisplayValue(value);
   }
@@ -165,6 +177,11 @@ class Calculator extends React.Component {
   insertDot() {
     const item = this.getLiveItem();
     const value = item.insertDot();
+    if (isUndefined(value)) {
+      this.init();
+      this.insertDot(); // 重置
+      return;
+    }
     this.setDisplayValue(value);
   }
 
