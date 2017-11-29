@@ -27,15 +27,86 @@ const buttons = [
 ];
 
 class Calculator extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.left = null;
+    this.operator = null;
+    this.rigtt = null;
+    this.current = 'left';
+
+    this.state = {
+      display: null,
+      simulatePress: false
+    };
+  }
+
+  getDisplayValue() {
+    return this.state.simulatePress ? null : this.state.display || '0';
+  }
+
+  setDisplayValue(value) {
+    this[this.current] = value;
+    this.setState({
+      display: value
+    });
+  }
+
   handleButtonClick = (type, value) => {
-    console.log(type, value);
+    switch (type) {
+      case 'func':
+        this.executeFunc(value);
+        break;
+      case 'operator':
+        this.insertOperator(value);
+        break;
+      case 'number':
+        this.insertNumber(value);
+        break;
+      case 'entity':
+        if (value === 'dot') {
+          this.insertDot(value);
+        }
+        break;
+      default:
+        break;
+    }
   };
+
+  executeFunc(funcName) {}
+
+  insertOperator(operator) {}
+
+  insertNumber(number) {
+    let value = this[this.current] || '';
+    const isFloat = value.indexOf('.') > -1;
+    let allowAppend = true;
+
+    if (number === 0) {
+      if (!isFloat && parseInt(value) === 0) {
+        allowAppend = false
+      }
+    }
+
+    if (!allowAppend) return;
+
+    value = value + '' + number;
+    this.setDisplayValue(value);
+  }
+
+  insertDot() {}
+
+  blink() {
+    this.setState({
+      simulatePress: true
+    });
+  }
 
   render() {
     return (
       <ul id="cal">
-        <Display />
-        {buttons.map(([type, value, text, size = 1]) => {
+        <Display value={this.getDisplayValue()} />
+        {buttons.map(([type, value, text, size = 1], index) => {
           text = text || value;
           return (
             <Button
@@ -43,6 +114,7 @@ class Calculator extends React.Component {
               type={type}
               value={value}
               size={size}
+              index={index}
               onClick={this.handleButtonClick}
             >
               {text}
