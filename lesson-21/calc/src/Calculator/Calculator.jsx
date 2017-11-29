@@ -42,6 +42,10 @@ class Calculator extends React.Component {
     };
   }
 
+  getCurrentValue() {
+    return this[this.current] || 0;
+  }
+
   getDisplayValue() {
     return this.state.simulatePress ? null : this.state.display || '0';
   }
@@ -85,10 +89,20 @@ class Calculator extends React.Component {
     })
   }
 
+  executePercent() {
+    this.blink(() => {
+      const value = parseFloat(this.getCurrentValue());
+      this.setDisplayValue(value * 0.01);
+    })
+  }
+
   executeFunc(funcName) {
     switch(funcName) {
       case 'clear':
       this.executeClear();
+      break;
+      case 'percent':
+      this.executePercent();
       break;
     }
   }
