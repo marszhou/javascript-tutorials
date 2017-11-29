@@ -8,7 +8,7 @@ body  {
                                   supported by Chrome and Opera */
 }
 
-ul#cal {
+ul.cal {
   list-style: none;
   padding: 0;
   border-right: 1px solid black;
@@ -24,7 +24,7 @@ ul#cal {
   align-content: flex-start;
 }
 
-ul#cal li{
+ul.cal li{
   flex: 1 21%;
   height: 45px;
   background: #dcdcdc;
@@ -36,15 +36,15 @@ ul#cal li{
   box-sizing: border-box;
 }
 
-ul#cal li.size2 {
+ul.cal li.size2 {
   flex: 2 42%;
 }
 
-ul#cal li.size4 {
+ul.cal li.size4 {
   flex: 1 100%;
 }
 
-ul#cal li.output {
+ul.cal li.output {
   background: #A0A0A0;
   font-size: 36px;
   height: 81px;
@@ -58,20 +58,20 @@ ul#cal li.output {
   white-space: nowrap;
 }
 
-ul#cal li.func {
+ul.cal li.func {
   background: #d0d0d0;
 }
 
-ul#cal li.operator {
+ul.cal li.operator {
   background: #f6872c;
   color: white;
 }
 
-ul#cal li.key:active {
+ul.cal li.key:active {
   background: #a9a9a9;
 }
 
-ul#cal li.operator:active {
+ul.cal li.operator:active {
   background: #bd6821;
   color: #5d5d5d;
 }

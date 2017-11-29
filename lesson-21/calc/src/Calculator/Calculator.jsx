@@ -86,24 +86,24 @@ class Calculator extends React.Component {
       this.right = null;
       this.current = 'left';
       this.setDisplayValue(null);
-    })
+    });
   }
 
   executePercent() {
     this.blink(() => {
       const value = parseFloat(this.getCurrentValue());
       this.setDisplayValue(value * 0.01);
-    })
+    });
   }
 
   executeFunc(funcName) {
-    switch(funcName) {
+    switch (funcName) {
       case 'clear':
-      this.executeClear();
-      break;
+        this.executeClear();
+        break;
       case 'percent':
-      this.executePercent();
-      break;
+        this.executePercent();
+        break;
     }
   }
 
@@ -115,8 +115,8 @@ class Calculator extends React.Component {
     let allowAppend = true;
 
     if (number === 0) {
-      if (!isFloat && parseInt(value) === 0) {
-        allowAppend = false
+      if (!isFloat && parseInt(value, 10) === 0) {
+        allowAppend = false;
       }
     }
 
@@ -129,14 +129,17 @@ class Calculator extends React.Component {
   insertDot() {}
 
   blink(cb) {
-    this.setState({
-      simulatePress: true
-    }, () => delay(cb, 50));
+    this.setState(
+      {
+        simulatePress: true
+      },
+      () => delay(cb, 50)
+    );
   }
 
   render() {
     return (
-      <ul id="cal">
+      <ul className="cal">
         <Display value={this.getDisplayValue()} />
         {buttons.map(([type, value, text, size = 1], index) => {
           text = text || value;
