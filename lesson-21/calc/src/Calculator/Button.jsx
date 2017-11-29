@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const Button = ({ onClick, value, type, size, children }) => {
+const Button = ({ onClick, value, type, size, children, index }) => {
   const classNames = {
     key: true,
     [type]: true,
-    ['size' + size]: true
+    ['size' + size]: true,
+    ['item-'+index]: true
   };
   return (
     <li className={cx(classNames)} onClick={() => onClick(type, value)}>
