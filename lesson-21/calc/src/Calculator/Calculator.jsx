@@ -2,9 +2,10 @@ import React from 'react';
 import './Calculator.css';
 import Display from './Display';
 import Button from './Button';
-import { delay } from 'lodash';
+import { delay, last } from 'lodash';
+import CalculateItem from './CalculateItem';
 
-const buttons = [
+const Buttons = [
   // type, value, text=value, size=1
   ['func', 'clear', 'C'],
   ['func', 'toggle_positive', '±'],
@@ -23,37 +24,68 @@ const buttons = [
   ['number', 3],
   ['operator', 'plus', '+'],
   ['number', 0, 0, 2],
-  ['entity', '.'],
-  ['operator', '=']
+  ['entity', 'dot', '.'],
+  ['func', 'equal', '=']
 ];
-
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
 
-    this.left = null;
-    this.operator = null;
-    this.right = null;
-    this.current = 'left';
+    this.init();
 
     this.state = {
       display: null,
-      simulatePress: false
+      hide: false
     };
   }
 
-  getCurrentValue() {
-    return this[this.current] || 0;
+  init() {
+    this.stacks = [];
+  }
+
+  newItem() {
+    return new CalculateItem();
+  }
+
+  getLastItem() {
+    return last(this.stacks);
+  }
+
+  getLiveItem() {
+    const last = this.getLastItem();
+    if (!last || last.isFinished()) {
+      const item = this.newItem();
+      this.stacks.push(item);
+      return item;
+    } else {
+      return last;
+    }
+  }
+
+  blink(cb) {
+    this.setState(
+      {
+        hide: true
+      },
+      () =>
+        delay(() => {
+          cb();
+          this.log();
+        }, 50)
+    );
+  }
+
+  log() {
+    // console.log(this.stacks);
   }
 
   getDisplayValue() {
-    return this.state.simulatePress ? null : this.state.display || '0';
+    return this.state.hide ? null : this.state.display || '0';
   }
 
   setDisplayValue(value) {
-    this[this.current] = value;
     this.setState({
-      simulatePress: false,
+      hide: false,
       display: value
     });
   }
@@ -64,37 +96,22 @@ class Calculator extends React.Component {
         this.executeFunc(value);
         break;
       case 'operator':
-        this.insertOperator(value);
+        this.setOperator(value);
         break;
       case 'number':
-        this.insertNumber(value);
+        this.insertDigit(value);
+        this.log();
         break;
       case 'entity':
         if (value === 'dot') {
-          this.insertDot(value);
+          this.insertDot();
         }
+        this.log();
         break;
       default:
         break;
     }
   };
-
-  executeClear() {
-    this.blink(() => {
-      this.left = null;
-      this.operator = null;
-      this.right = null;
-      this.current = 'left';
-      this.setDisplayValue(null);
-    });
-  }
-
-  executePercent() {
-    this.blink(() => {
-      const value = parseFloat(this.getCurrentValue());
-      this.setDisplayValue(value * 0.01);
-    });
-  }
 
   executeFunc(funcName) {
     switch (funcName) {
@@ -104,44 +121,58 @@ class Calculator extends React.Component {
       case 'percent':
         this.executePercent();
         break;
+      case 'equal':
+        this.executeEqual();
+        break;
+      default:
     }
   }
 
-  insertOperator(operator) {}
+  executeClear() {
+    this.blink(() => {
+      this.init();
+      this.setDisplayValue('');
+    });
+  }
 
-  insertNumber(number) {
-    let value = this[this.current] || '';
-    const isFloat = value.indexOf('.') > -1;
-    let allowAppend = true;
+  executeEqual() {
+    const item = this.getLiveItem();
+    const newItem = item.runEqual();
+    this.stacks.push(newItem);
+    this.setDisplayValue(newItem.v1);
+  }
 
-    if (number === 0) {
-      if (!isFloat && parseInt(value, 10) === 0) {
-        allowAppend = false;
-      }
+  setOperator(operator) {
+    const item = this.getLiveItem();
+    const success = item.setOperator(operator);
+    if (!success) {
+      // this.executeEqual();
+      // this.setOperator(operator);
     }
+  }
 
-    if (!allowAppend) return;
-
-    value = value + '' + number;
+  insertDigit(digit) {
+    const item = this.getLiveItem();
+    const value = item.insertDigit(digit);
+    if (value === false) {
+      this.init();
+      this.insertDigit(digit); // 重置
+      return
+    }
     this.setDisplayValue(value);
   }
 
-  insertDot() {}
-
-  blink(cb) {
-    this.setState(
-      {
-        simulatePress: true
-      },
-      () => delay(cb, 50)
-    );
+  insertDot() {
+    const item = this.getLiveItem();
+    const value = item.insertDot();
+    this.setDisplayValue(value);
   }
 
   render() {
     return (
       <ul className="cal">
         <Display value={this.getDisplayValue()} />
-        {buttons.map(([type, value, text, size = 1], index) => {
+        {Buttons.map(([type, value, text, size = 1], index) => {
           text = text || value;
           return (
             <Button

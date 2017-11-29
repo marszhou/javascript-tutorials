@@ -31,12 +31,16 @@ const MaxTextWidth = 206;
 function getProperWdith(text, mappings, maxWidth) {
   const find = mappings.find(([fontSize, w]) => {
     if (w * text.length <= maxWidth) return true;
+    return false;
   });
   return (find && find[0]) || _.last(mappings)[0];
 }
 
 const Display = ({ value }) => {
-  const fontSize = getProperWdith(value, FontWidthMappings, MaxTextWidth);
+  let fontSize = 0;
+  if (value) {
+    fontSize = getProperWdith(value+'', FontWidthMappings, MaxTextWidth);
+  }
   return (
     <li
       className="size4 output"

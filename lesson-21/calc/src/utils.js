@@ -35,3 +35,32 @@ export function getTextDimention(text, styles = {display: 'inline-block'}, eleme
   document.body.removeChild(el);
   return rect;
 }
+
+export function calculate(v1, operator, v2) {
+  switch(operator) {
+    case 'plus':
+      return v1+v2;
+    case 'minus':
+      return v1-v2;
+    case 'multiply':
+      return v1*v2;
+    case 'divide':
+      return v1/v2;
+    default:
+      return NaN;
+  }
+}
+
+export function isFloat(v) {
+  const n = +v;
+  // 针对科学计数法，这样判断有效
+  if (!Number.isInteger(n)) {
+    return true
+  } else {
+    // 有可能是1.0或2.这种形式，实际上这样的字符串判断为浮点数
+    if((v+'').indexOf('.') > -1) {
+      return true
+    }
+  }
+  return false;
+}
