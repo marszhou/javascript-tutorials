@@ -2,7 +2,7 @@ import React from 'react';
 import './Calculator.css';
 import Display from './Display';
 import Button from './Button';
-import { delay, last, isUndefined } from 'lodash';
+import { delay, isUndefined } from 'lodash';
 import CalculateItem from './CalculateItem';
 
 const Buttons = [
