@@ -2,6 +2,7 @@ import React from 'react';
 import './Calculator.css';
 import Display from './Display';
 import Button from './Button';
+import { delay } from 'lodash';
 
 const buttons = [
   // type, value, text=value, size=1
@@ -32,7 +33,7 @@ class Calculator extends React.Component {
 
     this.left = null;
     this.operator = null;
-    this.rigtt = null;
+    this.right = null;
     this.current = 'left';
 
     this.state = {
@@ -48,6 +49,7 @@ class Calculator extends React.Component {
   setDisplayValue(value) {
     this[this.current] = value;
     this.setState({
+      simulatePress: false,
       display: value
     });
   }
@@ -73,7 +75,23 @@ class Calculator extends React.Component {
     }
   };
 
-  executeFunc(funcName) {}
+  executeClear() {
+    this.blink(() => {
+      this.left = null;
+      this.operator = null;
+      this.right = null;
+      this.current = 'left';
+      this.setDisplayValue(null);
+    })
+  }
+
+  executeFunc(funcName) {
+    switch(funcName) {
+      case 'clear':
+      this.executeClear();
+      break;
+    }
+  }
 
   insertOperator(operator) {}
 
@@ -96,10 +114,10 @@ class Calculator extends React.Component {
 
   insertDot() {}
 
-  blink() {
+  blink(cb) {
     this.setState({
       simulatePress: true
-    });
+    }, () => delay(cb, 50));
   }
 
   render() {
