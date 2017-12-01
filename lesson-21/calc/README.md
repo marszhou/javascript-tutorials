@@ -212,6 +212,8 @@ Display.propTypes = {
 Display.defaultProps = {
   value: 0
 };
+
+export default Display;
 ```
 
 按钮 Calculator/Button.jsx
