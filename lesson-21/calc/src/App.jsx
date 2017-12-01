@@ -1,13 +1,5 @@
 import React from 'react';
 import Calculator from './Calculator/Calculator';
-// const App = () => {
-//   return (
-//     <div>
-//       <Calculator />
-//     </div>
-//   );
-// };
-
 class App extends React.Component {
   constructor(props) {
     super(props);
