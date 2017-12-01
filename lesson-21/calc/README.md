@@ -152,12 +152,12 @@ src/Calculator/Calculator.jsx
 
 ```
 import React from 'react';
-import styles from './Calculator.css';
+import './Calculator.css';
 
 class Calculator extends React.Component {
   render() {
     return (
-      <ul id="cal">
+      <ul className="cal">
         <li className="size4 output">0</li>
         <li className="key func">C</li>
         <li className="key func">±</li>
