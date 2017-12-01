@@ -91,3 +91,16 @@ class Welcome extends React.Component {
 
 [在线演示](http://jsbin.com/rubehus/2/edit?html,js,console,output)
 
+基本类型
+
+* PropTypes.number
+* PropTypes.bool
+* PropTypes.array
+* PropTypes.func
+* PropTypes.object
+* PropTypes.string
+
+https://reactjs.org/docs/components-and-props.html
+https://reactjs.org/docs/typechecking-with-proptypes.html
+
+
