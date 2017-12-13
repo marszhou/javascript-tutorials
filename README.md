@@ -23,7 +23,9 @@
 ----
 
 * [lesson-19 - react - 环境搭建](./lesson-19)
-* [lesson-20 - react - 组件](./lesson-20)
+* [lesson-20 - react(1) - 组件](./lesson-20)
+* [lesson-21 - react(2) - 属性](./lesson-21)
+* [lesson-22 - react(3) - ref & context](./lesson-22)
 
 ## Links
 
