@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
     "custom-react-scripts": "0.2.1",
     "moment": "^2.20.1",
     "package": "^1.0.1",
