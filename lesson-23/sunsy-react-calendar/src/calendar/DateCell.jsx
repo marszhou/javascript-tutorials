@@ -5,29 +5,37 @@ import cx from 'classnames';
 class DateCell extends Component {
 	static propTyeps = {
 		date: PropTypes.object,
-		old: PropTypes.bool,
-		next: PropTypes.bool,
+		mode: PropTypes.oneOf(['new', 'old', 'current']),
 		today: PropTypes.bool,
 		selected: PropTypes.bool,
+		weekend: PropTypes.bool,
+		onClick: PropTypes.func,
 	}
 	static defaultProps = {
-		old: false,
-		next: false,
+		mode: 'current',
+		weekend: false,
 		today: false,
 		selected: false,
+		onClicke: () => {},
 	}
 	render() {
-		const {date, old, next, today, selected} = this.props;
+		const {date, mode, today, selected, weekend} = this.props;
 		const classNames = cx({
-			date, old, next, today, selected, day: true
+			new: mode==='new',
+			old: mode==='old',
+			today, 
+			weekend,
+			active: selected,
+			day: true
 		})
 		return (
 			<td
 			data-action="selectDay"
 			data-day={date.format('YYYY-MM-DD')}
 			className={classNames}
+			onClick={this.props.onClick}
 			>
-				{date.date()}
+				{date.date()} 
 			</td>
 		);
 	}
