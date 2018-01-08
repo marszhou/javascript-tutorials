@@ -3,9 +3,13 @@ import PropTypes from 'prop-types'
 import DatePicker from './DatePicker'
 import MonthPicker from './YearPicker'
 import TimePicker from './TimePicker'
+import YearPicker from './YearPicker'
+import moment from 'moment'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './less/style.less'
+
+import { getMoment } from './utils'
 
 class CalendarPicker extends Component {
   static propTypes = {
@@ -18,11 +22,17 @@ class CalendarPicker extends Component {
 				day: PropTypes.number,
 				hour: PropTypes.number,
 				minute: PropTypes.number,
-			})
-		]).isRequired,
+			}),
+			PropTypes.object,
+		]),
 		format: PropTypes.string,
 		locale: PropTypes.string,
-		mode: PropTypes.oneOf(['YearPicker', 'MonthPicker', 'DatePicker', 'TimePicker']),
+		mode: PropTypes.oneOf([
+			'YearPicker',
+			'MonthPicker',
+			'DatePicker',
+			'TimePicker'
+		]),
 		disableDate: PropTypes.array,
 		disableTime: PropTypes.array,
 		showTimePicker: PropTypes.bool,
@@ -50,7 +60,9 @@ class CalendarPicker extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			show: null,
+			show: '',
+			// 把start格式化成moment对象
+			start: props.value ? getMoment(props.value, format) : moment()
 		};
 	}
 
