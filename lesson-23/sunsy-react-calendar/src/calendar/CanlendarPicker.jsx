@@ -60,42 +60,118 @@ class CalendarPicker extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
+			// show是显示面板类型,year month date time
 			show: '',
-			// 把start格式化成moment对象
+			// start是App的传入日期，把start格式化成moment对象
 			start: props.value ? getMoment(props.value, format) : moment()
 		};
 	}
 
-	render(){
-		let otherPicker;
-		const {show} = this.state;
-		switch(show){
-			case 'time':
-				otherPicker = <TimePicker />;
-				break;
-			case 'year':
-				otherPicker = <YearPicker />;
-				break;
-			case 'month':
-				otherPicker = <MonthPicker />;
-				break;
-			default:
-				otherPicker = null;
-				break;
-		}
+	/* handleChange改变当前组件state的start值，并将newDate传入
+	App中state的date。
+	*/
+	handleChange = newDate => {
+		this.setState({
+			start: moment(newDate)
+		});
+		// onChange改变App中state的date值 ???为什么要改变
+		this.props.onChange(newDate);
+	}
 
+	// 仅改变当前组件的日期状态，月份增加或减少
+	handleAjustMonth = adjust => {
+		const start = moment(this.state.start).add(adjust, 'M');
+		this.setState({ start	});
+	}
+
+	// 控制显示面板类型
+	handleShowPicker = type => {
+		this.setState({
+			show: type
+		})
+	}
+
+	// 选定月份，并返回date面板
+	handleSelectMonth = i => {
+		this.setState({
+			start: moment(this.state.start).month(i),
+			show: 'date'
+		})
+	}
+
+	handleSelectYear = i => {
+		this.setState({
+			start: moment(this.state.start).year(i),
+			show: 'date'
+		})
+	}
+
+	handleReturn = () => {
+		this.setState({
+			show: 'date'
+		})
+	}
+
+	renderPicker(){
+		const {show, start} = this.state;
+		const {value} = this.props;
+		const {v} = getMoment(value);
+		switch(show){
+			case 'time': 
+				return (
+		<TimePickee	/>);
+			case 'year': 
+				return (
+					<YearPicker
+						start={start.year()}
+						onSelect={this.handleSelectYear}
+						onReturn={this.handleReturn}
+					/>
+				);
+			case 'month': 
+				return (
+					<MonthPicker
+						onSelect={this.handleSelectMonth}
+						onReturn={this.handleReturn}
+					/>
+				);
+			case 'date': 
+				return (
+					<DatePicker
+						date={v}
+						start={start}
+						onShowPicker={this.handleShowPicker}
+						onChange={this.handleChange}
+						onAjustMonth={this.handleAjustMonth}
+					/>
+				);
+			default: 
+				return (
+					<DatePicker
+						date={v}
+						start={start}
+						onShowPicker={this.handleShowPicker}
+						onChange={this.handleChange}
+						onAjustMonth={this.handleAjustMonth}
+					/>
+				)
+		}
+	}
+
+	render(){
 		return(
 			<div
 				className="bootstrap-datetimepicker-widget timepicker-sbs"
-				style={{display: 'block'}}
+				style={{width: 240, display: 'block'}}
 			>
 				<div className='row'>
-					<DatePicker />
-					{otherPicker}
+					<div className="datepicker col-md-6">
+						{this.renderPicker()}
+					</div>
 				</div>
 			</div>
 		)
 	}
 }
 
-export default CalendarPicker
+export default CalendarPicker;
