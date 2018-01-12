@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from './DatePicker'
-import MonthPicker from './YearPicker'
+import MonthPicker from './MonthPicker'
 import TimePicker from './TimePicker'
 import YearPicker from './YearPicker'
 import moment from 'moment'
@@ -63,7 +63,7 @@ class CalendarPicker extends Component {
 			// show是显示面板类型,year month date time
 			show: '',
 			// start是App的传入日期，把start格式化成moment对象
-			start: props.value ? getMoment(props.value, format) : moment()
+			start: props.value ? getMoment(props.value) : moment()
 		};
 	}
 
@@ -99,7 +99,7 @@ class CalendarPicker extends Component {
 		})
 	}
 
-	handleSelectYear = i => {
+	handleSelectYear = (i) => {
 		this.setState({
 			start: moment(this.state.start).year(i),
 			show: 'date'
@@ -115,11 +115,11 @@ class CalendarPicker extends Component {
 	renderPicker(){
 		const {show, start} = this.state;
 		const {value} = this.props;
-		const {v} = getMoment(value);
+		const v = getMoment(value);
 		switch(show){
 			case 'time': 
 				return (
-		<TimePickee	/>);
+		<TimePicker	/>);
 			case 'year': 
 				return (
 					<YearPicker

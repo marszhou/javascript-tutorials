@@ -5,20 +5,34 @@ export function getWeeksForDateBody(time /*moment object*/){
   const weeks = [];
   const startOfMonth = moment(time).startOf('month');
   const dayOfWeek = moment(startOfMonth).isoWeekday();
-  let startDateOfDateBody = null;
+  let startOfDatePickerBody = null;
   if(dayOfWeek < 7){
-    startDateOfDateBody = moment(startOfMonth).subtract(dayOfWeek, 'day')
+    startOfDatePickerBody = moment(startOfMonth).subtract(dayOfWeek, 'day');
   }else{
-    startDateOfDateBody = moment(startOfMonth)
+    startOfDatePickerBody = moment(startOfMonth);
   }
   let i = 0;
   [...Array(6)].forEach(() => {
-    const week = []
+    const week = [];
     [...Array(7)].forEach(() => {
-      week.push(startDateOfDateBody)
-      i++
-    })
-    weeks.push(week)
+      const day = moment(startOfDatePickerBody).add(i, 'day');
+      week.push(day);
+      i++;
+    });
+    weeks.push(week);
   })
   return weeks;
+}
+
+export function isWeekend(day){
+  const weekend = day.isoWeekday();
+  return weekend ===6 || weekend ===7;
+}
+
+export function getMoment(value, format = null){
+  if(_.isEmpty(value)) return null;
+  if(moment.isMoment(value)) return value;
+  if(_.isString(value)) return moment(value, format);
+  if(_.isNumber(value)) return moment(value);
+  if(_.isObject(value)) return moment(value);
 }

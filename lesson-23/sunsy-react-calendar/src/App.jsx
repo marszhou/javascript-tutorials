@@ -5,7 +5,7 @@ class App extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			date: 20180108
+			date: '20180212'
 		}
 	}
 	handleChange = (date) => {

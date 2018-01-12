@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DatePickerHeader from './DatePickerHeader';
 import DatePickerBody from './DatePickerBody';
 import moment from 'moment';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 
 class DatePicker extends Component {
 	static propTypes = {
@@ -40,8 +40,8 @@ class DatePicker extends Component {
 						start={start}
 						onForward={() => this.handleAjustMonth(1)}
 						onBackward={() => this.handleAjustMonth(-1)}
-						onShowMonthPicker={() => this.handleShowPicker(e, 'month')}
-						onShowYearPicker={() => this.handleShowPicker(e, 'year')}
+						onShowMonthPicker={e => this.handleShowPicker(e, 'month')}
+						onShowYearPicker={e => this.handleShowPicker(e, 'year')}
 					/>
 					<DatePickerBody 
 						onSelectDate={this.handleSelectDate}
