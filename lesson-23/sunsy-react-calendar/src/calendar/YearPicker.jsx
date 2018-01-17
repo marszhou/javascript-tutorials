@@ -26,18 +26,47 @@ class YearPicker extends Component {
   }
 
   handleScroll = e => {
-    if(this.scrollPanel.scrollTop === 0){
-      this.setState(
-        {above: this.state.above + 50},
-        () => {}
-      );
-    }
-    if(this.scrollPanel.scroll){
+    // if(this.scrollPanel.scrollTop === 0){
+    //   this.setState(
+    //     {above: this.state.above + 50},
+    //     () => {}
+    //   );
+    // }
+    // if(this.scrollPanel.scrollTop + this.scrollPanel.clientHeight
+    //   === this.scrollPanel.scrollHeight
+    // ){
+    //   this.setState({
+    //     below: this.state.below + 50
+    //   })
+    // }
+    if (this.scrollPanel.scrollTop === 0) {
+      this.setState({
+        above: this.state.above + 50
+      }, () => {
 
+        const rect = this.scrollPanel.querySelector('div.year-row').getBoundingClientRect()
+        this.scrollPanel.scrollTop = rect.height * 50
+      })
+    }
+    const rect = this.scrollPanel.getBoundingClientRect()
+
+    if (
+      this.scrollPanel.scrollTop + rect.height ===
+      this.scrollPanel.scrollHeight
+    ) {
+      this.setState({
+        below: this.state.below + 50
+      })
     }
   }
 
-  
+  scrollToCenter(){
+    // this.scrollPanel.scrollTop = 
+    // (this.scrollPanel.scrollHeight - this.scrollPanel.clientHeight) / 2
+    const rect = this.scrollPanel.getBoundingClientRect()
+    const scrollHeight = this.scrollPanel.scrollHeight
+    this.scrollPanel.scrollTop = (scrollHeight - rect.height) / 2
+  }
 
   render() {
     const {start, onReturn, onSelect} = this.props;
@@ -52,7 +81,7 @@ class YearPicker extends Component {
                 data-action="pickerSwitch"
                 title="返回"
               >
-                <a href="#">
+                <a href="#" onClick={onReturn}>
                   返回
                 </a>
               </th>

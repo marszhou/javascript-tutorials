@@ -35,10 +35,10 @@ class MonthPicker extends Component {
                       <span
                         key={i}
                         data-action="selectMonth"
-                        className="month"
+                        className="month "
                         onClick={() => onSelect(i)}
                       >
-                        {i+1}月
+                        {i + 1}月
                       </span>
                     )
                   )

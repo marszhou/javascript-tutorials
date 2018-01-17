@@ -24,6 +24,7 @@
  @bs-datetimepicker-btn-hover-bg: @gray-lighter;
  @bs-datetimepicker-disabled-color: @gray-light;
  @bs-datetimepicker-alternate-color: @gray-light;
+ @bs-datetimepicker-holiday-color: @brand-success;
  @bs-datetimepicker-secondary-border-color: #ccc;
  @bs-datetimepicker-secondary-border-color-rgba: rgba(0, 0, 0, 0.2);
  @bs-datetimepicker-primary-border-color: white;
@@ -274,7 +275,11 @@
 
              &.old,
              &.new {
-                 color: @bs-datetimepicker-alternate-color;
+                 color: @bs-datetimepicker-alternate-color!important;
+             }
+
+             &.weekend {
+                 color: @bs-datetimepicker-holiday-color;
              }
 
              &.today {
@@ -340,6 +345,18 @@
                      color: @bs-datetimepicker-disabled-color;
                      cursor: not-allowed;
                  }
+             }
+
+             .year-scroll-panel {
+                line-height: 1.5em;
+                max-height: 210px;
+                overflow: auto;
+
+                .year-row {
+                    &:hover {
+                        background-color: @bs-datetimepicker-btn-hover-bg;
+                    }
+                }
              }
          }
      }

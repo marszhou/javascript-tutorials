@@ -9,14 +9,13 @@ class DateCell extends Component {
 		today: PropTypes.bool,
 		selected: PropTypes.bool,
 		weekend: PropTypes.bool,
-		onClick: PropTypes.func,
+		onClick: PropTypes.func
 	}
 	static defaultProps = {
 		mode: 'current',
 		weekend: false,
 		today: false,
-		selected: false,
-		onClicke: () => {},
+		selected: false
 	}
 	render() {
 		const {date, mode, today, selected, weekend} = this.props;
