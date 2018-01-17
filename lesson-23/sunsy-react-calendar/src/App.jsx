@@ -15,7 +15,7 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<CalendarPicker value={this.state.date} />
+			<CalendarPicker value={this.state.date} onChange={this.handleChange}/>
 		)
 	}
 }

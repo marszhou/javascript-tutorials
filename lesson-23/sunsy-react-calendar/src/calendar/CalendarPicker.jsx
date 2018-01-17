@@ -162,10 +162,10 @@ class CalendarPicker extends Component {
 		return(
 			<div
 				className="bootstrap-datetimepicker-widget timepicker-sbs"
-				style={{width: 240, display: 'block'}}
+				style={{margin: 10, width: 240, display: 'block'}}
 			>
 				<div className='row'>
-					<div className="datepicker col-md-6">
+					<div className="datepicker">
 						{this.renderPicker()}
 					</div>
 				</div>

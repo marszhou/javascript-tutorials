@@ -7,7 +7,7 @@ import moment from 'moment';
 class DatePickerBody extends Component {
 	static propTypes = {
 		start: PropTypes.object, // moment object
-		selected: PropTypes.func, // moment object
+		selected: PropTypes.object, // moment object
 		onSelectDate: PropTypes.func
 	}
 
