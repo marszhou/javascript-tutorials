@@ -5,7 +5,7 @@ import BibleCatalogueBody from './BibleCatalogueBody';
 class BibleCatalogue extends Component {
   render() {
     return (
-      <div>
+      <div className="column bookSelector client-height">
         <BibleCatalogueHeader />
         <BibleCatalogueBody />
       </div>

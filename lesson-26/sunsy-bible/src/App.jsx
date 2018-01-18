@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import BiblePanel from './Bible/BiblePanel';
 
-class BiblePanel extends Component {
+class App extends Component {
   render() {
     return (
       <div>
         <BiblePanel />
-        BiblePanel
+        
       </div>
     );
   }
 }
 
-export default BiblePanel;
+export default App;
