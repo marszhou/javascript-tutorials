@@ -1,0 +1,133 @@
+.client-height{
+  height: 600px;
+}
+.column {
+  width: 200px;
+  color: black;
+  background: white;
+  box-shadow: 3px 3px 5px 0px #333;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.column + .column{
+  border-left: 1px solid #AAA;
+}
+
+.column .list-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.column > .title {
+  background-color: #fff;
+  height: 2.5em;
+  line-height: 2.5em;
+  border-bottom: 1px solid #AAA;
+}
+
+.column > .title .left {
+  float: left;
+}
+.column > .title .right {
+  float: right;
+}
+.column > .title .content {
+  padding: 0 20px;
+}
+.search input[type='text'] {
+  line-height: 1em;
+  /* vertical-align: baseline; */
+  border: none;
+  /* border-bottom: 1px solid #aaa; */
+  padding-left: 20px;
+  font-size: 1em;
+  background: transparent;
+  width: 130px;
+  margin-right: 5px;
+  margin-top: 2px;
+}
+.search {
+  position: relative;
+  border: 1px solid #aaa;
+  line-height: 1.8em;
+  display: inline-block;
+  border-radius: 16px;
+}
+
+.search .searchIcon {
+  position: absolute;
+  left: 7px;
+  top: 5px;
+  pointer-events: none;
+  color: #aaa;
+  font-size: 10px;
+}
+.bookSelector {
+}
+.chapterSelector {
+}
+.bookGroup {
+}
+.bookGroup > .title {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  line-height: 2em;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: #aaa;
+  padding-left: 5px;
+  position: sticky;
+  top: 0px;
+  box-shadow: 0 1px 3px;
+}
+
+.bookGroup ul.list li:last-child {
+  border: 0;
+}
+
+.bookGroup ul.list li {
+  line-height: 2.4em;
+  border-bottom: 1px solid #eeecec;
+  margin-left: 8px;
+}
+
+.column ul.grid {
+  display: grid;
+  grid-auto-rows: 40px;
+  grid-gap: 2px;
+  /* justify-items: center; */
+  padding: 2px;
+}
+
+.bookSelector ul.grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.chapterSelector ul.grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.column li {
+  cursor: default;
+}
+
+.column li:hover {
+  background-color: #fffec4;
+  transition: 1s;
+}
+
+.column li.highlighted {
+  background-color: #a9ebff;
+}
+
+ul.grid li {
+  /* align-self: center; */
+  border: 1px solid black;
+  border-radius: 2px;
+  display: block;
+  line-height: 3em;
+  text-align: center;
+}
