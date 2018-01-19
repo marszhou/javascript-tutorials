@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 class BibleChapter extends Component {
   static propTypes = {
     chapterCount: PropTypes.number,
+    verseCountObject: PropTypes.object,
+    selectedBookId: PropTypes.string,
     showChapter: PropTypes.bool,
     onSelect: PropTypes.func
   }
@@ -13,7 +15,7 @@ class BibleChapter extends Component {
   }
 
   render() {
-    const { chapterCount, showChapter } = this.props;
+    const { chapterCount, showChapter, verseCountObject, onSelect, selectedBookId } = this.props;
     return (
       <div 
         className="column chapterSelector client-height" 
@@ -29,7 +31,16 @@ class BibleChapter extends Component {
             {[...Array(chapterCount)].map(
               (_, index) => {
                 return(
-                  <li key={index} role="button" type="default" onClick={this.props.onSelect}>
+                  <li 
+                    key={index} 
+                    role="button" 
+                    type="default" 
+                    onClick={
+                      () => {
+                        onSelect(verseCountObject[selectedBookId][index + 1])
+                      }
+                    }
+                  >
                     {index + 1}
                   </li>
                 )
