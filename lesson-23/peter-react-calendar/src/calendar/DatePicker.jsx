@@ -5,47 +5,42 @@ import moment from "moment";
 import propTypes from 'prop-types';
 
 class DatePicker extends Component {
-  static propTypes = {};
+  static propTypes = {
+    date: propTypes.object,
+    start: propTypes.object,
+    onShowPicker: propTypes.func,
+    onChange: propTypes.func,
+    onAdjustMonth: propTypes.func
+  };
   constructor(props) {
-    super(props);
-    this.state = {
-      selected: null,
-      start: moment()
-    };
+    super(props)
   }
 
   handleSelectDate = date => {
-    this.setState({
-      selected: moment(date),
-      start: moment(date)
-    });
+    this.props.onChange(date)
   };
 
-  handleSetpMoveMonth = adjust => {
-    const start = moment(this.state.start).add(adjust,'M')
-    this.setState({start})
+  handleAdjustMonth = adjust => {
+    this.props.onAdjustMonth(adjust)
   }
 
-  handleShowYearPicker = () => {
-
+  handleShowPicker = (e, type) => {
+    e.preventDefault()
+    this.props.onShowPicker(type)
   }
 
-  handleShowMonthPicker = () => {
-
-  }  
-  
   render() {
-    const { start, selected } = this.state;
+    const { start, selected } = this.props;
     return (
       <div className="datepiicker col-md-6">
         <div className="datepicker-days" style={{ display: "block" }}>
           <table className="table-condensed">
             <DatePickerHeader 
               start = {start}
-              onForward = {() => this.handleSetpMoveMonth(1)}
-              onBackward = {() => this.handleSetpMoveMonth(-1)}
-              onShowYearPicker = {() => this.handleShowYearPicker}
-              onShowMonthPicker = {() => this. handleShowMonthPicker}
+              onForward = {() => this.handleAdjustMonth(1)}
+              onBackward = {() => this.handleAdjustMonth(-1)}
+              onShowYearPicker = {(e) => this.handleShowPicker(e, 'year')}
+              onShowMonthPicker = {(e) => this. handleShowPicker(e, 'month')}
             />
             <DatePickerBody
               onSelectDate = {this.handleSelectDate}

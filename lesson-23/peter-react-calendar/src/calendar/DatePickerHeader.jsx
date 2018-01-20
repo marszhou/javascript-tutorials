@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import propTypes from 'prop-types'
 
 class DatePickerHeader extends Component {
+  static propTypes = {
+    start: propTypes.object,      
+    onForward: propTypes.func,
+    onBackward: propTypes.func,
+    onShowYearPicker: propTypes.func,
+    onShowMonthPicker: propTypes.func
+  }
   constructor(props){
     super(props)
-    this.state = {
-      start: propTypes.object,      
-      onForward: propTypes.func,
-      onBackward: propTypes.func,
-      onShowYearPicker: propTypes.func,
-      onShowMonthPicker: propTypes.func
-    }
   }
 
   render() {
@@ -36,7 +36,7 @@ class DatePickerHeader extends Component {
             <a href="#" onClick = {onShowYearPicker}>{year}</a> 
             <a href="#" onClick = {onShowMonthPicker}>{month}</a>
           </th>
-          <th className="next" data-action="next" onClick = {onBackward}>
+          <th className="next" data-action="next" onClick = {onForward}>
             <span
               className="glyphicon glyphicon-chevron-right"
               title="Next Month"
