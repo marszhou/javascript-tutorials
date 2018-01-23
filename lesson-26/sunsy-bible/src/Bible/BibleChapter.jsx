@@ -16,7 +16,7 @@ class BibleChapter extends Component {
 
   render() {
     const { selectedBookId, selectedChapter, onSelect } = this.props;
-    let chapterCount = undefined;
+    let chapterCount = 0;
     data.books.forEach(
       (obj) => {
         if(obj.id === selectedBookId){
@@ -27,7 +27,7 @@ class BibleChapter extends Component {
     return (
       <div 
         className="column chapterSelector client-height" 
-        style={ selectedBookId ? {display: " "} : {display: "none"} }
+        style={ parseInt(selectedBookId) ? {display: " "} : {display: "none"} }
       >
         <div className="title">
           <div className="left">
@@ -42,7 +42,8 @@ class BibleChapter extends Component {
                   <li 
                     key={index} 
                     role="button" 
-                    type="default" 
+                    type="default"
+                    className={(index + 1) === selectedChapter ? "highlighted" : " "}
                     onClick={
                       () => {
                         onSelect(index + 1)

@@ -15,12 +15,15 @@ class BibleVerse extends Component {
 
   render() {
     const { selectedBookId, selectedChapter, selectedVerse, showVerse } = this.props;
-    let verseCount = parseInt(data.verseCount[selectedBookId][selectedChapter]);
+    let verseCount = 0;
+    if(selectedBookId > 0 && selectedChapter > 0){
+      verseCount = parseInt(data.verseCount[selectedBookId][selectedChapter]);
+    }
 
     return (
       <div 
         className="column chapterSelector client-height" 
-        style={showVerse ? {display: " "} : {display: "none"}}
+        style={selectedChapter ? {display: " "} : {display: "none"}}
       >
         <div className="title">
           <div className="left">

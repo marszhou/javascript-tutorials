@@ -15,16 +15,16 @@ class BiblePanel extends Component {
     this.handleSelectChapter = this.handleSelectChapter.bind(this);
     this.handleSelectVerse = this.handleSelectVerse.bind(this);
     this.state = {
-      selectedBookId: "1153072783907", // string格式
-      selectedChapter: 1, // 默认选择第一章
-      selectedVerse: 1, //默认选择第一节
-      clicked: false
+      selectedBookId: "0", // string格式
+      selectedChapter: 0, // 默认选择第一章
+      selectedVerse: 0, //默认选择第一节
     }
   }
 
   handleSelectBook(bookId){
     this.setState({
       selectedBookId: bookId,
+      selectedChapter: 0
      
     })
   }
