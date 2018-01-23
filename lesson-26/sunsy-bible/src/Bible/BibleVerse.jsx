@@ -7,14 +7,13 @@ class BibleVerse extends Component {
     selectedBookId: PropTypes.string,
     selectedChapter: PropTypes.number,
     selectedVerse: PropTypes.number,
-    showVerse: PropTypes.bool
   }
   constructor(props){
     super(props)
   }
 
   render() {
-    const { selectedBookId, selectedChapter, selectedVerse, showVerse } = this.props;
+    const { selectedBookId, selectedChapter, selectedVerse } = this.props;
     let verseCount = 0;
     if(selectedBookId > 0 && selectedChapter > 0){
       verseCount = parseInt(data.verseCount[selectedBookId][selectedChapter]);

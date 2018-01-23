@@ -6,7 +6,6 @@ class BibleChapter extends Component {
   static propTypes = {
     selectedBookId: PropTypes.string,
     selectedChapter: PropTypes.number,
-    showChapter: PropTypes.bool,
     onSelect: PropTypes.func
   }
   
