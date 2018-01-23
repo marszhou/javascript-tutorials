@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class BibleCatalogueHeader extends Component {
+  static propTypes = {
+    getInputContent: PropTypes.func
+  }
+
   render() {
     return (      
       <div className="title">
@@ -13,7 +18,7 @@ class BibleCatalogueHeader extends Component {
         <div className="content">
           <div className="search">
             <i className="fa fa-search searchIcon" aria-hidden="true" />
-            <input type="text" placeholder="过滤..." />
+            <input type="text" placeholder="过滤..." id="input" onKeyUp={this.props.getInputContent}/>
           </div>
         </div>
       </div>
