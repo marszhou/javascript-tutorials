@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { data } from './data';
 
 class BibleChapter extends Component {
   static propTypes = {
-    chapterCount: PropTypes.number,
-    verseCountObject: PropTypes.object,
     selectedBookId: PropTypes.string,
+    selectedChapter: PropTypes.number,
     showChapter: PropTypes.bool,
     onSelect: PropTypes.func
   }
@@ -15,11 +15,19 @@ class BibleChapter extends Component {
   }
 
   render() {
-    const { chapterCount, showChapter, verseCountObject, onSelect, selectedBookId } = this.props;
+    const { selectedBookId, selectedChapter, onSelect } = this.props;
+    let chapterCount = undefined;
+    data.books.forEach(
+      (obj) => {
+        if(obj.id === selectedBookId){
+          chapterCount = parseInt(obj.chapterCount)
+        }
+      }
+    )
     return (
       <div 
         className="column chapterSelector client-height" 
-        style={ showChapter ? {display: " "} : {display: "none"} }
+        style={ selectedBookId ? {display: " "} : {display: "none"} }
       >
         <div className="title">
           <div className="left">
@@ -37,7 +45,7 @@ class BibleChapter extends Component {
                     type="default" 
                     onClick={
                       () => {
-                        onSelect(verseCountObject[selectedBookId][index + 1])
+                        onSelect(index + 1)
                       }
                     }
                   >

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { data } from './data';
 
 class BibleVerse extends Component {
   static propTypes = {
-    verseCount: PropTypes.number,
+    selectedBookId: PropTypes.string,
+    selectedChapter: PropTypes.number,
+    selectedVerse: PropTypes.number,
     showVerse: PropTypes.bool
   }
   constructor(props){
@@ -11,7 +14,9 @@ class BibleVerse extends Component {
   }
 
   render() {
-    const { verseCount, showVerse } = this.props;
+    const { selectedBookId, selectedChapter, selectedVerse, showVerse } = this.props;
+    let verseCount = parseInt(data.verseCount[selectedBookId][selectedChapter]);
+
     return (
       <div 
         className="column chapterSelector client-height" 
@@ -27,7 +32,16 @@ class BibleVerse extends Component {
             {[...Array(verseCount)].map(
               (_, index) => {
                 return (
-                  <li key={index} role="button" type="default">
+                  <li 
+                    key={index} 
+                    role="button" 
+                    type="default"
+                    onClick={
+                      () => {
+  
+                      }
+                    }
+                  >
                     { index + 1 }
                   </li>
                 )

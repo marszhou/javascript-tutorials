@@ -16,13 +16,11 @@ class BibleCatalogue extends Component {
   }
 
   render() {
-    const { oldBooks, newBooks, onSelect, selectedBookId } = this.props;
+    const { onSelect, selectedBookId } = this.props;
     return (
       <div className="column bookSelector client-height">
         <BibleCatalogueHeader />
-        <BibleCatalogueBody 
-          oldBooks={oldBooks}
-          newBooks={newBooks} 
+        <BibleCatalogueBody
           onSelect={onSelect}
           selectedBookId={selectedBookId}
         />

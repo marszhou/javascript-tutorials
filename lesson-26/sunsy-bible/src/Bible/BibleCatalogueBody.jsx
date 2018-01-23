@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { data } from './data';
 
 class BibleCatalogueBody extends Component {
   static propTypes = {
-    oldBooks: PropTypes.array,
-    newBooks: PropTypes.array,
     onSelect: PropTypes.func,
     selectedBookId: PropTypes.string
   }
@@ -14,7 +13,7 @@ class BibleCatalogueBody extends Component {
   }
 
   render() {
-    const { oldBooks, newBooks, onSelect, selectedBookId } = this.props;
+    const { onSelect, selectedBookId } = this.props;
     
     return (
       <div className="list-content">
@@ -23,20 +22,28 @@ class BibleCatalogueBody extends Component {
             旧约
           </div>
           <ul className="list">
-            {[...Array(39)].map(
-              (_, index) => {
+            {data.groups.旧约.map(
+              (bookId, index) => {
+                let nameCn = undefined;
+                data.books.forEach(
+                  (bookObj, index) => {
+                    if(bookObj.id === bookId){
+                      nameCn = bookObj.nameCn
+                    }
+                  }
+                )
                 return(
                   <li 
-                    key={oldBooks[index].id} 
-                    className={oldBooks[index].id === selectedBookId ? "highlighted" : " "} 
+                    key={bookId} 
+                    className={bookId === selectedBookId ? "highlighted" : " "} 
                     role="button" 
                     onClick={
                       () => {
-                        onSelect(oldBooks[index].id, oldBooks[index].chapterCount)
+                        onSelect(bookId)
                       }
                     }
                   >
-                    <span>{oldBooks[index].nameCn}</span>
+                    <span>{nameCn}</span>
                   </li>
                 )
               }
@@ -48,26 +55,32 @@ class BibleCatalogueBody extends Component {
             新约
           </div>
           <ul className="list">
-            {[...Array(27)].map(
-              (_, index) => {
+          {data.groups.新约.map(
+              (bookId, index) => {
+                let nameCn = undefined;
+                data.books.forEach(
+                  (bookObj, index) => {
+                    if(bookObj.id === bookId){
+                      nameCn = bookObj.nameCn
+                    }
+                  }
+                )
                 return(
                   <li 
-                    key={newBooks[index].id} 
-                    className={newBooks[index].id === selectedBookId ? "highlighted" : " "}
+                    key={bookId} 
+                    className={bookId === selectedBookId ? "highlighted" : " "} 
                     role="button" 
                     onClick={
                       () => {
-                        onSelect(newBooks[index].id, newBooks[index].chapterCount)
+                        onSelect(bookId)
                       }
                     }
                   >
-                    <span>{newBooks[index].nameCn}</span>
+                    <span>{nameCn}</span>
                   </li>
                 )
               }
-            )
-              
-            }
+            )}
           </ul>
         </div>
       </div>

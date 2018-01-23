@@ -8,9 +8,6 @@ import { data } from './data';
 import './style.css';
 
 class BiblePanel extends Component {
-  static propTypes = {
-
-  }
   
   constructor(props){
     super(props);
@@ -18,29 +15,24 @@ class BiblePanel extends Component {
     this.handleSelectChapter = this.handleSelectChapter.bind(this);
     this.handleSelectVerse = this.handleSelectVerse.bind(this);
     this.state = {
-      selectedBookId: " ", // string格式
-      chapterCount: null, // number格式
-      verseCount: null, // number格式
-      showChapter: false,
-      showVerse: false
+      selectedBookId: "1153072783907", // string格式
+      selectedChapter: 1, // 默认选择第一章
+      selectedVerse: 1, //默认选择第一节
+      clicked: false
     }
   }
 
-  handleSelectBook(bookId, chapterCount){
-    let chapterCountNumber = parseInt(chapterCount);
+  handleSelectBook(bookId){
     this.setState({
       selectedBookId: bookId,
-      chapterCount: chapterCountNumber,
-      showChapter: true,
-      showVerse: false
+     
     })
   }
 
-  handleSelectChapter(chapterNumber){
-    let verseCountNumber = parseInt(chapterNumber);
+  handleSelectChapter(selectedChapter){
     this.setState({
-      verseCount: verseCountNumber,
-      showVerse: true
+      selectedChapter: parseInt(selectedChapter),
+      
     })
   }
 
@@ -49,27 +41,22 @@ class BiblePanel extends Component {
   }
 
   render() {
-    const oldBooks = data.books.slice(0, 39);
-    const newBooks = data.books.slice(39);
-    const verseCountObject = data.verseCount;
     return (
       <div style={{display: 'flex'}}>
         <BibleCatalogue 
-          oldBooks={oldBooks} 
-          newBooks={newBooks} 
           onSelect={this.handleSelectBook}
           selectedBookId={this.state.selectedBookId}
         />
         <BibleChapter 
-          chapterCount={this.state.chapterCount}
-          showChapter={this.state.showChapter}
           selectedBookId={this.state.selectedBookId}
-          verseCountObject={verseCountObject}
+          selectedChapter={this.state.selectedChapter}
           onSelect={this.handleSelectChapter}
         />
         <BibleVerse
-          verseCount={this.state.verseCount}
-          showVerse={this.state.showVerse}
+          selectedBookId={this.state.selectedBookId}
+          selectedChapter={this.state.selectedChapter}
+          selectedVerse={this.state.selectedVerse}
+          onSelect={this.handleSelectVerse}
         />
       </div>
     );
