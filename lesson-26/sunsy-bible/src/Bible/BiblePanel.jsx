@@ -15,11 +15,12 @@ class BiblePanel extends Component {
     this.handleSelectChapter = this.handleSelectChapter.bind(this);
     this.handleSelectVerse = this.handleSelectVerse.bind(this);
     this.getInputContent = this.getInputContent.bind(this);
+    this.initializeBiblePanel = this.initializeBiblePanel.bind(this);
     this.state = {
       selectedBookId: "0", // string格式
       selectedChapter: 0, // 默认选择第一章
       selectedVerse: 0, //默认选择第一节
-      SearchedBooks: [ ],
+      searchedBooks: [ ],
       ifShowSearchedBooks: false
     }
   }
@@ -42,28 +43,38 @@ class BiblePanel extends Component {
   }
 
   getInputContent(){
-    let inputContent = document.getElementById("input").value;
+    // 需要用正则表达式限制输入数字型或数字型字符串
+    let inputContent = document.getElementById("input").value; 
     let searchedBooks = [];
     data.books.forEach( (book, index) => {
-      for(let i=1; i<book.length-2; i++){
-        if(book[i].indexOf(inputContent) >= 0){
-          searchedBooks.push(book.id);
-          break;
+      for(let key in book){
+        if(book[key].indexOf(inputContent) >= 0){
+          if(inputContent){
+            searchedBooks.push(book.id)
+          }
+          break
         }
       }
     })
-    console.log(searchedBooks.length)
     if(searchedBooks.length > 0){
       this.setState({
         searchedBooks: searchedBooks,
-        ifShowSearchedBooks: true
+        ifShowSearchedBooks: true,
       })
     }
     else{
       this.setState({
-        ifShowSearchedBooks: false
+        ifShowSearchedBooks: false,
       })
     }
+  }
+
+  initializeBiblePanel(){
+    this.setState({
+      selectedBookId: "0",
+      selectedChapter: 0,
+      selectedVerse: 0,
+    })
   }
 
   render() {
@@ -74,7 +85,8 @@ class BiblePanel extends Component {
           onSelect={this.handleSelectBook}
           selectedBookId={this.state.selectedBookId}
           ifShowSearchedBooks={this.state.ifShowSearchedBooks}
-
+          searchedBooks={this.state.searchedBooks}
+          initializeBiblePanel={this.initializeBiblePanel}
         />
         <BibleChapter 
           selectedBookId={this.state.selectedBookId}

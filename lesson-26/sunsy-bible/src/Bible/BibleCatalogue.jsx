@@ -8,9 +8,10 @@ class BibleCatalogue extends Component {
   static propTypes = {
     getInputContent: PropTypes.func,
     onSelect: PropTypes.func,
+    initializeBiblePanel: PropTypes.func,
     selectedBookId: PropTypes.string,
     ifShowSearchedBooks: PropTypes.bool,
-    SearchedBooks: PropTypes.array
+    searchedBooks: PropTypes.array
   }
 
   constructor(props){
@@ -19,7 +20,14 @@ class BibleCatalogue extends Component {
 
   showCatalogue(){
     if(this.props.ifShowSearchedBooks){
-      return <SearchedBooks />
+      return(
+        <SearchedBooks
+          searchedBooks={this.props.searchedBooks}
+          onSelect={this.props.onSelect} 
+          selectedBookId={this.props.selectedBookId} 
+          initializeBiblePanel={this.props.initializeBiblePanel}
+        />
+      )
     }
     else{
       return( 
