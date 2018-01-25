@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class BibleCatalogueHeader extends Component {
   static propTypes = {
-    getInputContent: PropTypes.func
+    onInputChange: PropTypes.func
   }
 
   render() {
@@ -18,7 +18,11 @@ class BibleCatalogueHeader extends Component {
         <div className="content">
           <div className="search">
             <i className="fa fa-search searchIcon" aria-hidden="true" />
-            <input type="text" placeholder="过滤..." id="input" onKeyUp={this.props.getInputContent}/>
+            <input 
+              type="text" 
+              placeholder="过滤..." 
+              id="input" 
+              onChange={event => { this.props.onInputChange(event) }} />
           </div>
         </div>
       </div>

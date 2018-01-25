@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CalendarPicker from './calendar/CalendarPicker';
+import PropTypes from 'prop-types';
 
 class App extends Component {
 	constructor(props){

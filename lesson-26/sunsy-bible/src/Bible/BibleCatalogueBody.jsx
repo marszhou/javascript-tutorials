@@ -17,72 +17,39 @@ class BibleCatalogueBody extends Component {
     
     return (
       <div className="list-content">
-        <div className="bookGroup">
-          <div className="title">
-            旧约
-          </div>
-          <ul className="list">
-            {data.groups.旧约.map(
-              (bookId, index) => {
-                let nameCn = undefined;
-                data.books.forEach(
-                  (bookObj, index) => {
-                    if(bookObj.id === bookId){
-                      nameCn = bookObj.nameCn
-                    }
-                  }
-                )
-                return(
-                  <li 
-                    key={bookId} 
-                    className={bookId === selectedBookId ? "highlighted" : " "} 
-                    role="button" 
-                    onClick={
-                      () => {
-                        onSelect(bookId)
+        {Object.keys(data.groups).map(
+          groupName => (
+            <div className="bookGroup" key={groupName}>
+              <div className="title" key={groupName}>
+                {groupName}
+              </div>
+              <ul className="list">
+                {data.groups[groupName].map(
+                  (bookId, index) => {
+                    let nameCn = undefined;
+                    data.books.forEach(
+                      (bookObj, index) => {
+                        if(bookObj.id === bookId){
+                          nameCn = bookObj.nameCn
+                        }
                       }
-                    }
-                  >
-                    <span>{nameCn}</span>
-                  </li>
-                )
-              }
-            )}
-          </ul>
-        </div>
-        <div className="bookGroup">
-          <div className="title">
-            新约
-          </div>
-          <ul className="list">
-          {data.groups.新约.map(
-              (bookId, index) => {
-                let nameCn = undefined;
-                data.books.forEach(
-                  (bookObj, index) => {
-                    if(bookObj.id === bookId){
-                      nameCn = bookObj.nameCn
-                    }
+                    )
+                    return(
+                      <li 
+                        key={bookId} 
+                        className={bookId === selectedBookId ? "highlighted" : " "} 
+                        role="button" 
+                        onClick={ () => onSelect(bookId) }
+                      >
+                        <span>{nameCn}</span>
+                      </li>
+                    )
                   }
-                )
-                return(
-                  <li 
-                    key={bookId} 
-                    className={bookId === selectedBookId ? "highlighted" : " "} 
-                    role="button" 
-                    onClick={
-                      () => {
-                        onSelect(bookId)
-                      }
-                    }
-                  >
-                    <span>{nameCn}</span>
-                  </li>
-                )
-              }
-            )}
-          </ul>
-        </div>
+                )}
+              </ul>
+            </div>
+          )
+        )}
       </div>
     );
   }

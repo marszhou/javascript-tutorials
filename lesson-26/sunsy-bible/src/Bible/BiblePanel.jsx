@@ -8,6 +8,10 @@ import { data } from './data';
 import './style.css';
 
 class BiblePanel extends Component {
+  static propTypes = {
+    value: PropTypes.object,
+    onChange: PropTypes.func
+  }
   
   constructor(props){
     super(props);
@@ -17,9 +21,7 @@ class BiblePanel extends Component {
     this.getInputContent = this.getInputContent.bind(this);
     this.initializeBiblePanel = this.initializeBiblePanel.bind(this);
     this.state = {
-      selectedBookId: "0", // string格式
-      selectedChapter: 0, // 默认选择第一章
-      selectedVerse: 0, //默认选择第一节
+      contentLocation: this.props.value,
       searchedBooks: [ ],
       ifShowSearchedBooks: false
     }
@@ -27,25 +29,28 @@ class BiblePanel extends Component {
 
   handleSelectBook(bookId){
     this.setState({
-      selectedBookId: bookId,
-      selectedChapter: 0
+      contentLocation: { selectedBookId: bookId, selectedChapter: 0} 
     })
+    console.log(this.state.contentLocation);
+    
   }
 
-  handleSelectChapter(selectedChapter){
+  handleSelectChapter(chapter){
     this.setState({
-      selectedChapter: parseInt(selectedChapter),
+      contentLocation: { selectedChapter: parseInt(chapter) } 
     })
+    console.log(this.state.contentLocation);
+    
   }
 
   handleSelectVerse(){
 
   }
 
-  getInputContent(){
+  getInputContent(event){
     // 需要用正则表达式限制输入数字型或数字型字符串
-    let inputContent = document.getElementById("input").value; 
-    let searchedBooks = [];
+    const inputContent = event.target.value;
+    const searchedBooks = [];
     data.books.forEach( (book, index) => {
       for(let key in book){
         if(book[key].indexOf(inputContent) >= 0){
@@ -71,9 +76,7 @@ class BiblePanel extends Component {
 
   initializeBiblePanel(){
     this.setState({
-      selectedBookId: "0",
-      selectedChapter: 0,
-      selectedVerse: 0,
+      contentLocation: {  selectedBookId: "0", selectedChapter: 0, selectedVerse: 0 }
     })
   }
 
@@ -81,22 +84,22 @@ class BiblePanel extends Component {
     return (
       <div style={{display: 'flex'}}>
         <BibleCatalogue
-          getInputContent={this.getInputContent}
+          onInputChange={this.getInputContent}
           onSelect={this.handleSelectBook}
-          selectedBookId={this.state.selectedBookId}
+          selectedBookId={this.state.contentLocation.selectedBookId}
           ifShowSearchedBooks={this.state.ifShowSearchedBooks}
           searchedBooks={this.state.searchedBooks}
           initializeBiblePanel={this.initializeBiblePanel}
         />
         <BibleChapter 
-          selectedBookId={this.state.selectedBookId}
-          selectedChapter={this.state.selectedChapter}
+          selectedBookId={this.state.contentLocation.selectedBookId}
+          selectedChapter={this.state.contentLocation.selectedChapter}
           onSelect={this.handleSelectChapter}
         />
         <BibleVerse
-          selectedBookId={this.state.selectedBookId}
-          selectedChapter={this.state.selectedChapter}
-          selectedVerse={this.state.selectedVerse}
+          selectedBookId={this.state.contentLocation.selectedBookId}
+          selectedChapter={this.state.contentLocation.selectedChapter}
+          selectedVerse={this.state.contentLocation.selectedVerse}
           onSelect={this.handleSelectVerse}
         />
       </div>

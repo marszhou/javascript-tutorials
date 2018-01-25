@@ -6,7 +6,7 @@ import SearchedBooks from './SearchedBooks';
 
 class BibleCatalogue extends Component {
   static propTypes = {
-    getInputContent: PropTypes.func,
+    onInputChange: PropTypes.func,
     onSelect: PropTypes.func,
     initializeBiblePanel: PropTypes.func,
     selectedBookId: PropTypes.string,
@@ -44,7 +44,7 @@ class BibleCatalogue extends Component {
     return (
       <div className="column bookSelector client-height">
         <BibleCatalogueHeader 
-          getInputContent={this.props.getInputContent}
+          onInputChange={this.props.onInputChange}
         />
         {this.showCatalogue()}
       </div>
