@@ -19,16 +19,16 @@ BibleData.books.map(
 // 2.写一个表达式，得到这样的数组
 // ['旧约-创世纪', '旧约-出埃及记', ..., '新约-马太福音'...]
 
-let catalogue = 
-Object.keys(BibleData.groups).map(groupName =>
-  BibleData.groups[groupName].map(bookId => 
-    (groupName + "-" + BibleData.books.find(book =>
-      (book.id === bookId)
-      ).nameCn
-    )   
+const catalogue =[].concat.apply([], 
+  Object.keys(BibleData.groups).map(groupName =>
+    BibleData.groups[groupName].map(bookId => 
+      (groupName + "-" + BibleData.books.find(book =>
+        (book.id === bookId)
+        ).nameCn
+      )   
+    )
   )
-);
-catalogue = [].concat(catalogue[0], catalogue[1]);
+); 
 
 // 3.写一个表达式，按书的chapterCount正序排列所有书
 
