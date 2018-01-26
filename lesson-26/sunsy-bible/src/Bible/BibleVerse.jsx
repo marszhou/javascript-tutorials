@@ -7,13 +7,14 @@ class BibleVerse extends Component {
     selectedBookId: PropTypes.string,
     selectedChapter: PropTypes.number,
     selectedVerse: PropTypes.number,
+    onSelect: PropTypes.func
   }
   constructor(props){
     super(props)
   }
 
   render() {
-    const { selectedBookId, selectedChapter, selectedVerse } = this.props;
+    const { selectedBookId, selectedChapter, selectedVerse, onSelect } = this.props;
     let verseCount = 0;
     if(selectedBookId > 0 && selectedChapter > 0){
       verseCount = parseInt(data.verseCount[selectedBookId][selectedChapter]);
@@ -38,11 +39,7 @@ class BibleVerse extends Component {
                     key={index} 
                     role="button" 
                     type="default"
-                    onClick={
-                      () => {
-  
-                      }
-                    }
+                    onClick={ () => onSelect(index + 1) }
                   >
                     { index + 1 }
                   </li>

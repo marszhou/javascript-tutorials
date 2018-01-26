@@ -29,22 +29,34 @@ class BiblePanel extends Component {
 
   handleSelectBook(bookId){
     this.setState({
-      contentLocation: { selectedBookId: bookId, selectedChapter: 0} 
+      contentLocation: { 
+        selectedBookId: bookId, 
+        selectedChapter: 0, 
+        selectedVerse: this.state.contentLocation.selectedVerse
+      } 
     })
-    console.log(this.state.contentLocation);
-    
   }
 
   handleSelectChapter(chapter){
     this.setState({
-      contentLocation: { selectedChapter: parseInt(chapter) } 
+      contentLocation: { 
+        selectedBookId: this.state.contentLocation.selectedBookId,
+        selectedChapter: parseInt(chapter),
+        selectedVerse: this.state.contentLocation.selectedVerse
+      } 
     })
-    console.log(this.state.contentLocation);
-    
   }
 
-  handleSelectVerse(){
-
+  handleSelectVerse(verse){
+    const contentLocation = {
+      selectedBookId: this.state.contentLocation.selectedBookId,
+      selectedChapter: this.state.contentLocation.selectedChapter,
+      selectedVerse: verse
+    }
+    this.setState({
+      contentLocation: contentLocation
+    })
+    this.props.onChange(contentLocation)
   }
 
   getInputContent(event){
