@@ -1,0 +1,85 @@
+<html>
+
+<body>
+    <script>
+        //星期日
+        function getNowText(myDate) {
+            var myDate = new Date();
+            var weekDay = "现在是星期"
+            switch (myDate.getUTCDay()) {
+                case 1: weekDay += "一"
+                    break;
+                case 2: weekDay += "二"
+                    break;
+                case 3: weekDay += "三"
+                    break;
+                case 4: weekDay += "四"
+                    break;
+                case 5: weekDay += "五"
+                    break;
+                case 6: weekDay += "六"
+                    break;
+                case 7: weekDay += "日"
+                    break;
+            }
+            var newTime = myDate.toLocaleString().substr(10, 20)
+            console.log(weekDay + newTime)
+            return weekDay + newTime
+        }
+
+        //星期一
+        function findArea(a, b, c) {
+            var p = (a + b + c) / 2
+            var myReturn = parseFloat(p * (p - a) * (p - b) * (p - c)).toFixed(2)
+            return myReturn
+        }
+        function convTemper(temperature, type) {
+            var myTemper
+            if (type === "h") {
+                myTemper = temperature * 1.8 + 32
+            } else if (type === "s") {
+                myTemper = (temperature - 32) / 1.8
+            }
+            return myTemper
+        }
+
+        //星期二
+
+        function funAdd(x, y) {
+            var returnNum = x + y
+            return returnNum
+        }
+
+        function funSubtract(x, y) {
+            var returnNum = x - y
+            return returnNum
+        }
+
+        function funMultiply(x, y) {
+            var returnNum = x * y
+            return returnNum
+        }
+
+        function funDivide(x, y) {
+            var returnNum = x / y
+            return returnNum
+        }
+
+        function getCalc(funType) {
+            switch (funType) {
+                case "add": return funAdd
+                    break
+                case "subtract": return funSubtract
+                    break
+                case "multiply": return funMultiply
+                    break
+                case "divide": return funDivide
+                    break
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
