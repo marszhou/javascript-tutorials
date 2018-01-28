@@ -30,25 +30,31 @@ const catalogue =[].concat.apply([],
   )
 ); 
 
+const bible =
+Object.keys(BibleData.groups).reduce((books, groupName) => (
+  [...books, ...BibleData.groups[groupName].map(bookId => 
+    `${groupName}-${BibleData.books.find(book => 
+        book.id === bookId
+    ).nameCn}`
+  )
+]), [])
+
 // 3.写一个表达式，按书的chapterCount正序排列所有书
 const books = BibleData.books.sort((a, b) => {
-  if(a.chapterCount < b.chapterCount) return -1;
-  if(a.chapterCount === b.chapterCount) return 0;
-  if(a.chapterCount > b.chapterCount) return 1;
+  if(+a.chapterCount < +b.chapterCount) return -1;
+  if(+a.chapterCount === +b.chapterCount) return 0;
+  if(+a.chapterCount > +b.chapterCount) return 1;
 })
 
 // 4.有以下两个数组，用es6方法合并两个数组
 const a = [1,2,3]
 const b = ['a', 'b', 'c']
 // 结果应该为[1,2,3,'a','b','c']
-const ab = a.concat(b);
+const ab = [...a, ...b];
 
 // 5. 有如下数组，通过一个表达式找出所有既能被3整除或能被5整除的数字
 const c = [8137,4616,795,9965,5345,8920,1946,5888,6999,8320,5437,934,9477,5360,5709,6933,2677,7060,4863,9737,516,3990,9176,1206,5603,2335,1514,3146,6322,9645,4590,9158,953,9351,1513,9197,9725,9626,4424,3495,3063,8785,2456,8249,2369,8956,5532,4435,3030,2978,4741,8504,7048,3246,7653,248,4420,6015,3363,7258,3752,148,3102,3980,331,1385,1140,3614,9383,7664,9069,8015,2648,4626,4654,4168,362,863,4252,9216,6507,1656,6463,4929,892,5445,943,3881,591,7016,6437,4938,6603,2825,8337,7006,2307,8720,938,3685]
-const newC = [];
-c.forEach(num => {
-  if(num % 3 === 0 || num % 5 === 0) newC.push(num)
-})
+const newC = c.filter(el => el % 3 ===0 || el % 5 === 0);
 
 // 6.用一个表达式找出上面数组里既能被3整除或能被5整除的最小数字
 const smallestNum = newC.sort((a, b) => {
