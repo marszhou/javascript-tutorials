@@ -19,11 +19,12 @@
 
     // 2.写一个表达式，得到这样的数组
     // ['旧约-创世纪', '旧约-出埃及记', ..., '新约-马太福音'...]
+    var newTest = ""
     const bibleBookName = Object.keys(BibleData.groups).map((key) => {
-      return BibleData.groups[key].map((e) => { return key + "-" + BibleData.books.find((be) => { return be.id === e }).nameCn })
+      newTest += BibleData.groups[key].map((e) => { return key + "-" + BibleData.books.find((be) => { return be.id === e }).nameCn })
     })
     console.log("**************第二题****************")
-    console.log(bibleBookName);
+    console.log(newTest);
 
     // 3.写一个表达式，按书的chapterCount正序排列所有书
     const disBooks = BibleData.books.sort((a, b) => { return a.chapterCount - b.chapterCount }).map((e) => {
