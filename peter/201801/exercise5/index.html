@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JavaScript basic animation</title>
+    <script type="text/javascript">
+        var showWord = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
+        window.onload = function () {
+            self.setInterval("changeDiv()", 1000)
+        }
+        function changeDiv() {
+            var getDiv = document.getElementById("target")
+            getDiv.innerHTML = showWord.toString()
+            var tmpWord = showWord.shift()
+            showWord.push(tmpWord)
+        }
+    </script>
+</head>
+
+<body>
+    <pre id="target"></pre>
+</body>
+
+</html>
