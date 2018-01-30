@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    function startGuess(max/*数字的范围*/) {
+      const random = Math.floor((Math.random()*max)) + 1;
+      let myNumber = parseInt(prompt(`请输入1-${max}之间的数字`));
+      let n = 1;
+      while(random !== myNumber){
+        if(!myNumber){
+          alert("失败了");
+          break;
+        } 
+        if(random > myNumber){
+          myNumber = parseInt(prompt(`请输入1-${max}之间的数字\r你的数字：小`));
+           n++;
+        }
+        if(random < myNumber){
+          myNumber = parseInt(prompt(`请输入1-${max}之间的数字\r你的数字：大`));
+          n++;
+        }
+      }
+      if(random === myNumber) alert(`猜对了！共用了${n}次`)
+    }
+  </script>
+</head>
+<body>
+  <button id="startBtn" onClick="startGuess(100)">开始</button>
+</body>
+</html>
