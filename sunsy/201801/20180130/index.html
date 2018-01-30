@@ -7,8 +7,8 @@
   <title>Document</title>
   <script>
     function startGuess(max/*数字的范围*/) {
-      const random = parseInt(Math.random()*max).toString();
-      let myNumber = prompt("请输入1-100之间的数字");
+      const random = Math.floor((Math.random()*max)) + 1;
+      let myNumber = parseInt(prompt(`请输入1-${max}之间的数字`));
       let n = 1;
       while(random !== myNumber){
         if(!myNumber){
@@ -16,11 +16,11 @@
           break;
         } 
         if(random > myNumber){
-          myNumber = prompt("请输入1-100之间的数字\r你的数字：小");
+          myNumber = parseInt(prompt(`请输入1-${max}之间的数字\r你的数字：小`));
            n++;
         }
         if(random < myNumber){
-          myNumber = prompt("请输入1-100之间的数字\r你的数字：大");
+          myNumber = parseInt(prompt(`请输入1-${max}之间的数字\r你的数字：大`));
           n++;
         }
       }
