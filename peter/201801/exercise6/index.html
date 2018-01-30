@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    let sumTimes = 0
+    let isLoop = true
+    function startGuess(max) {
+      const random = parseInt(Math.random() * max, 10) + 1;
+      let showPrompt = parseInt(window.prompt(random, ''))
+      while (isLoop) {
+        sumTimes++
+        if (showPrompt === random) {
+          window.alert("祝贺你猜对了，共猜了" + (sumTimes) + "次")
+          sumTimes = 0
+          isLoop = false
+        } else if (showPrompt > random) {
+          showPrompt = parseInt(window.prompt("你猜的数字比开始时生成的随机数大", ''))
+        } else if (showPrompt < random) {
+          showPrompt = parseInt(window.prompt("你猜的数字比开始时生成的随机数小", ''))
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <button id="startBtn" onclick="startGuess(10)">开始</button>
+</body>
+
+</html>
