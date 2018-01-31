@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
-    function startGuess(max=100/*数字的范围*/, cheat=false/*作弊？*/) {
+    function startGuess(max = 100/*数字的范围*/, cheat = false/*作弊？*/) {
       // 得到随机数
       // 因为Math.floor((Math.random() * max))得到的数字是0 -- n-1 之间的，所以+1
       const random = Math.floor((Math.random() * max)) + 1
@@ -15,8 +15,12 @@
       if (cheat) console.warn("***作弊者！***", random)
       // 因为这个消息不想每次都拼一次，所以定义成全局的
       const msg = '请输入1-' + max + '之间的数字'
+
+      // 定义以下三个过程
       // 提示用户信息，并得到用户输入的数字，结果从String转换成Number
-      const ask = (isFirstTime, isBigger) => parseInt(prompt(isFirstTime ? msg : (msg + '\n上次的结果比较: ' + (isBigger ? '大' : '小'))))
+      const ask = (isFirstTime, isBigger) => parseInt(prompt(
+        msg + (isFirstTime ? '' : '\n上次的结果比较: ' + (isBigger ? '大' : '小'))
+      ))
       // 成功
       const success = (loopTimes, answer) => alert(answer + ' 猜对了！共用了' + loopTimes + '次。')
       // 失败
@@ -25,17 +29,17 @@
       // 调度函数，也是逻辑的主干----由此过程函数来控制程序的主要逻辑
       const run = (loopTimes = 0, lastAnswer = 0) => {
         const answer = ask(loopTimes === 0, lastAnswer > random)
-        if (answer!==answer /* 用于判断answer是不是NaN，js中只有NaN这个值会产生NaN!==NaN是true的奇葩效果，所以answer和自己比较，如果不相等，说明它是NaN */) {
+        if (answer !== answer /* 用于判断answer是不是NaN，js中只有NaN这个值会产生NaN!==NaN是true的奇葩效果，所以answer和自己比较，如果不相等，说明它是NaN */) {
           fail()
-        } else if(answer!==random) {
+        } else if (answer !== random) {
           // 没猜对，所以把loopTimes+1和本次的答案再次送入run中
           // ⭐⭐⭐⭐⭐
           // 这一句是这个练习的重点，要深刻理解并习惯递归函数的应用
           // ⭐⭐⭐⭐⭐
-          run(loopTimes+1, answer)
+          run(loopTimes + 1, answer)
         } else {
           // 以上都不符合，所以只能成功
-          success(loopTimes+1, answer)
+          success(loopTimes + 1, answer)
         }
       }
 
