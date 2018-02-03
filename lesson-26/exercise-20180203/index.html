@@ -42,6 +42,7 @@
     // // → 55
 
     function range(a, b, step = 1) {
+      if (a === b) return [a, b]
       const ret = [a] // 以a开头
       const stepCount = Math.ceil(Math.abs(a - b) / step) - 1// 计算a到b共需要几步
       const d = (a - b > 0) ? -1 : 1; // 步长变化方向(direction)
@@ -52,8 +53,9 @@
       return ret
     }
 
-    // 另一个写法，其实跟上面思路一样，只是写法有点不同
+    // 另一个写法，其实跟上面思路一样
     function range(a, b, step = 1) {
+      if (a === b) return [a, b]
       const stepCount = Math.ceil(Math.abs(a - b) / step) - 1 // 计算a到b共需要几步
       const d = (a - b > 0) ? -1 : 1; // 步长变化方向(direction)
       const steps = [...Array(stepCount)].map((_, index) => a + d * step * (index + 1)) // 算出中间填充的每一步
