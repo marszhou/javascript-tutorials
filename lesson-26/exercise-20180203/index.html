@@ -42,8 +42,8 @@
 
     function range(a, b, step = 1) {
       const ret = [a] // 以a开头
-      const stepCount = Math.floor(Math.abs(a - b) / step)
-      const d = (a - b > 0) ? -1 : 1;
+      const stepCount = Math.floor(Math.abs(a - b) / step) // 计算a到b共需要几步
+      const d = (a - b > 0) ? -1 : 1; // 步长变化方向(direction)
       [...Array(stepCount)].forEach((_, index) => {
         ret.push(a + d * step * (index + 1))
       });
