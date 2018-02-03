@@ -23,6 +23,12 @@
     }
     console.log(longest('Web Development Tutorial'))
 
+    // 少寒版，更简练👍
+    function longest(str) {
+      return str.split(" ")
+                .reduce((theLongest, current) => theLongest.length > current.length ? theLongest : current)
+    }
+
     // 2.写一函数，输入一个字符串，字符串有n个单词，返回字符串，将字符串中单词的首字母改为大写。
     // 如: capitalWords('the quick brown fox’)，输出'The Quick Brown Fox ‘
 
