@@ -1,0 +1,50 @@
+<html>
+<script>
+    function longest(word) {
+        console.log(word.split(" ").sort((a, b) => {
+            aa = a.length
+            bb = b.length
+            if (aa > bb) {
+                return -1
+            } else if (aa < bb) {
+                return 1
+            }
+        })[0])
+    }
+
+    function capitalWords(word) {
+        console.log(word.split(" ").map(e => {
+            return e.substr(0, 1).toLocaleUpperCase() + e.substr(1, e.length - 1)
+        }))
+    }
+
+    function range(m, n, i = 1) {
+        let newArray = new Array()
+        let a = true
+        while (a) {
+            if (m > n) {
+                newArray.push(m)
+                m = m - i
+                if (m <= n) {
+                    a = false
+                }
+            } else if (m < n) {
+                newArray.push(m)
+                m = m + i
+                if (m >= n) {
+                    a = false
+                }
+            }
+        }
+        newArray.push(m)
+        return newArray
+    }
+
+    function sum(range) {
+        return range.reduce((sum, value) => {
+            return sum + value
+        }, 0)
+    }
+</script>
+
+</html>
