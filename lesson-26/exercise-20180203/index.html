@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 1.写一函数，输入一个字符串，字符串中有n个单词，找出最长的单词。
+    // 如：longest('Web Development Tutorial’), 输出Development
+
+    function longest(str) {
+      let ret = '';
+      str.split(' ').forEach(s => {
+        if (s.length > ret.length) ret = s
+      })
+      return ret
+    }
+    console.log(longest('Web Development Tutorial'))
+
+    // 少寒版，更简练👍
+    function longest(str) {
+      return str.split(" ")
+                .reduce((theLongest, current) => theLongest.length > current.length ? theLongest : current)
+    }
+
+    // 2.写一函数，输入一个字符串，字符串有n个单词，返回字符串，将字符串中单词的首字母改为大写。
+    // 如: capitalWords('the quick brown fox’)，输出'The Quick Brown Fox ‘
+
+    function capitalWords(str) {
+      return str.split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
+    }
+    console.log(capitalWords('the quick brown fox'))
+
+    // 3.观察以下执行结果，实现range和sum函数
+    // // 你的代码写在这
+
+    // console.log(range(1, 10));
+    // // → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    // console.log(range(5, 2, 1));
+    // // → [5, 4, 3, 2]
+    // console.log(sum(range(1, 10)));
+    // // → 55
+
+    function range(a, b, step = 1) {
+      if (a === b) return [a, b]
+      const ret = [a] // 以a开头
+      const stepCount = Math.ceil(Math.abs(a - b) / step) - 1// 计算a到b共需要几步
+      const d = (a - b > 0) ? -1 : 1; // 步长变化方向(direction)
+      [...Array(stepCount)].forEach((_, index) => {
+        ret.push(a + d * step * (index + 1))
+      });
+      ret.push(b) // 最后插入b
+      return ret
+    }
+
+    // 另一个写法，其实跟上面思路一样
+    function range(a, b, step = 1) {
+      if (a === b) return [a, b]
+      const stepCount = Math.ceil(Math.abs(a - b) / step) - 1 // 计算a到b共需要几步
+      const d = (a - b > 0) ? -1 : 1; // 步长变化方向(direction)
+      const steps = [...Array(stepCount)].map((_, index) => a + d * step * (index + 1)) // 算出中间填充的每一步
+      return [a, ...steps, b]
+    }
+
+
+    function sum(arr) {
+      return arr.reduce((ret, v) => ret + v)
+    }
+
+    console.log(range(1, 10));
+    console.log(range(5, 2, 2));
+    console.log(sum(range(1, 100, 3)));
+  </script>
+
+</body>
+
+</html>
