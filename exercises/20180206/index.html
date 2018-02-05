@@ -9,7 +9,7 @@
 <body>
   <script>
 // 假设数组元素都是数字，给数组类型的对象原型添加一个sum方法
-// Array.prototype.sum = () => this.reduce((ret, value) => ret+value, 0)
+// Array.prototype.sum = function() { this.reduce((ret, value) => ret+value, 0)}
 // 这样就可以用[1,2,3].sum()得到值
 
 // 请仿照上面的写法，给数组对象增加一个shuffle方法，用于返回一个打乱顺序的新数组（不需要改变原数组）
