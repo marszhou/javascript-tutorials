@@ -11,10 +11,18 @@
 <body>
   <script>
     // 1. 写一个函数返回指定char在str里出现的次数，不区分大小写（不一定是字母，有可能是数字，符号或任何字符，不区分大小写）
-    function countChar(str, char) {
+    // from 士勇
+    function countChar(str, char){
+      const lowerStr = str.toLowerCase();
+      const lowerChar = char.toLowerCase();
+      let i = 0;
+      [...Array(lowerStr.length)].forEach((_, index) => {
+        if(lowerStr[index] === lowerChar) i++;
+      })
+      return i;
     }
 
-    console.log(countChar("kakkerlak", "k"));
+    console.log(countChar("kakKerlak", "k"));
     // → 4
     console.log(countChar('http://www.github.com/', '/'))
     // → 3
