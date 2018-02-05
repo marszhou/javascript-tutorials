@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  for(let i = 1; i<=100; i++) {
+    const black = i
+    const white = 11 * i
+
+    const bs = 4
+    const ws = 7
+
+    for (let k=0; k<10; k++) {
+      const b = black + k*bs
+      const w = white + k*ws
+      if (w/b ===3) {
+        console.log('找到了，白子为' + w + ', 循环了'+k+'次');
+        break
+      }
+    }
+  }
+  </script>
+</body>
+</html>

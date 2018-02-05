@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组迭代方法练习</title>
+  <script src='./bible_data.js'></script>
+</head>
+
+<body>
+
+<script>
+// 以前的题目
+
+// 抄少寒的
+// 得到当前时间字符串
+function getNowText() {
+  const day = new Date()
+  const h = day.getHours()
+  const m = day.getMinutes()
+  const s = day.getSeconds()
+  const nowday = day.getDay()
+  const dayArray = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+  return "现在是 " + dayArray[nowday] + " " + h % 12 + ":" + m + ":" + s + " " + (h < 12 ? "am" : "pm")
+}
+
+// 抄少寒的
+// 海伦公式计算三角形面积
+function findTriangleAreaOfSide(a, b, c) {
+  const p = (a + b + c) / 2
+  const q = p * (p - a) * (p - b) * (p - c)
+  return Math.sqrt(q).toFixed(2)
+}
+
+// 抄少寒的
+// 华氏摄氏度互相转换
+function c2f(C) {
+  return ((C * 9) / 5 + 32).toFixed(2)
+}
+
+function f2c(F) {
+  return ((F - 32) * 5 / 9).toFixed(2)
+}
+
+// 四则运算生成器
+const getCalc = (fn) => {
+  switch (fn) {
+    // switch里如果写了return，可以略掉break
+    case 'add': return (a, b) => a + b
+    case 'substract': return (a, b) => a - b
+    case 'multiply': return (a, b) => a * b
+    case 'divide': return (a, b) => a / b
+    // 注意default的处理
+    default: throw Error('无效的方法名：' + fn)
+  }
+}
+
+// 1.写一个表达式，得到所有中文书名
+console.group('第1题')
+console.log(BibleData.books.map(b => b.nameCn))
+console.groupEnd()
+
+// 2.写一个表达式，得到这样的数组
+// ['旧约-创世纪', '旧约-出埃及记', ..., '新约-马太福音'...]
+console.group('第2题')
+// es6
+console.log(
+  // 注意reduce方法的应用
+  Object.keys(BibleData.groups).reduce((books, groupName) =>
+    [
+      ...books, /*参考第4题*/
+      ...BibleData.groups[groupName].map(bookId =>
+        `${groupName}-${BibleData.books.find(book => book.id === bookId).nameCn}`
+      )
+    ]
+    , [])
+)
+// es5 改写上面的
+console.log(
+  // 注意reduce方法的应用
+  Object.keys(BibleData.groups).reduce((books, groupName) => (
+    books.concat(BibleData.groups[groupName].map(bookId =>
+      groupName + '-' +
+      BibleData.books.find(book => book.id === bookId).nameCn
+    ))
+  ), [])
+)
+// es5 2, 抄的士勇的
+console.log(
+  [].concat.apply([],
+    Object.keys(BibleData.groups).map(groupName =>
+      BibleData.groups[groupName].map(bookId =>
+        (groupName + "-" + BibleData.books.find(book =>
+          (book.id === bookId)
+        ).nameCn
+        )
+      )
+    )
+  )
+)
+console.groupEnd()
+
+// 3.写一个表达式，按书的chapterCount正序排列所有书
+console.group('第3题')
+console.log(
+  [...BibleData.books] // es5: BibleData.books.slice()
+    .sort((a,b) => a.chapterCount-b.chapterCount /*抄少寒的，既做了字符串转数组又很简练*/)
+)
+console.groupEnd()
+
+// 4.有以下两个数组，用es6方法合并两个数组
+const a = [1, 2, 3]
+const b = ['a', 'b', 'c']
+// 结果应该为[1,2,3,'a','b','c']
+console.group('第4题')
+// es6
+console.log(
+  [...a, ...b]
+)
+// es5
+console.log(
+  a.concat(b)
+)
+console.groupEnd()
+
+// 5. 有如下数组，通过一个表达式找出所有能被3整除或能被5整除的数字
+const c = [8137, 4616, 795, 9965, 5345, 8920, 1946, 5888, 6999, 8320, 5437, 934, 9477, 5360, 5709, 6933, 2677, 7060, 4863, 9737, 516, 3990, 9176, 1206, 5603, 2335, 1514, 3146, 6322, 9645, 4590, 9158, 953, 9351, 1513, 9197, 9725, 9626, 4424, 3495, 3063, 8785, 2456, 8249, 2369, 8956, 5532, 4435, 3030, 2978, 4741, 8504, 7048, 3246, 7653, 248, 4420, 6015, 3363, 7258, 3752, 148, 3102, 3980, 331, 1385, 1140, 3614, 9383, 7664, 9069, 8015, 2648, 4626, 4654, 4168, 362, 863, 4252, 9216, 6507, 1656, 6463, 4929, 892, 5445, 943, 3881, 591, 7016, 6437, 4938, 6603, 2825, 8337, 7006, 2307, 8720, 938, 3685]
+
+console.group('第5题')
+console.log(
+  c.filter(n => n % 3 === 0 || n % 5 === 0)
+)
+console.groupEnd()
+
+// 6.用一个表达式找出上面数组里既能被3整除或能被5整除的最小数字
+console.group('第6题')
+console.log(
+  c.filter(n => n % 3 === 0 || n % 5 === 0).sort(
+    (a, b) => a - b
+  )[0]
+)
+console.groupEnd()
+
+</script>
+
+</body>
+
+</html>
