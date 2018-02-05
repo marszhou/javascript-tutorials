@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1. 写一个函数返回指定char在str里出现的次数，不区分大小写（不一定是字母，有可能是数字，符号或任何字符，不区分大小写）
+    // from 士勇
+    function countChar(str, char){
+      const lowerStr = str.toLowerCase();
+      const lowerChar = char.toLowerCase();
+      let i = 0;
+      [...Array(lowerStr.length)].forEach((_, index) => {
+        if(lowerStr[index] === lowerChar) i++;
+      })
+      return i;
+    }
+
+    console.log(countChar("kakKerlak", "k"));
+    // → 4
+    console.log(countChar('http://www.github.com/', '/'))
+    // → 3
+
+    // 2. 写一个函数翻转数组，两个版本，一个不改变原值（术语叫做immutable），一个改变原值，效果如下
+    function reverseArray(arr) {
+      if (arr.length <= 1) return arr
+      if (arr.length === 2) return [arr[1], arr[0]]
+      return [arr[arr.length - 1], ...reverseArray(arr.slice(0, arr.length - 1))]
+    }
+    console.log(reverseArray(["A", "B", "C"]));
+    // → ["C", "B", "A”];
+
+
+    function reverseArrayInPlace(arr) {
+      if (arr.length <= 1) return arr
+      for (let i = 0; i < Math.floor(arr.length / 2); i++) {
+        [arr[i], arr[arr.length - i - 1]] = [arr[arr.length - i - 1], arr[i]]
+      }
+    }
+    var arrayValue = [1, 2, 3, 4, 5];
+    reverseArrayInPlace(arrayValue);
+    console.log(arrayValue); //arrayValue的值被改变了，要记住Array是引用传递的
+// → [5, 4, 3, 2, 1]
+  </script>
+</body>
+
+</html>
