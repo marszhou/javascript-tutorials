@@ -1,0 +1,28 @@
+<html>
+<script>
+    function countChar(str, char) {
+        return str.toUpperCase().split('').map((e) => {
+            return e === char.toUpperCase() ? 1 : 0
+        }).reduce((sum, value) => { return sum + value }, 0)
+    }
+    console.log(countChar("kakkerlak", "K"))
+    console.log(countChar('http://www.github.com/', '/'))
+
+    function reverseArray(arr) {
+        return [...Array(arr.length)].map((_, index) => {
+            return arr[arr.length - index - 1]
+        })
+    }
+    console.log(reverseArray(["A", "B", "C"]));
+
+    // function reverseArrayInPlace(array) {
+        
+    //     return array
+    // }
+    // var arrayValue = [1, 2, 3, 4, 5];
+    // reverseArrayInPlace(arrayValue);
+    // console.log(arrayValue)
+
+</script>
+
+</html>
