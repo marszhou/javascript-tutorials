@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class NameList extends Component {
+  static propTypes = {
+    names: PropTypes.any
+  }
   render() {
+    const { names } = this.props;
     
     return (
-      <div className="ui container">
-        <div role="list" className="ui list">
-          <div role="listitem" className="item">Apples</div>
-          <div role="listitem" className="item">Pears</div>
-          <div role="listitem" className="item">Oranges</div>
-        </div>
+      <div role="list" className="ui list">
+        {names.map((name, index) => (
+          <div key={index} role="listitem" className="item">
+            {name}
+          </div>
+        ))}
       </div>
     );
   }
