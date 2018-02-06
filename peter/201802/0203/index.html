@@ -16,7 +16,10 @@
     console.log(reverseArray(["A", "B", "C"]));
 
     function reverseArrayInPlace(array) {
-        return array = array.sort((a, b) => b - a)
+        //方法一
+        // return array = array.sort((a, b) => b - a)
+        //方法二
+        return array.reverse()
     }
     var arrayValue = [1, 2, 3, 4, 5];
     reverseArrayInPlace(arrayValue);
