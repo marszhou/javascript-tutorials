@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class NameList extends Component {
   static propTypes = {
-    names: PropTypes.any
+    names: PropTypes.array
   }
   render() {
     const { names } = this.props;
@@ -11,8 +11,8 @@ class NameList extends Component {
     return (
       <div role="list" className="ui list">
         {names.map((name, index) => (
-          <div key={index} role="listitem" className="item">
-            {name}
+          <div key={index} role="listitem" className="item" style={name["selected"] ? {color: "red"} : {color: ""}}>
+            {name["name"]}
           </div>
         ))}
       </div>

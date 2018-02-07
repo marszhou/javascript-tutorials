@@ -3,23 +3,28 @@ import PropTypes from 'prop-types';
 
 class Result extends Component {
   static propTypes = {
-    peopleAmount: PropTypes.number,
-    peopleTeams: PropTypes.number,
-    teamNumber: PropTypes.number
+    targetPeopleAmount: PropTypes.number,
+    targetGroups: PropTypes.number,
+    groupCount: PropTypes.number,
+    showNames: PropTypes.array
   }
 
   render() {
-    const { peopleAmount, peopleTeams } = this.props;
+    const { targetPeopleAmount, targetGroups, showNames, groupCount } = this.props;
     return (
       <div>
         <p>
-          抽取{peopleAmount ? peopleAmount : 0}个人，
-          共{peopleTeams ? peopleTeams : 0}组
+          抽取{targetPeopleAmount ? targetPeopleAmount : 0}个人，
+          共{targetGroups ? targetGroups : 0}组
         </p>
         <div className="ui message">
-          <div className="header">抽取第X组</div>
-          <p>We updated our privacy policy here to better service our customers.
-            We recommend reviewing the changes.
+          <div className="header">抽取第{groupCount}组</div>
+          <p>名单：
+            {showNames.map(name => (
+              <div role="list" className="ui celled horizontal list">
+                <div role="listitem" className="item">{name["name"]}</div>
+              </div>
+            ))}
           </p>
         </div>
         <button className="ui button" role="button">重置</button>

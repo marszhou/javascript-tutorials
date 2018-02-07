@@ -4,34 +4,35 @@ import PropTypes from 'prop-types';
 class CountSet extends Component {
   static propTypes = {
     handleChange: PropTypes.func,
-    peopleAmount: PropTypes.number,
-    peopleTeams: PropTypes.number
+    targetPeopleAmount: PropTypes.number,
+    targetGroups: PropTypes.number,
+    handleStart: PropTypes.func
   }
   render() {
-    const { handleChange, peopleAmount, peopleTeams } = this.props;
+    const { handleChange, targetPeopleAmount, targetGroups, handleStart } = this.props;
     return (
       <div>
+        <span>抽取人数</span>
         <div className="ui input">
-          <span>抽取人数</span>
           <input 
             type="text" 
             placeholder="0" 
-            name="peopleAmount" 
-            value={peopleAmount}
+            name="targetPeopleAmount" 
+            value={targetPeopleAmount}
             onChange={handleChange}
           />
         </div>
+        <span>组数</span>
         <div className="ui input">
-          <span>组数</span>
           <input 
             type="text" 
             placeholder="0" 
-            name="peopleTeams" 
-            value={peopleTeams}
+            name="targetGroups" 
+            value={targetGroups}
             onChange={handleChange}
           />
         </div>
-        <button className="ui button" role="button" onClick={() => {}}>确定</button>
+        <button className="ui button" role="button" onClick={handleStart}>开始</button>
       </div>
     );
   }
