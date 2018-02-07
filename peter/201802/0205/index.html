@@ -1,0 +1,23 @@
+<html>
+<script>
+    Array.prototype.shuffle = function () {
+        var tempArray = []
+        var tempIndex = []
+        this.reduce((ret, value) => {
+            var mark = true
+            while(mark){
+                newIndex = Math.ceil(Math.random() * (this.length))
+                if(tempIndex.includes(newIndex)===false){
+                    tempIndex.push(newIndex)                    
+                    tempArray[newIndex-1] = value
+                    mark = false
+                }
+            }
+        }, 0)
+        return tempArray
+    }
+    const newArray = [1, 2, 3, 4, 5, 6].shuffle()
+    console.log(newArray)
+</script>
+
+</html>

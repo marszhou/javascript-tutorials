@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class CountSet extends Component {
+  static propTypes = {
+    handleChange: PropTypes.func,
+    targetPeopleAmount: PropTypes.number,
+    targetGroups: PropTypes.number,
+    handleStart: PropTypes.func
+  }
   render() {
+    const { handleChange, targetPeopleAmount, targetGroups, handleStart } = this.props;
     return (
       <div>
+        <span>抽取人数</span>
         <div className="ui input">
-          <span>抽取</span>
-          <input type="text" placeholder="Search..." />
-          <span>个</span>
-          <span>组数</span>
-          <input type="text" placeholder="Search..." />
-          <button className="ui button" role="button">开始</button>
+          <input 
+            type="text" 
+            placeholder="0" 
+            name="targetPeopleAmount" 
+            value={targetPeopleAmount}
+            onChange={handleChange}
+          />
         </div>
+        <span>组数</span>
+        <div className="ui input">
+          <input 
+            type="text" 
+            placeholder="0" 
+            name="targetGroups" 
+            value={targetGroups}
+            onChange={handleChange}
+          />
+        </div>
+        <button className="ui button" role="button" onClick={handleStart}>开始</button>
       </div>
     );
   }
