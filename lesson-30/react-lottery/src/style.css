@@ -1,0 +1,13 @@
+.left-sidebar {
+  max-height: 500px;
+  overflow-y: auto;
+}
+.main-content {
+  text-align: center;
+  min-height: 160px!important;
+}
+
+.active {
+  color: red;
+  font-weight: bold;
+}
