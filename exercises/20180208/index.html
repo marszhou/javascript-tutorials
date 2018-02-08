@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let black = 1;
+    let i = 0;
+    find: while (true) {
+      for (i = 0; i < 10; i++) {
+        if ((black * 11 + 7 * i) / (black + 4 * i) === 3) {
+          break find;
+        }
+      }
+      black++;
+    }
+    console.log(`起初黑子的数量是${black + 4 * i}，白子的数量是${black * 11 + 7 * i}，共循环${i}次`)
+  </script>
+</body>
+
+</html>
