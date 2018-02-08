@@ -13,8 +13,10 @@
     let black = 1;
     let i = 0;
     find: while (true) {
-      for (i = 0; i < 10; i++) {
-        if ((black * 11 + 7 * i) / (black + 4 * i) === 3) {
+      for (i = 1; i <= 10; i++) {
+        const whiteAtBegin = black * 11 + 7 * i
+        const blackAtBegin = black + 4 * i
+        if (whiteAtBegin / blackAtBegin === 3) {
           break find;
         }
       }
