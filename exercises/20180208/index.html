@@ -10,19 +10,29 @@
 
 <body>
   <script>
-    let black = 1;
-    let i = 0;
+    /**
+     * 思路：
+     * 因为结束时，白是黑的11倍，并不知道黑是多少，所以我们假设黑从1开始
+     * 这样，假设结束时黑子是1，白子就是11，每次黑+4，白+7，在10次之内，看有没有情况是白/黑===3的
+     * 如果没有，让黑子=2，每次黑+4，白+7，在10次之内，看有没有情况是白/黑===3的，...
+     * 以此类推，直到找到黑子=n，每次黑+4，白+7，在m（m<=10）次之内，(11 * n + m * 7) / (n + m * 4) === 3
+     */
+    let n = 1;
+    let m = 0;
+    // find 是一个标签（label），用于标识代码块的位置
     find: while (true) {
-      for (i = 1; i <= 10; i++) {
-        const whiteAtBegin = black * 11 + 7 * i
-        const blackAtBegin = black + 4 * i
+      for (m = 1; m <= 10; m++) {
+        const whiteAtBegin = n * 11 + m * 7
+        const blackAtBegin = n + m * 4
         if (whiteAtBegin / blackAtBegin === 3) {
+          // 因为此处循环处在循环体的第二层里，所以如果只是写break的话，只是跳出了for循环，而还在while循环里
+          // 为了能够跳出所有循环，所以要指定一个label的名字
           break find;
         }
       }
-      black++;
+      n++;
     }
-    console.log(`起初黑子的数量是${black + 4 * i}，白子的数量是${black * 11 + 7 * i}，共循环${i}次`)
+    console.log(`起初黑子的数量是${n + m * 4}，白子的数量是${n * 11 + m * 7}，共循环${m}次`)
   </script>
 </body>
 
