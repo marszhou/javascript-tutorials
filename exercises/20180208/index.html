@@ -27,6 +27,8 @@
         if (whiteAtBegin / blackAtBegin === 3) {
           // 因为此处循环处在循环体的第二层里，所以如果只是写break的话，只是跳出了for循环，而还在while循环里
           // 为了能够跳出所有循环，所以要指定一个label的名字
+          // 查看break的文档里关于label的用法：
+          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break
           break find;
         }
       }
