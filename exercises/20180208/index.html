@@ -17,11 +17,13 @@
      * 如果没有，让黑子=2，每次黑+4，白+7，在10次之内，看有没有情况是白/黑===3的，...
      * 以此类推，直到找到黑子=n，每次黑+4，白+7，在m（m<=10）次之内，(11 * n + m * 7) / (n + m * 4) === 3
      */
+    let loops = 0
     let n = 1;
     let m = 0;
     // find 是一个标签（label），用于标识代码块的位置
     find: while (true) {
       for (m = 1; m <= 10; m++) {
+        ++loops
         const whiteAtBegin = n * 11 + m * 7
         const blackAtBegin = n + m * 4
         if (whiteAtBegin / blackAtBegin === 3) {
@@ -34,7 +36,7 @@
       }
       n++;
     }
-    console.log(`起初黑子的数量是${n + m * 4}，白子的数量是${n * 11 + m * 7}，共循环${m}次`)
+    console.log(`起初黑子的数量是${n + m * 4}，白子的数量是${n * 11 + m * 7}，共需${m}步，共循环${loops}次`)
   </script>
 </body>
 
