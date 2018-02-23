@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import { handleWordsCount } from './utils';
 
 class WeiboTextInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
       wordsCount: 0,
-      textInput: "输入一段文字"
+      textInput: ""
     }
   }
 
-  handleChange = (el) => {
-    const value = el.value;
-    console.log(value)
-    
+  handleInputChange = (e) => {
+    const value = e.target.value;
+    const wordsCount = handleWordsCount(value);
     this.setState({
-      wordsCount: value,
-      textInput: el.value
+      wordsCount: wordsCount,
+      textInput: value
     })
   }
 
@@ -24,15 +24,16 @@ class WeiboTextInput extends Component {
       <div className="container">
         <div className="text-title-container">
           <div className="text-title left">有什么新鲜事想告诉大家?</div>
-          <div className="text-title right">已输入{this.state.wordsCount}个字</div>
+          <div className="text-title right" style={this.state.wordsCount > 140 ? {"color": "red"} : {"color": ""}}>已输入{this.state.wordsCount}个字</div>
         </div>
         <div className="">
           <textarea 
             className="text-input" 
             cols="50" 
             rows="10"
+            placeholder="请输入一段文字"
             value={this.state.textInput}
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
           ></textarea>
         </div>
       </div>
