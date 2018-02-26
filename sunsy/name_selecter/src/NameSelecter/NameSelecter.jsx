@@ -21,9 +21,12 @@ class Nameselecter extends Component {
 
   componentDidMount(){
     document.addEventListener("keydown", (e) => {
-      if(e.keyCode === 32) this.setState({
-        randomShow: false
-      })
+      if(e.keyCode === 32) {
+        e.preventDefault();
+        this.setState({
+          randomShow: false
+        })
+      }
       if(e.keyCode === 13) {
         if(this.state.groupCount < this.state.targetGroups) {
           this.setState({
