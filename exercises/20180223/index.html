@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function getMatrix(cols, rows, n) {
+      if (cols * rows % 2 > 0) throw Error("cols * rows的值必须为偶数");
+      const loopTimes = cols * rows / 2
+      const arr = []
+      for (let i = 0; i < loopTimes; i++) {
+        const rand = Math.ceil(Math.random() * n)
+        arr.push(rand)
+        arr.push(rand)
+      }
+      arr.sort(() => Math.random() - 0.5)
+      return [...Array(rows)].reduce((ret, v, y) => {
+        ret[y] = arr.slice(y * cols, (y+1) * cols )
+        return ret
+      }, [])
+    }
+
+    function logMatrix(matrix) {
+      matrix.forEach(row => console.log(row.join(' ')))
+    }
+
+  </script>
+</body>
+
+</html>
