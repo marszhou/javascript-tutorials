@@ -6,11 +6,12 @@ class Result extends Component {
     targetPeopleAmount: PropTypes.number,
     targetGroups: PropTypes.number,
     groupCount: PropTypes.number,
-    showNames: PropTypes.array
+    showNames: PropTypes.array,
+    onReset: PropTypes.func
   }
 
   render() {
-    const { targetPeopleAmount, targetGroups, showNames, groupCount } = this.props;
+    const { targetPeopleAmount, targetGroups, showNames, groupCount, onReset } = this.props;
     return (
       <div>
         <p>
@@ -27,7 +28,7 @@ class Result extends Component {
             ))}
           </p>
         </div>
-        <button className="ui button" role="button">重置</button>
+        <button className="ui button" role="button" onClick={onReset}>重置</button>
       </div>
     );
   }

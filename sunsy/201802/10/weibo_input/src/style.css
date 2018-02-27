@@ -1,0 +1,21 @@
+.container{
+  left: 10px;
+  top: 10px;
+}
+
+.text-title{
+  display: inline-block;
+  width: 200px;
+}
+
+.right{
+  text-align: right;
+}
+
+.text-title-container{
+  width: 400px;
+}
+
+.text-input{
+  width: 400px;
+}
