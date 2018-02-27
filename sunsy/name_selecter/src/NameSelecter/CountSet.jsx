@@ -18,7 +18,7 @@ class CountSet extends Component {
             type="text" 
             placeholder="0" 
             name="targetPeopleAmount" 
-            value={targetPeopleAmount}
+            value={targetPeopleAmount ? targetPeopleAmount : ""}
             onChange={handleChange}
           />
         </div>
@@ -28,7 +28,7 @@ class CountSet extends Component {
             type="text" 
             placeholder="0" 
             name="targetGroups" 
-            value={targetGroups}
+            value={targetGroups ? targetGroups : ""}
             onChange={handleChange}
           />
         </div>
