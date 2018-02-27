@@ -11,7 +11,7 @@
 <body>
   <script>
     function getMatrix(cols, rows, n) {
-      if (cols * rows % 2 > 0) throw Error("cols * rows的值必须为偶数");
+      if (cols * rows % 2 !== 0) throw Error("cols * rows的值必须为偶数");
       const loopTimes = cols * rows / 2
       const arr = []
       for (let i = 0; i < loopTimes; i++) {
@@ -29,6 +29,8 @@
     function logMatrix(matrix) {
       matrix.forEach(row => console.log(row.join(' ')))
     }
+
+    logMatrix(getMatrix(4, 4, 3))
 
   </script>
 </body>
