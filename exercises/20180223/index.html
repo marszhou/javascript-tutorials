@@ -11,10 +11,10 @@
 <body>
   <script>
     function genMatrix(cols, rows, n) {
-      if(cols*rows%2 !== 0) throw Error('cols*rows结果必须为偶数')
-      let a = [...Array(cols*rows/2)].map(() => Math.ceil(Math.random() > 0.6 ? 0 : Math.random() * n))
+      if (cols * rows % 2 !== 0) throw Error('cols*rows结果必须为偶数')
+      let a = [...Array(cols * rows / 2)].map(() => Math.ceil(Math.random() > 1 ? 0 : Math.random() * n))
       a = [...a, ...a].sort(() => Math.random() - 0.5)
-      return [...Array(rows)].map((value, y) => a.slice(y * cols, (y+1) * cols))
+      return [...Array(rows)].map((value, y) => a.slice(y * cols, (y + 1) * cols))
     }
 
     function getMatrixValue(x, y, matrix) {
@@ -23,6 +23,67 @@
 
     function setMatrixValue(value, x, y, matrix) {
       matrix[y][x] = value
+    }
+
+    // exercise 2
+
+    function getMatrixDimension(matrix) {
+      return {
+        rows: matrix.length,
+        cols: matrix[0].length
+      }
+    }
+
+    function findMatchByRule1(x, y, matrix) {
+      const current = getMatrixValue(x, y, matrix)
+      if (current === 0) return []
+
+      const { cols, rows } = getMatrixDimension(matrix)
+
+      const find = (vertical) => {
+        const s = vertical ? y : x
+        const b = vertical ? rows : cols
+
+        for (let ss = s + 1; ss < b; ss++) {
+          const a = getMatrixValue(...(vertical ? [x, ss, matrix] : [ss, y, matrix]))
+          if (a === 0) continue
+          if (a === current) return [current, [x, y], vertical ? [x, ss] : [ss, y]]
+          break
+        }
+      }
+
+      return [false, true].reduce((ret, vertical)=> {
+        const r = find(vertical)
+        if (r) ret.push(r)
+        return ret
+      }, [])
+
+
+      // for (let xx = x + 1; xx < cols; xx++) {
+      //   const a = getMatrixValue(xx, y, matrix)
+      //   if (a === 0) continue
+      //   if (a === current) return [[x, y], [xx, y]]
+      //   break
+      // }
+
+      // for (let yy = y + 1; yy < rows; yy++) {
+      //   const a = getMatrixValue(x, yy, matrix)
+      //   if (a === 0) continue
+      //   if (a === current) return [[x, y], [x, yy]]
+      //   break
+      // }
+    }
+
+    function getAllLinks(matrix) {
+      let ret = []
+      const { cols, rows } = getMatrixDimension(matrix)
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          const finding = findMatchByRule1(x, y, matrix)
+          ret = [...ret, ...finding]
+        }
+      }
+      return ret
     }
 
 
