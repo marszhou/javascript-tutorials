@@ -10,27 +10,17 @@
 
 <body>
   <script>
-    function getMatrix(cols, rows, n) {
-      if (cols * rows % 2 !== 0) throw Error("cols * rows的值必须为偶数");
-      const loopTimes = cols * rows / 2
-      const arr = []
-      for (let i = 0; i < loopTimes; i++) {
-        const rand = Math.ceil(Math.random() * n)
-        arr.push(rand)
-        arr.push(rand)
-      }
-      arr.sort(() => Math.random() - 0.5)
-      return [...Array(rows)].reduce((ret, v, y) => {
-        ret[y] = arr.slice(y * cols, (y+1) * cols )
-        return ret
-      }, [])
+    function genMatrix(cols, rows, n) {
+      if(cols*rows%2 !== 0) throw Error('cols*rows结果必须为偶数')
+      let a = [...Array(cols*rows/2)].map(() => Math.ceil(Math.random() * n))
+      a = [...a, ...a].sort(() => Math.random() - 0.5)
+      return [...Array(rows)].map((value, y) => a.slice(y * cols, (y+1) * cols))
     }
 
-    function logMatrix(matrix) {
-      matrix.forEach(row => console.log(row.join(' ')))
+    function getValue(x, y, matrix) {
+      return matrix[y][x]
     }
 
-    logMatrix(getMatrix(4, 4, 3))
 
   </script>
 </body>
