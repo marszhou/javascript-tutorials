@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   Container,
   Header,
@@ -16,6 +17,17 @@ import {
 } from 'semantic-ui-react'
 
 class LotteryPool extends Component {
+  static propTypes = {
+    groupCount: PropTypes.number,
+    total: PropTypes.number,
+    unselectedUsers: PropTypes.array,
+    currentGroup: PropTypes.number,
+    selectedCount: PropTypes.number,
+    onReset: PropTypes.func,
+    onDraw: PropTypes.func,
+    onFinish: PropTypes.func
+  }
+
   // onReset groupCount total unselectedUsers currentGroup onDraw onFinish
   state = {
     running: false,
@@ -56,6 +68,14 @@ class LotteryPool extends Component {
     )
   }
 
+  handleStop = () => {
+    window.clearInterval(this.timer)
+    this.setState({
+      running: false,
+      lastList: this.state.currentList
+    }, () => this.props.onDraw(this.state.currentList))
+  }
+
   render() {
     const {
       groupCount,
@@ -71,7 +91,7 @@ class LotteryPool extends Component {
 
     if (running) {
       content = [
-        <Message.Header key="header">正在抽奖...</Message.Header>,
+        <Message.Header key="header">正在抽奖 第{currentGroup+1}组...</Message.Header>,
         <p key="body">{currentList.join(',')}</p>
       ]
     } else {
@@ -123,9 +143,15 @@ class LotteryPool extends Component {
         {content}
       </Message>,
       <Segment key="btns" attached textAlign="center">
-        <Button type="button" color="red" onClick={this.handleStart}>
-          抽第{currentGroup + 1}组
-        </Button>
+        {running ? (
+          <Button type="button" color="red" onClick={this.handleStop}>
+            停止
+          </Button>
+        ) : (
+          <Button type="button" color="red" onClick={this.handleStart}>
+            抽第{currentGroup + 1}组
+          </Button>
+        )}
       </Segment>
     ]
   }
