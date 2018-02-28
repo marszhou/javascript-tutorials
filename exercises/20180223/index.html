@@ -17,8 +17,12 @@
       return [...Array(rows)].map((value, y) => a.slice(y * cols, (y+1) * cols))
     }
 
-    function getValue(x, y, matrix) {
+    function getMatrixValue(x, y, matrix) {
       return matrix[y][x]
+    }
+
+    function setMatrixValue(value, x, y, matrix) {
+      matrix[y][x] = value
     }
 
 
