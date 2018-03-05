@@ -12,7 +12,7 @@ function genMatrix(cols, rows, n) {
 }
 ```
 
-请注意throttle常量作为阀值，控制是否出现0，出现几率为1-throttle，如throttle-0.6的情况下有40%几率填充0。
+请注意throttle常量作为阀值，控制是否出现0，出现几率为1-throttle，如throttle=0.6的时候有40%几率填充0。
 
 假设我们有以下4x4填充1-4数字的矩阵:
 
