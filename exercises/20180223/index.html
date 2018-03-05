@@ -87,6 +87,73 @@
       return isVerticalLink(p1, p2, matrix) || isHorizontalLink(p1, p2, matrix)
     }
 
+
+
+    function isHVLink(p1, p2, matrix) {
+      const { cols, rows } = getMatrixDimension(matrix)
+        ;[p1, p2] = sortPoints(p1, p2)
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          const p3 = [x, y]
+          const v3 = getMatrixValue(p3[0], p3[1], matrix)
+          if (v3 !== 0) continue
+          if (isPointsEqual(p1, p3) || isPointsEqual(p2, p3)) {
+            continue
+          }
+          if (isHorizontalLink(p1, p3, matrix) && isVerticalLink(p2, p3, matrix)) {
+            return true
+          }
+        }
+      }
+      return false
+    }
+
+    function isVHLink(p1, p2, matrix) {
+      const { cols, rows } = getMatrixDimension(matrix)
+        ;[p1, p2] = sortPoints(p1, p2)
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          const p3 = [x, y]
+          const v3 = getMatrixValue(p3[0], p3[1], matrix)
+          if (v3 !== 0) continue
+          if (isPointsEqual(p1, p3) || isPointsEqual(p2, p3)) {
+            continue
+          }
+          if (isVerticalLink(p1, p3, matrix) && isHorizontalLink(p2, p3, matrix)) {
+            return true
+          }
+        }
+      }
+      return false
+    }
+
+    // 可以用两条直线连接？(一次转弯)
+    function isTwoLineLink(p1, p2, matrix) {
+      [p1, p2] = sortPoints(p1, p2)
+      return isHVLink(p1, p2, matrix) || isVHLink(p1, p2, matrix)
+    }
+
+    // 可以用3条直线连接？（二次转弯）
+    function isThreeLineLink(p1, p2, matrix) {
+      const { cols, rows } = getMatrixDimension(matrix)
+        ;[p1, p2] = sortPoints(p1, p2)
+
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          const p3 = [x, y]
+          const v3 = getMatrixValue(p3[0], p3[1], matrix)
+          if (v3 !== 0) continue
+          if (isPointsEqual(p1, p3) || isPointsEqual(p2, p3)) {
+            continue
+          }
+          if ((isVerticalLink(p1, p3, matrix) && isHVLink(p3, p2, matrix)) || (isHorizontalLink(p1, p3, matrix) && isVHLink(p3, p2, matrix))) {
+            return true
+          }
+        }
+      }
+      return false
+    }
+
     function getAllLink(matrix) {
       const { rows, cols } = getMatrixDimension(matrix)
       const ret = []
@@ -94,13 +161,14 @@
         for (let x = 0; x < cols; x++) {
           const p1 = [x, y]
           const v1 = getMatrixValue(p1[0], p1[1], matrix)
-          if (v1===0) break
-          for(let yy = 0; yy < rows; yy++) {
-            for(let xx = 0; xx < cols; xx++) {
+          if (v1 === 0) continue
+          for (let yy = 0; yy < rows; yy++) {
+            for (let xx = 0; xx < cols; xx++) {
               const p2 = [xx, yy]
+              // isPointsEqual(p1, [4,4]) && isPointsEqual(p2, [3, 5])
               const v2 = getMatrixValue(p2[0], p2[1], matrix)
               if (v1 !== v2) continue
-              if (isOneLineLink(p1, p2, matrix)) ret.push([p1, p2])
+              if (isOneLineLink(p1, p2, matrix) || isTwoLineLink(p1, p2, matrix) || isThreeLineLink(p1, p2, matrix)) ret.push([p1, p2])
             }
           }
         }
