@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <!-- Your custom script here -->
+
 </head>
 
 <body>
@@ -162,10 +164,9 @@
           const p1 = [x, y]
           const v1 = getMatrixValue(p1[0], p1[1], matrix)
           if (v1 === 0) continue
-          for (let yy = 0; yy < rows; yy++) {
-            for (let xx = 0; xx < cols; xx++) {
+          for (let yy = y; yy < rows; yy++) {
+            for (let xx = x; xx < cols; xx++) {
               const p2 = [xx, yy]
-              // isPointsEqual(p1, [4,4]) && isPointsEqual(p2, [3, 5])
               const v2 = getMatrixValue(p2[0], p2[1], matrix)
               if (v1 !== v2) continue
               if (isOneLineLink(p1, p2, matrix) || isTwoLineLink(p1, p2, matrix) || isThreeLineLink(p1, p2, matrix)) ret.push([p1, p2])
@@ -189,6 +190,7 @@
     console.log(getAllLink(matrix))
 
   </script>
+
 </body>
 
 </html>
