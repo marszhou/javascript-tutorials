@@ -32,6 +32,8 @@ function genMatrix(cols, rows, n) {
 
 3.二次折线，也就是说由一条竖线(vertical)+一条hv线，或一条横线+一条vh线组成
 
+![](https://ws1.sinaimg.cn/large/006tNc79gy1fp2be1tgz9j30iv094aae.jpg)
+
 所以，我也准备使用3个方法分别判断三种连线方式，分别是：
 
 1. isOneLineLink(p1, p2, matrix)
