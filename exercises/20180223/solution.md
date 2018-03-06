@@ -15,6 +15,7 @@ function genMatrix(cols, rows, n) {
 请注意throttle常量作为阀值，控制是否出现0，出现几率为1-throttle，如throttle = 0.6的情况下有40%几率填充0。
 
 假设我们有以下6x6填充1-4数字的矩阵:
+
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fp2bauuthbj309608waa4.jpg)
 
 ## 思路
