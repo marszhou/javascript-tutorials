@@ -194,8 +194,8 @@
               const v2 = getMatrixValue(p2[0], p2[1], matrix)
               if (v1 !== v2) continue
               if (
-                // isOneLineLink(p1, p2, matrix) ||
-                // isTwoLineLink(p1, p2, matrix) ||
+                isOneLineLink(p1, p2, matrix) ||
+                isTwoLineLink(p1, p2, matrix) ||
                 isThreeLineLink(p1, p2, matrix)
               ) {
                 ret.push([p1, p2])
