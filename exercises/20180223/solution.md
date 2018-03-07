@@ -79,3 +79,42 @@ function isHorizontalLink(p1, p2, matrix) {
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fp4klt5w9aj30tk0dawgo.jpg)
 
+## 代码说明
+
+### 一段线
+
+![](https://ws3.sinaimg.cn/large/006tKfTcly1fp4kxuymcpj30mn0gin16.jpg)
+
+### 二段线
+
+先横再竖（先竖再横也类似，所以不重复说明了）
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fp4l69ux6wj30lh0g5djc.jpg)
+
+所以判断两个点是否能用二段线链接时，只需要用这两个函数检查，只要其中之一成立就成功，反之则失败
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fp4l9h92eej30h003hwf0.jpg)
+
+### 三段线
+
+三段线比较特殊，除了要考虑在矩阵内部的通路外，还有可能有这种连线
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fp4lbhqkchj309t09b0st.jpg)
+
+所以我们在计算之前，先给矩阵镶一个0组成的外框
+
+把它变成这样
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fp4lgbdum9j30bw0bmt8x.jpg)
+
+具体实现如下
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fp4lnyf3rpj30py05iq4p.jpg)
+
+top, middle, bottom对应如下
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fp4lpx5ginj30k20dydgm.jpg)
+
+最后三段线的实现方法
+
+![](https://ws2.sinaimg.cn/large/006tKfTcly1fp4m15jjnij30ql0kp78c.jpg)
