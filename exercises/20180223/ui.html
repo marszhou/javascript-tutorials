@@ -25,6 +25,7 @@
       line-height: 50px;
       width: 50px;
       height: 50px;
+      border: '1px solid black';
     }
 
     .item-0 {
@@ -114,7 +115,6 @@
       row.forEach((item, x) => {
         const cell = document.createElement('div')
         cell.className = 'cell item-' + item
-        cell.style.border = '1px solid black'
         cell.style.left = x * 56 + 'px'
         cell.style.top = y * 56 + 'px'
         // cell.innerText = item
