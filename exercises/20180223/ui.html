@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .board {
+      position: absolute;
+      left: 100px;
+      top: 100px;
+      z-index: 1；
+    }
+
+    .cell {
+      position: absolute;
+      font-size: 24px;
+      text-align: center;
+      line-height: 50px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .item-0 {
+      display: none;
+    }
+
+    .item-1 {
+      background-image: url('./images/apple.png');
+      background-size: 50px 50px;
+    }
+
+    .item-2 {
+      background-image: url('./images/cherry.png');
+      background-size: 50px 50px;
+    }
+
+    .item-3 {
+      background-image: url('./images/grape.png');
+      background-size: 50px 50px;
+    }
+
+    .item-4 {
+      background-image: url('./images/lemon.png');
+      background-size: 50px 50px;
+    }
+
+    .item-5 {
+      background-image: url('./images/orange.png');
+      background-size: 50px 50px;
+    }
+
+    .item-6 {
+      background-image: url('./images/pear.png');
+      background-size: 50px 50px;
+    }
+
+    .item-7 {
+      background-image: url('./images/pineapple.png');
+      background-size: 50px 50px;
+    }
+
+    .item-8 {
+      background-image: url('./images/strawberry.png');
+      background-size: 50px 50px;
+    }
+
+    .item-9 {
+      background-image: url('./images/watermelon.png');
+      background-size: 50px 50px;
+    }
+
+    .lines {
+      width:100%;
+      height:100%;
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class='board'>
+
+
+  </div>
+  <svg class="lines">
+    <polyline points="296,352 352,352" style="fill: transparent;stroke:red;stroke-width:5px; stroke-linejoin: round"
+    />
+    <polyline points="296,128 352,128 352,184" style="fill: transparent;stroke:red;stroke-width:5px; stroke-linejoin: round"
+    />
+    <polyline points="184,352 184,464 408,464 408,408" style="fill: transparent;stroke:red;stroke-width:5px; stroke-linejoin: round"
+    />
+  </svg>
+  <script>
+    const matrix = [
+      [1, 0, 3, 2, 0, 3],
+      [2, 0, 2, 4, 2, 2],
+      [2, 2, 4, 3, 0, 3],
+      [0, 0, 0, 0, 0, 1],
+      [0, 1, 2, 1, 1, 0],
+      [0, 0, 2, 0, 2, 1]
+    ]
+    const board = document.querySelector('.board')
+    matrix.forEach((row, y) => {
+      row.forEach((item, x) => {
+        const cell = document.createElement('div')
+        cell.className = 'cell item-' + item
+        cell.style.border = '1px solid black'
+        cell.style.left = x * 56 + 'px'
+        cell.style.top = y * 56 + 'px'
+        // cell.innerText = item
+        board.appendChild(cell)
+      })
+    })
+  </script>
+</body>
+
+</html>
