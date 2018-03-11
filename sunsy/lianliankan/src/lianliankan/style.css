@@ -7,6 +7,18 @@ body {
   top: 100px;
   z-index: 1；
 }
+.panel {
+  position: absolute;
+  left: 700px;
+  top: 100px;
+  width: 200px;
+  height: 555px;
+  z-index: 1;
+  background-color: antiquewhite;
+}
+.content {
+  font-size: 24px;
+}
 .cell {
   position: absolute;
   font-size: 24px;

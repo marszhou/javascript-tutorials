@@ -4,6 +4,7 @@ import PictureSelector from './PictureSelector';
 import Line from './Line';
 import './style.css';
 import PropTypes from 'prop-types';
+import { genMatrix } from './utils';
 
 class GameBoard extends Component {
   static propTypes = {
@@ -24,8 +25,8 @@ class GameBoard extends Component {
     }
   }
 
-  pictureSelect = () => {
-
+  pictureSelect = (point, item) => {
+    
   }
 
   handleStart = () => {
@@ -35,8 +36,8 @@ class GameBoard extends Component {
   render() {
     return (
       <div>
+        <PictureSelector matrix={genMatrix()} pictureSelect={() => {}}/>
         <ControlPanel />
-        <PictureSelector />
       </div>
     );
   }
