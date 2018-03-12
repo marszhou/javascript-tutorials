@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isPointsEqual } from './utils';
 
 class PictureSelector extends Component {
   static propTypes = {
     matrix: PropTypes.array,
-    pictureleSelect: PropTypes.func
+    pictureSelect: PropTypes.func,
+    selectedPoint: PropTypes.array
   }
 
   static defaultProps = {
@@ -16,11 +18,12 @@ class PictureSelector extends Component {
       [0, 1, 2, 1, 1, 0],
       [0, 0, 2, 0, 2, 1]
     ],
-    pictureleSelect: () => {}
+    pictureSelect: () => {},
+    selectedPoint: []
   }
 
   render() {
-    const { matrix, pictureleSelect } = this.props;
+    const { matrix, pictureSelect, selectedPoint } = this.props;
     
     return (
       <div className="board">
@@ -28,9 +31,9 @@ class PictureSelector extends Component {
           row.map((item, x) => 
             <div 
               key={x}
-              className={'cell item-' + item}
+              className={'cell item-' + item + (isPointsEqual([x, y], selectedPoint) ? ' selected' : '')}
               style={{left: x * 56 + 'px', top: y * 56 + 'px'}}
-              onClick={() => pictureleSelect([x, y], item)}
+              onClick={() => pictureSelect([x, y])}
             >
             </div>
           )

@@ -4,7 +4,7 @@ import PictureSelector from './PictureSelector';
 import Line from './Line';
 import './style.css';
 import PropTypes from 'prop-types';
-import { genMatrix } from './utils';
+import { genMatrix, isLinkable, setMatrixValue, isGameFinished } from './utils';
 
 class GameBoard extends Component {
   static propTypes = {
@@ -18,15 +18,34 @@ class GameBoard extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      points: [],
-      matrix: [],
+      selectedPoint: [],
+      matrix: genMatrix(),
       time: 60,
       score: 0
     }
   }
 
-  pictureSelect = (point, item) => {
-    
+  pictureSelect = (point) => {
+    const { selectedPoint, matrix } = this.state;
+    if(isLinkable(selectedPoint, point, matrix)) {
+      this.renderMatrix(0,selectedPoint, point, matrix);
+    }
+    else{
+      this.setState({
+        selectedPoint: point,
+      })
+    }
+  }
+
+  renderMatrix = (value=0, p1, p2, matrix) => {
+    const x1 = p1[0], y1 = p1[1], x2 = p2[0], y2 = p2[1];
+    setMatrixValue(value, x1, y1, matrix);
+    setMatrixValue(value, x2, y2, matrix);
+    this.setState({
+      selectedPoint: [],
+      matrix: matrix,
+      score: this.state.score + 1
+    })
   }
 
   handleStart = () => {
@@ -36,8 +55,12 @@ class GameBoard extends Component {
   render() {
     return (
       <div>
-        <PictureSelector matrix={genMatrix()} pictureSelect={() => {}}/>
-        <ControlPanel />
+        <PictureSelector 
+          matrix={this.state.matrix} 
+          pictureSelect={this.pictureSelect} 
+          selectedPoint={this.state.selectedPoint}
+        />
+        <ControlPanel score={this.state.score}/>
       </div>
     );
   }
