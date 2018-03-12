@@ -76,7 +76,8 @@ class GameBoard extends Component {
       selectedPoint: [],
       matrix: genMatrix(),
       score: 0,
-      time: this.props.timeSet
+      time: this.props.timeSet,
+      gameOngoing: false
     })
   }
 
