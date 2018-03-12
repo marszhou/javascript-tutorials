@@ -11,7 +11,7 @@ class ControlPanel extends Component {
 
   static defaultProps = {
     handleStart: () => {},
-    time: 120,
+    time: 60,
     score: 0,
     round: 1
   }

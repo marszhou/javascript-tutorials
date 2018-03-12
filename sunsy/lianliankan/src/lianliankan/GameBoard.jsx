@@ -20,8 +20,9 @@ class GameBoard extends Component {
     this.state = {
       selectedPoint: [],
       matrix: genMatrix(),
-      time: 60,
-      score: 0
+      score: 0,
+      time: this.props.timeSet,
+      gameOngoing: false
     }
   }
 
@@ -44,12 +45,39 @@ class GameBoard extends Component {
     this.setState({
       selectedPoint: [],
       matrix: matrix,
-      score: this.state.score + 1
+      score: this.state.score + 1,
     })
   }
 
-  handleStart = () => {
+  handleStart = (e) => {
+    if(this.state.gameOngoing) return;
+    this.setState({
+      gameOngoing: true
+    })
+    e.preventDefault();
+    const countDown = () => {
+      if(this.state.time > 0) {
+        this.setState({
+          time: this.state.time - 1
+        })
+      }
+      else{
+        clearInterval(timer);
+        this.gameOver();
+      }
+    }
+    const timer = setInterval(countDown, 1000);
+  }
 
+  gameOver = () => {
+    const score = this.state.score;
+    alert(" GAME OVER \n YOUR SCORE IS " + score)
+    this.setState({
+      selectedPoint: [],
+      matrix: genMatrix(),
+      score: 0,
+      time: this.props.timeSet
+    })
   }
 
   render() {
@@ -60,7 +88,11 @@ class GameBoard extends Component {
           pictureSelect={this.pictureSelect} 
           selectedPoint={this.state.selectedPoint}
         />
-        <ControlPanel score={this.state.score}/>
+        <ControlPanel 
+          score={this.state.score} 
+          time={this.state.time} 
+          handleStart={this.handleStart}
+        />
       </div>
     );
   }

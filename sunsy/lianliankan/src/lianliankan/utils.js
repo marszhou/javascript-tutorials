@@ -79,8 +79,7 @@ function isOneLineLink(p1, p2, matrix) {
   return isVerticalLink(p1, p2, matrix) || isHorizontalLink(p1, p2, matrix)
 }
 function isHVLink(p1, p2, matrix) {
-  const { cols, rows } = getMatrixDimension(matrix)
-    ;[p1, p2] = sortPoints(p1, p2)
+  const { cols, rows } = getMatrixDimension(matrix);
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows; y++) {
       const p3 = [x, y] // 遍历整个矩阵，用p3去尝试是否能够满足条件
@@ -101,8 +100,7 @@ function isHVLink(p1, p2, matrix) {
   return false
 }
 function isVHLink(p1, p2, matrix) {
-  const { cols, rows } = getMatrixDimension(matrix)
-    ;[p1, p2] = sortPoints(p1, p2)
+  const { cols, rows } = getMatrixDimension(matrix);
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows; y++) {
       const p3 = [x, y]
