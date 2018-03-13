@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 class Line extends Component {
   static propTypes = {
-    points: PropTypes.array
+    points: PropTypes.string
   }
 
   render() {
     const { points } = this.props;
     return (
       <div>
-        <svg class="lines">
+        <svg className="lines">
           <polyline 
-            style="fill: transparent;stroke:red;stroke-width:5px; stroke-linejoin: round"
+            points={points}
+            style={{fill:'transparent', stroke:'red', strokeWidth:'5px',  strokeLinejoin: 'round'}}
           />
         </svg>
       </div>

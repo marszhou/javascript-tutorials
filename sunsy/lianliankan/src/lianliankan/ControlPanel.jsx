@@ -24,7 +24,7 @@ class ControlPanel extends Component {
           <button onClick={handleStart}>开始</button>
         </div>
         <div className="content">
-          <p>时间：{time} 秒</p>
+          <p>剩余时间：{time} 秒</p>
         </div>
         <div className="content">
           <p>得分：{score} 分</p>

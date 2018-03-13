@@ -3,13 +3,13 @@ body {
 }
 .board {
   position: absolute;
-  left: 100px;
-  top: 100px;
+  left: 50px;
+  top: 50px;
   z-index: 1；
 }
 .panel {
   position: absolute;
-  left: 700px;
+  left: 650px;
   top: 100px;
   width: 200px;
   height: 450px;
@@ -68,6 +68,46 @@ body {
 }
 .item-9 {
   background-image: url('./images/watermelon.png');
+  background-size: 50px 50px;
+}
+.item-10 {
+  background-image: url('./images/halfapple2.png');
+  background-size: 50px 50px;
+}
+.item-11 {
+  background-image: url('./images/halforange2.png');
+  background-size: 50px 50px;
+}
+.item-12 {
+  background-image: url('./images/halfpear2.png');
+  background-size: 50px 50px;
+}
+.item-13 {
+  background-image: url('./images/halfpineapple2.png');
+  background-size: 50px 50px;
+}
+.item-14 {
+  background-image: url('./images/halfstrawberry2.png');
+  background-size: 50px 50px;
+}
+.item-15 {
+  background-image: url('./images/orange2.png');
+  background-size: 50px 50px;
+}
+.item-16 {
+  background-image: url('./images/pear2.png');
+  background-size: 50px 50px;
+}
+.item-17 {
+  background-image: url('./images/strawberry2.png');
+  background-size: 50px 50px;
+}
+.item-18 {
+  background-image: url('./images/watermelon2.png');
+  background-size: 50px 50px;
+}
+.item-19 {
+  background-image: url('./images/redapple.png');
   background-size: 50px 50px;
 }
 .lines {
