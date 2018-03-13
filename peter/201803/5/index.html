@@ -1,0 +1,58 @@
+<html>
+<script>
+    function getAllLinks(newArray) {
+        var outLine = oi = i = j = 0
+        var returnArray = newArray.map(e1 => {
+            // console.log(" i = " + i)
+            outLine = e1.length
+            i++
+            j = 0
+            return e1.map(e2 => {
+                // console.log(" j = " + j)
+                j++
+                var link = []
+                for (var ini = i - 1; ini < newArray.length; ini++) {
+                    // [ini, j], "i=" + i, "e2 = " + e2
+                    newNum = newArray[ini, j]
+                    if (newNum === 0) {
+                        break
+                    } else {
+                        if (e2 === newNum) {
+                            link.push([ini, j])
+                            break
+                        }
+                    }
+                    // if (newNum != 0) {
+                    //     if (e2 === newNum) {
+                    //         link.push([ini, j])
+                    //         break
+                    //     }
+                    // }
+                }
+
+                for (var inj = j - 1; inj < outLine; inj++) {
+                    newNum2 = newArray[i - 1, inj]
+                    if (newNum2 === 0) {
+                        break
+                    } else {
+                        if (e2 === newNum2) {
+                            link.push([i - 1, inj])
+                            break
+                        }
+                    }
+                }
+                return link
+            })
+        })
+        return returnArray
+    }
+
+    console.log(getAllLinks([
+        [3, 0, 0, 0],
+        [0, 1, 1, 1],
+        [0, 2, 0, 2],
+        [3, 4, 1, 4]
+    ]))
+</script>
+
+</html>
