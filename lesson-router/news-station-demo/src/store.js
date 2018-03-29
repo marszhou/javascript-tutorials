@@ -3,6 +3,7 @@ import feeds from 'feeds.json'
 export default {
   topFeeds(n) {
     // 返回前n个feed
+    return feeds.slice(0, 10)
   },
 
   getFeedsByPage(page, pageSize=10) {
