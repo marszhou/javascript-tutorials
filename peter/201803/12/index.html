@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <link href="./myStyle.css" rel="stylesheet" type="text/css">
+    <script>
+        var int = self.setInterval("timing()", 1000);
+        function timing() {
+            var d = new Date();
+            var t = d.toLocaleTimeString();
+            document.getElementById("timing").value = t;
+        }
+    </script>
+</head>
+
+<body>
+    <div class=myTitle>
+        连连看
+    </div>
+    <div class=myBody>
+        <div class=canvas>
+            游戏画布
+        </div>
+        <div class=button>
+            <div class=sunButton onClink='start'>
+                开始 或 结束按钮
+            </div>
+            <div class=sunButton onClink='timing'>
+                倒计时显示
+            </div>
+            <div class=sunButton onClick='prompt'>
+                显示按钮（有一定次数限制）
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
