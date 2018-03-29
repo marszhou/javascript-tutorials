@@ -14,7 +14,12 @@
 <body>
   <div id='main'></div>
   <script type="text/babel">
-    const App = () => <div>hello world</div>
+    class HelloWorld extends React.Component {
+      render() {
+        return <h1>hello world</h1>
+      }
+    }
+    const App = () => <div><HelloWorld/></div>
     ReactDOM.render(<App/>, document.getElementById('main'))
   </script>
 </body>
