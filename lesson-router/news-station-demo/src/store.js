@@ -11,10 +11,8 @@ export default {
     const pageCount = Math.ceil(feeds.length / pageSize)
     if (current < 1) current = 1
     if (current > pageCount)  current = pageCount
-    const hasNext = current < pageCount
-    const hasPrevious = current > 1
     return {
-      current, pageSize, pageCount, hasNext, hasPrevious
+      current, pageSize, pageCount
     }
   },
 
