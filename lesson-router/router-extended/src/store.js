@@ -7,17 +7,6 @@ export default {
     return feeds.slice(0, n)
   },
 
-  getPageInfo(current, pageSize = 10) {
-    const pageCount = Math.ceil(feeds.length / pageSize)
-    if (current < 1) current = 1
-    if (current > pageCount)  current = pageCount
-    const hasNext = current < pageCount
-    const hasPrevious = current > 1
-    return {
-      current, pageSize, pageCount, hasNext, hasPrevious
-    }
-  },
-
   getFeedsByPage(page, pageSize = 10) {
     // 返回指定页码的feed
     page = parseInt(page)

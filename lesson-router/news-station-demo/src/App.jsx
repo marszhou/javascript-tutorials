@@ -17,6 +17,7 @@ export default function() {
       <div>
         <Nav />
         <Route path="/" exact component={Home} />
+        <Route path="/:page(\d+)" exact component={Home} />
         <Route path="/about" exact component={About} />
         <Route path="/categories" component={Categories} />
         <Route path="/feeds/view/:id" component={FeedView} />

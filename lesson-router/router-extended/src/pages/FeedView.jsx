@@ -7,10 +7,6 @@ class FeedView extends Component {
   renderFeed(feed) {
     return (
       <div>
-        <a href='#' onClick={e => {
-          e.preventDefault()
-          this.props.history.goBack()
-        }}>&lt;返回&gt;</a><br/>
         <h2>{feed.title}</h2>
         分类：<Link to={`/categories/${feed.category}`}>{feed.category}</Link>
         {' '}
