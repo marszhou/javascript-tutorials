@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const styles= {
-  normal: { margin: '0 10px' },
+  normal: { margin: '0 10px', color: 'blue' },
   active: { fontSize: '120%', textDecoration: 'none', color: 'red', fontWeight: 'bold' },
 }
 
