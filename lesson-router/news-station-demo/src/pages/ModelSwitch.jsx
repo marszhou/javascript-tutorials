@@ -11,6 +11,7 @@ class ModelSwitch extends Component {
   componentWillUpdate(nextProps) {
     const { location } = this.props
     // set previousLocation if props.location is not modal
+    console.log(nextProps.history.action)
     if (
       nextProps.history.action !== 'POP' &&
       (!location.state || !location.state.modal)
