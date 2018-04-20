@@ -9,7 +9,7 @@ class App extends Component {
   }
   handleAddTodo = (text) => {
     if(text.trim()) {
-      const id = this.state.items.length + 1;
+      const id = Math.random().toString(36).substr(2);
       const item = {'text': text, 'id': id, 'isFinished': false};
       this.setState({
         items: [...this.state.items, item]
@@ -18,8 +18,7 @@ class App extends Component {
     }
   }
 
-  handleItemClick = (itemId) => {
-    const id = parseInt(itemId, 10);
+  handleItemClick = (id) => {
     if(id) {
       const items = [...this.state.items];
       items.forEach(item => {
