@@ -1,0 +1,24 @@
+{
+  "name": "redux-tutorial",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "custom-react-scripts": "0.2.2",
+    "deep-freeze": "^0.0.1",
+    "expect": "^22.4.3",
+    "lodash": "^4.17.10",
+    "node-uuid": "^1.4.8",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^4.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
