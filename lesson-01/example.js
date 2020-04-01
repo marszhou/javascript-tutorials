@@ -171,7 +171,7 @@ a === b // false
 // 改变1的值，测试2的效果
 // 1)
 a = {
-  age: 50,
+  age: 20,
   gender: 'male'
 }
 // 2)
@@ -210,7 +210,7 @@ if (a.gender === 'male') {
   }
 */
 // 1) 一周七天的口号, 更改day值查看效果不同
-day = 1
+day = new Date().getDay()
 s = ''
 switch(day) {
   case 1:
